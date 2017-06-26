@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema
-
+    Schema = mongoose.Schema,
+    Channel = mongoose.model('Channel');
 
 teamSchema = new mongoose.Schema({
 
@@ -26,6 +26,36 @@ teamSchema = new mongoose.Schema({
     }]
 })
 //---------------------- Presave Create channels  (general and random)------------------
-// teamSchema.pre()
+teamSchema.pre('save', function(done){
+    var self = this;
+    var randomChannel = new Channel({
+        name : "Random",
+        private : false,
+        _team : self._id
+    })
+    var generalChannel = new Channel({
+        name : "General",
+        private : false,
+        _team : self._id
+    })
+
+    //Creates two default channels upon team creation
+    // Will log Error for which team it failed to created basic channels for.
+    randomChannel.save(function(randomErr){
+        if (randomErr){
+            console.log("Random Channel for: " + self.name + "team")
+        }else{
+            generalChannel.save(function(generalErr){
+                if (generalErr){
+                    console.log('General Channel for: ' + self.name + "team")
+                }else {
+                    self._channels.push(randomChannel._id);
+                    self._channels.push(generalChannel._id);
+                    done();
+                }
+            })
+        }
+    })
+});
 
 mongoose.model('Team', teamSchema);
