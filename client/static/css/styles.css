@@ -1,0 +1,15 @@
+#sidebar {
+  width: 225px;
+  background: #4d394b;
+  display: inline-block;
+}
+
+#login-box {
+  text-align: center;
+  display: inline-block;
+  border: 1px solid black;
+}
+
+#content {
+  text-align: center
+}
