@@ -4,17 +4,20 @@ smack.controller('findTeamController', function ($scope, userFactory, $location,
     $scope.validationErrors = null;
 
     //set cookies
-    var currentUser = $cookies.get('currentUser');
-    var currentTeam = $cookies.get('currentTeam');
-    if (currentTeam && currentUser) {
-        $location.path("/" + currentTeam + "/success");
-        $scope.currentUser = JSON.parse(currentUser);
+    var currentUserId = $cookies.get('currentUserId');
+    var currentTeamURL = $cookies.get('currentTeamURL');
+    //if cookies for user team, send to team main page
+    if (currentTeamURL && currentUserId) {
+        $location.path("/" + currentTeamURL + "/");
+        $scope.currentUser = currentUserId;
     }
-    else if (currentTeam && !currentUser) {
-        $location.path("/" + teamURL);
+    else if (currentTeamURL && !currentUserId) {
+        $location.path("/" + currentTeamURL);
     }
-    //maybe add if 
-    else if (!currentTeam && !currentUser) {
+    //maybe add if currentuser but no currentteam, show teams and suggest logging in or finding new team
+    else if (!currentTeamURL && !currentUserId) {
+        //do nothing and stay on find team page
+    } else {
         //do nothing and stay on find team page
     }
 
@@ -25,11 +28,8 @@ smack.controller('findTeamController', function ($scope, userFactory, $location,
     }
     //if team exists in db, set redirect to team url
     function setTeam(teamURL) {
-        if (!team) {
-            //reload and display error
-        } else {
-            $location.path("/" + teamURL);
-        }
+        $cookies.put('currentTeamURL', teamURL);
+        $location.path("/" + teamURL);
     }
     //check db if team exists
     $scope.findTeam = function () {
