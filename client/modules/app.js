@@ -1,4 +1,3 @@
-
 var app = angular.module('smack', ['ngRoute', 'ngCookies'])
 
 app.config(function($routeProvider){
@@ -10,6 +9,10 @@ app.config(function($routeProvider){
   .when('/:teamURL',{
     templateUrl:'partials/login.html',
     controller:'loginController'
+  })
+  .when('/:teamURL/messages',{
+    templateUrl:'partials/messages.html',
+    controller:'messagesController'
   })
   .otherwise({
     redirectTo:'/'

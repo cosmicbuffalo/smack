@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema
-
+    
 
 channelSchema = new Schema ({
 
@@ -29,7 +29,12 @@ channelSchema = new Schema ({
     _files : [{
         type: Schema.Types.ObjectId, 
         ref : "File"
-    }]
+    }],
+    
+    _team : {
+        type : Schema.Types.ObjectId,
+        ref: "Team"
+    }
 
     
 
