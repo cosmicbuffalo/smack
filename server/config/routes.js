@@ -13,11 +13,12 @@ module.exports = function(app){
   app.post('/api/users', users.create)       //should create new user with email and name, returns user object on success, errors on failure
 
   // --- PERSONA ROUTES ---
-  app.post('/api/users/:userId/personas', personas.create) //should create new persona for specific user, add the persona to the team specified in post data, and return persona object or errors
+  app.post('/api/users/:userId/personas', personas.create)  //should create new persona for specific user, add the persona to the team specified in post data, and return persona object or errors
 
   // ---- TEAM ROUTES ----
   app.get('/api/teams', teams.index)                   //should return full list of teams
   app.get('/api/teams/:teamUrl', teams.show)           //should return the object for a specific team or errors if not found
+  app.post('/api/teams/:teamUrl/login', teams.login)   //should log a specific persona in to a specific team by finding the team by teamUrl, then the persona by email, then authenticating the password. will return errors or success
   app.post('/api/teams/', teams.create)                //should create new team with post data, returns team object or errors
   app.post('/api/teams/:teamUrl/invite', teams.invite) // should find team and invite a user to join via the email passed in post data
 

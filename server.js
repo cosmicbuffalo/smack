@@ -12,7 +12,7 @@ app.use(bp.json())
 app.use(bp.urlencoded({extended:true}))
 
 //run schema to prep database
-// require('./server/config/schema')
+require('./server/config/mongoose')
 
 //configure routes
 var router = require('./server/config/routes')

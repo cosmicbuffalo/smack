@@ -27,8 +27,10 @@ userSchema = new mongoose.Schema({
     },
     // ------ User can have mutliple personas that map on a one to one with teamsSchema (bascially a join table with additionally functions)
     _personas : [{
-        type: Schema.Types.ObjectId, ref: "Personas"
+        type: Schema.Types.ObjectId, 
+        ref: "Persona"
     }]
+    
 },{timestamps : true})
 
-mongoose.model('Users', userSchema);
+mongoose.model('User', userSchema);

@@ -4,20 +4,23 @@ var mongoose = require('mongoose'),
 fileSchema = new mongoose.Schema({
 
     _persona : {
-        type : Schema.Types.ObjectId, ref : "Personas",
+        type : Schema.Types.ObjectId, 
+        ref : "Persona",
         required : true
     },
 
 
     // File could be for a profile picture hence why I didnt make it required.
     _post : {
-        type : Schema.Types.ObjectId, ref : "Posts",
+        type : Schema.Types.ObjectId, 
+        ref : "Post",
         required : false
     },
 
     // File does not neccessarily need a channel!
     _channel : {
-        type : Schema.Types.ObjectId, ref : "Channels",
+        type : Schema.Types.ObjectId, 
+        ref : "Channel",
         required : false
     },
 
@@ -39,4 +42,6 @@ fileSchema = new mongoose.Schema({
 
 
 
-})    
+}, {timestamps:true})    
+
+mongoose.model('File', fileSchema);

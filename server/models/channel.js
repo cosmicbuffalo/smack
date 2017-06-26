@@ -7,7 +7,7 @@ channelSchema = new mongoose.Schema ({
     name : {
         type : String,
         required : true,
-        minlength : [5, 'Minimum length on channel name must be 5 characters']
+        minlength : [5, 'Minimum length on channel name is 5 characters']
     },
 
     private : {
@@ -17,21 +17,22 @@ channelSchema = new mongoose.Schema ({
     
     //Adding personas to specfic channels. 
     _members : [{
-        type : Schema.Types.ObjectId, ref : "Personas",
-        required: true
+        type : Schema.Types.ObjectId, 
+        ref : "Persona"
     }],
 
     _posts : [{
-        type : Schema.Types.ObjectId, ref : "Posts",
-        required : true
+        type : Schema.Types.ObjectId, 
+        ref : "Post"
     }],
     
     _files : [{
-        type: Schema.Types.ObjectId, ref : "Files"
+        type: Schema.Types.ObjectId, 
+        ref : "File"
     }]
 
     
 
 })
 
-mongoose.model("Channels", channelSchema);
+mongoose.model("Channel", channelSchema);
