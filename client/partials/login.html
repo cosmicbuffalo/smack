@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sign into your team</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header"></div>
+        <div class="content">
+            <div class="login-box">
+                <form ng-submit="login()">
+                    <h2>Sign in to {{team.name}}</h2>
+                    <p>Enter your email <b>email address</b> and <b>password</b></p>
+                    <input type="text" name="email" placeholder="you@example.com" ng-model="user.email"><br>
+                    <input type="text" name="pw" placeholder="password" ng-model="user.pw"><br>
+                    <div class="errorMessage">
+                        {{validationErrors}}
+                    </div>
+                    <button type="submit">Sign in</button><br>
+                    <input type="checkbox" checked="checked">Keep Me Signed In
+                    <a href="">Forgot Password?</a><br>
+                    <a href="">I forgot which email I used</a>
+                    <p>Don't have a team yet? <a href="#!/createteam">Create a team</a></p>
+                </form>
+            </div>
+        </div>
+        <div class="footer"></div>
+    </div>
+</body>
+
+</html>
