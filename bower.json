@@ -1,0 +1,22 @@
+{
+  "name": "smack",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "cosmicbuffalo <cosmic.buffalo.dev@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "angular-cookies": "^1.6.4"
+  }
+}
