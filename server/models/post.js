@@ -12,27 +12,31 @@ postSchema = new mongoose.Schema ({
     },
 
     _persona : {
-        type : Schema.Types.ObjectId, ref : "Personas",
+        type : Schema.Types.ObjectId, 
+        ref : "Persona",
         required : true
     },
 
     _channel : {
-        type : Schema.Types.ObjectId, ref : "Channels",
+        type : Schema.Types.ObjectId, 
+        ref : "Channel",
         required : true
     },
     // post does not require user to upload a file each time.
     _file : {
-        type : Schema.Types.ObjectId, ref : "Files",
+        type : Schema.Types.ObjectId, 
+        ref : "File",
         required : false
     },
 
     // personas can comment on these Posts
-    _comments : {
-        type : Schema.Types.ObjectId, ref : "Comments"
-    }
+    _comments : [{
+        type : Schema.Types.ObjectId, 
+        ref : "Comment"
+    }]
 
 
 
 })
 
-mongoose.model('Posts', postSchema);
+mongoose.model('Post', postSchema);
