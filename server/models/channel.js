@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema
 
 
-channelSchema = new mongoose.Schema ({
+channelSchema = new Schema ({
 
     name : {
         type : String,
@@ -21,7 +21,7 @@ channelSchema = new mongoose.Schema ({
         ref : "Persona"
     }],
 
-    _posts : [{
+    posts : [{
         type : Schema.Types.ObjectId, 
         ref : "Post"
     }],

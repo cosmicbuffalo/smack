@@ -1,22 +1,22 @@
 var mongoose = require('mongoose')
 var Team = mongoose.model('Team')
-var Persona = mongoose.model
+var Persona = mongoose.model('Persona')
 
 
-exports.create = function(request, response){
+exports.create = function (request, response) {
 
     console.log("Entered teams.create")
     console.log("BODY OF REQUEST: ", request.body)
 
     var newTeam = new Team(request.body)
 
-    newTeam.save(function(err){
-        if(err){
+    newTeam.save(function (err) {
+        if (err) {
             console.log(err)
-            res.json({result:"failure", errors:err})
+            res.json({ result: "failure", errors: err })
         } else {
             console.log("Successfully created new team")
-            res.json({result:"success", team:newTeam})
+            res.json({ result: "success", team: newTeam })
         }
     })
 
@@ -53,5 +53,5 @@ exports.login = function (req, res) {
             });
 
         }
-    }
+    })
 }

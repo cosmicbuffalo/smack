@@ -1,5 +1,6 @@
 //import controllers
 var users = require('./../controllers/users')
+var teams = require('./../controllers/teams')
 
 
 module.exports = function(app){
