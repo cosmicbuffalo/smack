@@ -7,7 +7,6 @@ module.exports = function(app){
   // I'm just throwing in a bit of stuff here... - Nick
 
   
-
   // ---- USER ROUTES ----
   app.post('/api/users/login', users.login)  //will authenticate login and return failure result + errors or success + user object
   app.post('/api/users', users.create)       //should create new user with email and name, returns user object on success, errors on failure
