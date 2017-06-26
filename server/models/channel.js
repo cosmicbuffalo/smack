@@ -16,7 +16,7 @@ channelSchema = new Schema ({
     }, 
     
     //Adding personas to specfic channels. 
-    _members : [{
+    members : [{
         type : Schema.Types.ObjectId, 
         ref : "Persona"
     }],
@@ -26,12 +26,12 @@ channelSchema = new Schema ({
         ref : "Post"
     }],
     
-    _files : [{
+    files : [{
         type: Schema.Types.ObjectId, 
         ref : "File"
     }],
     
-    _team : {
+    team : {
         type : Schema.Types.ObjectId,
         ref: "Team"
     }

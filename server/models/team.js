@@ -15,12 +15,12 @@ teamSchema = new mongoose.Schema({
         required : true
     },
     // One to many relationship. Has many personas (who are users) in a team.
-    _personas : [{
+    personas : [{
         type: Schema.Types.ObjectId, 
         ref : "Persona"
     }],
     // One to many Relationship Personas can browse the channels in the Team
-    _channels : [{
+    channels : [{
         type: Schema.Types.ObjectId, 
         ref : "Channel"
     }]
@@ -49,8 +49,8 @@ teamSchema.pre('save', function(done){
                 if (generalErr){
                     console.log('General Channel for: ' + self.name + "team")
                 }else {
-                    self._channels.push(randomChannel._id);
-                    self._channels.push(generalChannel._id);
+                    self.channels.push(randomChannel._id);
+                    self.channels.push(generalChannel._id);
                     done();
                 }
             })
