@@ -37,6 +37,21 @@ exports.create = function (req, res, next) {
 
 };
 
+exports.show = function(req, res, next){
+  console.log("Entered teams.show")
+  console.log("BODY OF REQUEST: ", req.body);
+
+  Team.findOne({url:req.params.teamUrl}).populate('channels personas').exec(function(err, team){
+    if (err){
+      next(err);
+    } else {
+      console.log("Found team!")
+      res.json({success:true, team:team})
+    }
+  })
+}
+
+
 exports.login = function (req, res, next) {
   console.log("Entered teams.login")
   console.log("BODY OF REQUEST: ", req.body);
