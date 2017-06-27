@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     
     
 
-channelSchema = new mongoose.Schema ({
+channelSchema = new Schema ({
 
     name : {
         type : String,
@@ -23,22 +23,22 @@ channelSchema = new mongoose.Schema ({
     }, 
     
     //Adding personas to specfic channels. 
-    _members : [{
+    members : [{
         type : Schema.Types.ObjectId, 
         ref : "Persona"
     }],
 
-    _posts : [{
+    posts : [{
         type : Schema.Types.ObjectId, 
         ref : "Post"
     }],
     
-    _files : [{
+    files : [{
         type: Schema.Types.ObjectId, 
         ref : "File"
     }],
     
-    _team : {
+    team : {
         type : Schema.Types.ObjectId,
         ref: "Team"
     }

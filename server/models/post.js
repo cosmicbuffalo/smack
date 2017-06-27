@@ -32,7 +32,7 @@ postSchema = new mongoose.Schema ({
     },
 
     // personas can comment on these Posts
-    _comments : [{
+    comments : [{
         type : Schema.Types.ObjectId, 
         ref : "Comment"
     }]
