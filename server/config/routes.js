@@ -15,7 +15,7 @@ module.exports = function(app){
 
   // // --- PERSONA ROUTES ---
   // app.post('/api/users/:userId/personas', personas.create)  //should create new persona for specific user, add the persona to the team specified in post data, and return persona object or errors
-
+  // app.post('/api/personas/:personaId', personas.getPersona)  //get all persona data from id
   // // ---- TEAM ROUTES ----
   app.get('/api/teams', teams.index)                   //should return full list of teams
   app.get('/api/teams/:teamUrl', teams.show)           //should return the object for a specific team or errors if not found
@@ -23,11 +23,13 @@ module.exports = function(app){
   app.post('/api/teams/', teams.create)                //should create new team with post data, returns team object or errors
   app.post('/api/teams/:teamUrl/invite', teams.invite) // should find team and invite a user to join via the email passed in post data
 
-  // // --- CHANNEL ROUTES ---
-  // app.post('/api/teams/:teamId/channels', channels.create)                    //should create new channel with post data, returns channel object or errors
-  // app.post('/api/channels/:channelId', channels.update)                       //should update channel with post data and return channel object or errors
-  // app.post('/api/teams/:teamId/channels/:channelId/delete', channels.delete)  //should delete channel from team and posts/comments in channel and return success or errors
-  // app.post('/api/channels/:channelId/invite', channels.invite)                //will find channel and add persona to invite from post data, maybe also send user an email/message of some sort
+
+  // --- CHANNEL ROUTES ---
+  app.post('/api/teams/:teamId/channels', channels.create)//Object Keys: {personaId: data, teamName: data, purpose: data, private: boolean}       should create new channel with post data, returns channel object or errors
+  app.post('/api/channels/:channelId', channels.update)// Object Keys it can be one or the other or both: {name: data, purpose: data}  should update channel with post data and return channel object or errors
+  app.post('/api/teams/:teamId/channels/:channelId/delete', channels.delete)  // Object Keys: None just needs the channelId and it should delete channel from team and posts/comments in channel and return success or errors
+  app.post('/api/channels/:channelId/invite', channels.invite)// Object Keys: {personaId: data} will find channel and add persona to invite from post data, maybe also send user an email/message of some sort
+
 
   // // ---- POST ROUTES ----
   app.get('/api/channels/:channelId/posts', posts.allForChannel)          //should retrieve all the posts associated with a specific channel and return them in order from oldest to newest

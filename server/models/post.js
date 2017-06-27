@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema
+    Schema = mongoose.Schema,
+    Comment = mongoose.model('Comment'),
+    File = mongoose.model('File')
     
 
 
@@ -9,6 +11,10 @@ postSchema = new mongoose.Schema ({
     content : {
         type: String,
         required : false
+    },
+    notification : {
+        type: Boolean,
+        required: false
     },
 
     _persona : {
@@ -38,5 +44,14 @@ postSchema = new mongoose.Schema ({
 
 
 })
+
+postSchema.pre('remove', function(next){
+     // Remove all the assignment docs that reference the removed post.
+    var self = this
+    Comment.remove({_post : self._id}).exec();
+    File.remove({_post : self._id}).exec();
+    next();
+})
+
 
 mongoose.model('Post', postSchema);
