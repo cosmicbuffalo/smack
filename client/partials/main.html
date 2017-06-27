@@ -1,14 +1,15 @@
-
 <div id="wrapper">
 
   <div id="left-sidebar">
     <div id="team-menu" ng-click="openMainMenu()">
       <div>
-        <h2 id="team-name">{{team.name}}</h2>
-        <span class="availability-icon">0</span>
-        <span id="availability-username">{{persona.username}}</span>
+        <span id="team-name">{{team.name}}Team Name</span>
+        <a href="#" ng-click="notificationsMenu()"><img src="" class="icon" alt="Notifications icon"></a>
       </div>
-      <a href="#" ng-click="notificationsMenu()"><img src="" class="icon" alt="Notifications icon"></a>
+      <span class="availability-icon">0</span>
+      <span id="availability-username">{{persona.username}}persona_username</span>
+
+
     </div>
     <div id="nav-column">
       <div class="side-nav-section">
@@ -81,12 +82,12 @@
       </div>
     </div>
     <div id="channel-content">
-                                          <!-- switch the conditional once toggling details is done -->
+      <!-- switch the conditional once toggling details is done -->
       <div id="posts-container" ng-class="{compact:!showDetails}">
         <div id="channel-info">
           <h4>{{channel.name}}</h4>
           <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt}}
-            <!-- Need to format date-->. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>              channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
+            <!-- Need to format date-->. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>            channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
           <p><a href="#" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
         </div>
 
@@ -123,7 +124,8 @@
           </div>
         </div>
 
-      </div>                              <!-- switch the conditional once toggling details is done -->
+      </div>
+      <!-- switch the conditional once toggling details is done -->
       <div id="channel-details" ng-class="{hidden:showDetails}">
         <div id="details-top-section" class="details-section">
           <h5>About {{channel.name}}</h5>

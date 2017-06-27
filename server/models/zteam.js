@@ -10,23 +10,24 @@ teamSchema = new mongoose.Schema({
         minlength : [5, "Teamname required to be atleast 5 characters long "]
     },
     //url will just be the same as the name but all lowercase with no spaces
-    url : { 
+    url : {
         type : String,
         required : true
     },
     // One to many relationship. Has many personas (who are users) in a team.
     personas : [{
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref : "Persona"
     }],
     // One to many Relationship Personas can browse the channels in the Team
     channels : [{
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref : "Channel"
     }]
 })
 //---------------------- Presave Create channels  (general and random)------------------
 teamSchema.pre('save', function(done){
+  if (this.isNew){
     var self = this;
     var randomChannel = new Channel({
         name : "Random",
@@ -44,6 +45,7 @@ teamSchema.pre('save', function(done){
     randomChannel.save(function(randomErr){
         if (randomErr){
             console.log("Random Channel for: " + self.name + "team")
+            next(randomErr)
         }else{
             generalChannel.save(function(generalErr){
                 if (generalErr){
@@ -56,6 +58,11 @@ teamSchema.pre('save', function(done){
             })
         }
     })
+  } else {
+    done();
+  }
+
+
 });
 
 mongoose.model('Team', teamSchema);

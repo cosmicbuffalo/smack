@@ -4,13 +4,13 @@ var mongoose = require('mongoose'),
 
 userSchema = new mongoose.Schema({
     firstName : {
-        type: String, 
-        required : true,
+        type: String,
+        required : false,
         minlength : [2, "name is too short"]
     },
     lastName : {
         type: String,
-        required: true,
+        required: false,
         minlength : [2, "name is too short"]
     },
     email : {
@@ -26,11 +26,11 @@ userSchema = new mongoose.Schema({
         }
     },
     // ------ User can have mutliple personas that map on a one to one with teamsSchema (bascially a join table with additionally functions)
-    _personas : [{
-        type: Schema.Types.ObjectId, 
+    personas : [{
+        type: Schema.Types.ObjectId,
         ref: "Persona"
     }]
-    
+
 },{timestamps : true})
 
 mongoose.model('User', userSchema);
