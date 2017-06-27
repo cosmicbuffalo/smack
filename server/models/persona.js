@@ -7,26 +7,26 @@ var mongoose = require('mongoose'),
 personaSchema = new mongoose.Schema({
     userName: {
         type: String,
-        required: true,
+        required: false,
         minlength : [2,"Username for this group is too short!"]
     },
     // ------ One to One relationship to a User.. User can have multiple personas
     _user : {
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref : "Users",
         required : true
     },
-    // ---- One to One relationship here to a team  
+    // ---- One to One relationship here to a team
     _team : {
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : "Teams",
         required : true
     },
     // -- Links to picture stored locally.
     profilePic : {
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref : "File",
-        required : true 
+        required : false
     },
     password : {
         type: String,

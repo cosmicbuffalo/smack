@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var Team = mongoose.model('Team')
 var Persona = mongoose.model('Persona')
+var User = mongoose.model('User')
 
 
 exports.index = function (req, res, next){
@@ -107,11 +108,11 @@ exports.invite = function (req, res, next) {
           //if no user create the user with the email in req.body
           if (!user) {
             //create user with email
-            user = new User({ email: req.body.email });
+            user = new User({ email: req.body.email, personas:[] });
           }
           //if user found, create/push persona in user
           console.log("Got user, ...")
-          var newPersona = new Persona({ email: req.body.email });
+          var newPersona = new Persona({ email: req.body.email, _team:team, _user:user });
           console.log("Attempting to save persona")
           newPersona.save(function (err) {
             if (err) {
@@ -128,6 +129,7 @@ exports.invite = function (req, res, next) {
                   next(err)
                 } else {
                   console.log("Attempting to save persona to user")
+                  console.log(user)
                   user.personas.push(newPersona);
                   user.save(function (err) {
                     if (err) {

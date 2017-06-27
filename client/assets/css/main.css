@@ -21,6 +21,21 @@ body, #view, #wrapper{
   height:100%;
   position: absolute;
   background-color: #4d394b;
+  color:#AB9BA9;
+  font-weight: 200;
+}
+.add-icon{
+  width: 24px;
+  height:24px;
+}
+#team-name{
+  font-size: 
+  color:white;
+  font-weight: 600;
+}
+.overflow-text{
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #main-content{
