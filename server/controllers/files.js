@@ -28,33 +28,34 @@ var storage = multer.diskStorage({
             if (findPersonaErr) {
                 console.log('Could not find Persona with Id: ' + req.body.persona)
             } else {
-                Channel.findOne({ _id: req.params.channelId }, function (findChannelErr, channel) {
-                    if (findChannelErr) {
-                        console.log("Could not find Channel with Id: " + req.params.channelId)
-                    } else {
-                        var file = new File({
-                            _person: persona,
-                            _channel: channel,
-                            pinned: false
-                        })
-                        if (req.body.forProfilePicture) {
-                            file.profilePic = req.body.forProfilePicture
+                var file = new File({
+                    _person: persona,
+                    pinned: false
+                })
+                if (req.params.channelId) {
+                    Channel.findOne({ _id: req.params.channelId }, function (findChannelErr, channel) {
+                        if (findChannelErr) {
+                            console.log("Could not find Channel with Id: " + req.params.channelId)
                         } else {
-                            file.profilePic = false
+                            file._channel = channel._id
                         }
-                        var filePath = file.fieldname + '-' + file._id + fileExtensions[file.mimetype]
-                        file.filePath = filePath
-                        file.save(function (saveErr) {
-                            if (saveErr) {
-                                console.log('Could not save file!')
-                            } else {
+                    })
+                }
+                if (req.body.forProfilePicture) {
+                    file.profilePic = req.body.forProfilePicture
+                }
 
-                                // returnFilePath(filePath)
+                var filePath = file.fieldname + '-' + file._id + fileExtensions[file.mimetype]
+                file.filePath = filePath
+                file.save(function (saveErr) {
+                    if (saveErr) {
+                        console.log('Could not save file!')
+                    } else {
 
-                                cb(null, filePath)
+                        // returnFilePath(filePath)
 
-                            }
-                        })
+                        cb(null, filePath)
+
                     }
                 })
             }
@@ -75,8 +76,9 @@ exports.create = function (req, res) {
 
         console.log(req.file);
         if (err) {
-            // do this
+            res.json({ err: uploadErr })
         } else {
+            res.json({ success: true, message: "files and relationships created!" })
             //do that
         }
     })

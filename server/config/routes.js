@@ -6,11 +6,11 @@ var channels = require('./../controllers/channels')
 var files = require('./../controllers/files')
 
 
-module.exports = function(app){
+module.exports = function (app) {
 
   // I'm just throwing in a bit of stuff here... - Nick
 
-  
+
   // ---- USER ROUTES ----
   // app.post('/api/users/login', users.login)  //will authenticate login and return failure result + errors or success + user object
   // app.post('/api/users', users.create)       //should create new user with email and name, returns user object on success, errors on failure
@@ -38,17 +38,17 @@ module.exports = function(app){
   app.post('/api/channels/:channelId/posts', posts.create)                //should create a new post in a specific channel, returns post object or errors
   // app.post('/api/posts/:postId', posts.update)                            //should update post with post data and return post object or errors
   // app.post('/api/channels/:channelId/posts/:postId/delete', posts.delete) //should delete post from channel along with all comments and return success or errors
-  
+
   // // --- COMMENT ROUTES ---
   // app.post('/api/posts/:postId/comments', comments.create)                    //should create a new comment for a specific post, returns comment object or errors
   // app.post('/api/posts/:postId/comments/:commentId/delete', comments.delete)  //will find comment and delete from post and persona, return success or errors
   // app.post('/api/posts/:postId/comments/:commentId', comments.update)         //will find comment and update with post data, then return comment object or errors
-  
+
   //---- FILE ROUTES ----
   app.post('/api/channels/:channelId/files', files.create)        //should take a file in post data and add it to a channel and the database, returns success or failure
-    // Object Keys should have:  {'fileUpload': filedata, personaId: data, forProfilePicture: boolean }
-  
-  
+  // Object Keys should have:  {'fileUpload': filedata, personaId: data, **EITHER** forProfilePicture: boolean, **OR** channelId: data }
+
+
   // app.get('/api/channels/:channelId/files', files.allForChannel)  //should find all files associated with a channel and return a list of file objects
   // app.get('/api/personas/:personaId/files', files.allForUser)     //should find all files associated with a perona and return a list of file objects or errors
 }
