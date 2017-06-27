@@ -1,6 +1,7 @@
 //import controllers
 var users = require('./../controllers/users')
 var teams = require('./../controllers/teams')
+var posts = require('./../controllers/posts')
 
 
 module.exports = function(app){
@@ -18,9 +19,9 @@ module.exports = function(app){
   // // ---- TEAM ROUTES ----
   // app.get('/api/teams', teams.index)                   //should return full list of teams
   // app.get('/api/teams/:teamUrl', teams.show)           //should return the object for a specific team or errors if not found
-  // app.post('/api/teams/:teamUrl/login', teams.login)   //should log a specific persona in to a specific team by finding the team by teamUrl, then the persona by email, then authenticating the password. will return errors or success
-  // app.post('/api/teams/', teams.create)                //should create new team with post data, returns team object or errors
-  // app.post('/api/teams/:teamUrl/invite', teams.invite) // should find team and invite a user to join via the email passed in post data
+  app.post('/api/teams/:teamUrl/login', teams.login)   //should log a specific persona in to a specific team by finding the team by teamUrl, then the persona by email, then authenticating the password. will return errors or success
+  app.post('/api/teams/', teams.create)                //should create new team with post data, returns team object or errors
+  app.post('/api/teams/:teamUrl/invite', teams.invite) // should find team and invite a user to join via the email passed in post data
 
   // // --- CHANNEL ROUTES ---
   // app.post('/api/teams/:teamId/channels', channels.create)                    //should create new channel with post data, returns channel object or errors
@@ -29,7 +30,8 @@ module.exports = function(app){
   // app.post('/api/channels/:channelId/invite', channels.invite)                //will find channel and add persona to invite from post data, maybe also send user an email/message of some sort
 
   // // ---- POST ROUTES ----
-  // app.post('/api/channels/:channelId/posts', posts.create)                //should create a new post in a specific channel, returns post object or errors
+  app.get('/api/channels/:channelId/posts', posts.allForChannel)          //should retrieve all the posts associated with a specific channel and return them in order from oldest to newest
+  app.post('/api/channels/:channelId/posts', posts.create)                //should create a new post in a specific channel, returns post object or errors
   // app.post('/api/posts/:postId', posts.update)                            //should update post with post data and return post object or errors
   // app.post('/api/channels/:channelId/posts/:postId/delete', posts.delete) //should delete post from channel along with all comments and return success or errors
   

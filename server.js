@@ -18,6 +18,17 @@ require('./server/config/mongoose')
 var router = require('./server/config/routes')
 router(app)
 
+app.use(function(err, req, res, next) {
+  console.log("Entered generic error handler")
+  console.log(err)
+  res.status(err.status || 500);
+  res.json({
+    success:false,
+    message: err.message,
+    errors: err
+  });
+});
+
 app.listen( port, function() {
   console.log( `server running on port ${ port }` );
 });
