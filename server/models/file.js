@@ -24,16 +24,18 @@ fileSchema = new mongoose.Schema({
         required : false
     },
 
-    // -------------------- file_path  ------------------------
-    //     WILL UPDATE SOON!
-    //User may save it to their side scroll for important files they want to keep track of.
+    filePath : {
+        type : String,
+        required : true
+    },
+   
     pinned : {
         type : Boolean,
         required : true
     },
 
     // Boolean field required to help the search feature so that way we can filter out results.. we dont want people look at others stuff :D
-    profile_pic : {
+    profilePic : {
 
         type: Boolean,
         required : true

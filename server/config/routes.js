@@ -42,8 +42,11 @@ module.exports = function(app){
   // app.post('/api/posts/:postId/comments/:commentId/delete', comments.delete)  //will find comment and delete from post and persona, return success or errors
   // app.post('/api/posts/:postId/comments/:commentId', comments.update)         //will find comment and update with post data, then return comment object or errors
   
-  // //---- FILE ROUTES ----
-  // app.post('/api/channels/:channelId/files', files.create)        //should take a file in post data and add it to a channel and the database, returns success or failure
-  // app.get('/api/channels/:channelId/files', files.allForChannel)  //should find all files associated with a channel and return a list of file objects
-  // app.get('/api/personas/:personaId/files', files.allForUser)     //should find all files associated with a perona and return a list of file objects or errors
+  //---- FILE ROUTES ----
+  app.post('/api/channels/:channelId/files', files.create)        //should take a file in post data and add it to a channel and the database, returns success or failure
+    // Object Keys should have:  {'fileUpload': filedata, personaId: data, forProfilePicture: boolean }
+  
+  
+  app.get('/api/channels/:channelId/files', files.allForChannel)  //should find all files associated with a channel and return a list of file objects
+  app.get('/api/personas/:personaId/files', files.allForUser)     //should find all files associated with a perona and return a list of file objects or errors
 }

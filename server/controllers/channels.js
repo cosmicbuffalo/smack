@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     Team = mongoose.model('Team'),
     Channel = mongoose.model('Channel'),
-    Persona = mongoose.model('Persona');
+    Persona = mongoose.model('Persona'),
+    Post = mongoose.model('Post');
 
 
 exports.create = function (req, res) {

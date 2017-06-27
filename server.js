@@ -6,7 +6,8 @@ var express  = require( 'express' ),
     app      = express();
 
 app.use(express.static( path.join( root, './client' )));
-app.use(express.static( path.join( root, './bower_components')))
+app.use(express.static( path.join( root, './bower_components')));
+app.use(express.static(path.join(__dirname, "uploads")));
 
 app.use(bp.json())
 app.use(bp.urlencoded({extended:true}))
