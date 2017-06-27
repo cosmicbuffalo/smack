@@ -3,6 +3,22 @@ var Team = mongoose.model('Team')
 var Persona = mongoose.model('Persona')
 
 
+exports.index = function (req, res, next){
+
+  console.log("Entered teams.index")
+
+  Team.find({}).populate('channels personas').exec(function(err, teams){
+    if (err){
+      next(err);
+    } else {
+      console.log("Found teams!");
+      res.json({success:true, teams:teams});
+    }
+  })
+
+}
+
+
 exports.create = function (req, res, next) {
 
   console.log("Entered teams.create")
