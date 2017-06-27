@@ -31,7 +31,7 @@ channelSchema = new Schema ({
         ref : "File"
     }],
     
-    team : {
+    _team : {
         type : Schema.Types.ObjectId,
         ref: "Team"
     }

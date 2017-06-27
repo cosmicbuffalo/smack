@@ -11,8 +11,8 @@ app.config(function($routeProvider){
     controller:'loginController'
   })
   .when('/:teamURL/messages',{
-    templateUrl:'partials/messages.html',
-    controller:'messagesController'
+    templateUrl:'partials/main.html',
+    controller:'mainController'
   })
   .otherwise({
     redirectTo:'/'

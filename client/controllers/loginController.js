@@ -1,4 +1,5 @@
-smack.controller('loginController', function ($scope, userFactory, $location, $cookies,$routeParams) {
+module.exports = function(app){
+  app.controller('loginController', function ($scope, userFactory, $location, $cookies,$routeParams) {
     console.log("reached controller");
 
     $scope.user = {};
@@ -32,3 +33,5 @@ smack.controller('loginController', function ($scope, userFactory, $location, $c
         }
     }
 })
+
+}
