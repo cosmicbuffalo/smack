@@ -64,19 +64,37 @@ exports.update = function (req, res) {
 }
 
 exports.delete = function (req, res) { // true means it is removing just one
-    channel = req.params.channelId
+    channelId = mongoose.Types.ObjectId(req.params.channelId);
+    teamId = mongoose.Types.ObjectId(req.params.teamId);
 
-    Channel.remove({ _id: channel }, true, function (channelRemoveErr) {
-        
-        if (channelRemoveErr) {
-        
-            res.json({ success: false, message: "Channel with Id: " + channel + " has not been removed", errors: "Channel failed to be removed!" })
-        
-        } else {
-       
-            res.json({ sucess: true, message: "Channel with Id: " + channel + "removed!" })
-        }
-    });
+    Team.update(
+        { _id: teamId },
+        {
+            $pull: { channels: { $in: channelId } },
+            multi: false
+        },
+        function (teamUpdateErr) {
+
+            if (teamUpdateErr) {
+
+                res.json({ success: false, message: "Could not delete Team reference  to channel with channelId " + channelId, errors: "Could not delete channel!" })
+            
+            } else {
+                
+                Channel.remove({ _id: channel }, true, function (channelRemoveErr) {
+
+                    if (channelRemoveErr) {
+
+                        res.json({ success: false, message: "Channel with Id: " + channel + " has not been removed", errors: "Channel failed to be removed!" })
+
+                    } else {
+
+                        res.json({ sucess: true, message: "Channel with Id: " + channel + "removed!" })
+                    }
+                });
+            }
+
+        })
 }
 
 exports.invite = function (req, res) {

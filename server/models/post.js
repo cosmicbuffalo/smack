@@ -12,6 +12,10 @@ postSchema = new mongoose.Schema ({
         type: String,
         required : false
     },
+    notification : {
+        type: Boolean,
+        required: false
+    },
 
     _persona : {
         type : Schema.Types.ObjectId, 
