@@ -3,6 +3,7 @@ var users = require('./../controllers/users')
 var teams = require('./../controllers/teams')
 var posts = require('./../controllers/posts')
 var channels = require('./../controllers/channels')
+var files = require('./../controllers/files')
 
 
 module.exports = function(app){
@@ -48,6 +49,6 @@ module.exports = function(app){
     // Object Keys should have:  {'fileUpload': filedata, personaId: data, forProfilePicture: boolean }
   
   
-  app.get('/api/channels/:channelId/files', files.allForChannel)  //should find all files associated with a channel and return a list of file objects
-  app.get('/api/personas/:personaId/files', files.allForUser)     //should find all files associated with a perona and return a list of file objects or errors
+  // app.get('/api/channels/:channelId/files', files.allForChannel)  //should find all files associated with a channel and return a list of file objects
+  // app.get('/api/personas/:personaId/files', files.allForUser)     //should find all files associated with a perona and return a list of file objects or errors
 }

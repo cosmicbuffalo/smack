@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Persona = mongoose.model('Persona'),
     File = mongoose.model('File'),
-    Multer = require('multer');
+    multer = require('multer');
 
 var fileExtensions = {
     'image/gif': '.gif',
