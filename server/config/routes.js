@@ -23,10 +23,10 @@ module.exports = function(app){
   app.post('/api/teams/:teamUrl/invite', teams.invite) // should find team and invite a user to join via the email passed in post data
 
   // --- CHANNEL ROUTES ---
-  app.post('/api/teams/:teamId/channels', channels.create)                    //should create new channel with post data, returns channel object or errors
-  app.post('/api/channels/:channelId', channels.update)                       //should update channel with post data and return channel object or errors
-  app.post('/api/teams/:teamId/channels/:channelId/delete', channels.delete)  //should delete channel from team and posts/comments in channel and return success or errors
-  app.post('/api/channels/:channelId/invite', channels.invite)                //will find channel and add persona to invite from post data, maybe also send user an email/message of some sort
+  app.post('/api/teams/:teamId/channels', channels.create)//Object Keys: {personaId: data, teamName: data, purpose: data, private: boolean}       should create new channel with post data, returns channel object or errors
+  app.post('/api/channels/:channelId', channels.update)// Object Keys it can be one or the other or both: {name: data, purpose: data}  should update channel with post data and return channel object or errors
+  app.post('/api/teams/:teamId/channels/:channelId/delete', channels.delete)  // Object Keys: None just needs the channelId and it should delete channel from team and posts/comments in channel and return success or errors
+  app.post('/api/channels/:channelId/invite', channels.invite)// Object Keys: {personaId: data} will find channel and add persona to invite from post data, maybe also send user an email/message of some sort
 
   // ---- POST ROUTES ----
   app.post('/api/channels/:channelId/posts', posts.create)                //should create a new post in a specific channel, returns post object or errors
