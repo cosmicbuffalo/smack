@@ -15,7 +15,7 @@ module.exports = function(app){
 
   // // --- PERSONA ROUTES ---
   // app.post('/api/users/:userId/personas', personas.create)  //should create new persona for specific user, add the persona to the team specified in post data, and return persona object or errors
-
+  // app.post('/api/personas/:personaId', personas.getPersona)  //get all persona data from id
   // // ---- TEAM ROUTES ----
   app.get('/api/teams', teams.index)                   //should return full list of teams
   app.get('/api/teams/:teamUrl', teams.show)           //should return the object for a specific team or errors if not found

@@ -18,7 +18,6 @@ exports.index = function (req, res, next){
 
 }
 
-
 exports.create = function (req, res, next) {
 
   console.log("Entered teams.create")
