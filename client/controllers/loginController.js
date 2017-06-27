@@ -1,5 +1,6 @@
-smack.controller('loginController', function ($scope, userFactory, $location, $cookies, $routeParams) {
-  console.log("reached controller");
+module.exports = function(app){
+  app.controller('loginController', function ($scope, userFactory, $location, $cookies,$routeParams) {
+    console.log("reached controller");
   
   // -----------ADD CHECK IF PERSONA LOGGED in, if true, redirect---------------
 
@@ -31,3 +32,5 @@ smack.controller('loginController', function ($scope, userFactory, $location, $c
     }
   }
 })
+
+}

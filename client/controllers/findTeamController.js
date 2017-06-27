@@ -1,4 +1,6 @@
-smack.controller('findTeamController', function ($scope, userFactory, $location, $cookies) {
+
+module.exports = function (app) {
+  app.controller('findTeamController', function ($scope, userFactory, $location, $cookies) {
     console.log("reached findTeamController");
     //ng-model team from view
     $scope.team = {};
@@ -20,6 +22,8 @@ smack.controller('findTeamController', function ($scope, userFactory, $location,
     }
     //check db if team exists
     $scope.findTeam = function () {
-        userFactory.findTeam($scope.team, setTeam, errorHandler)
+      userFactory.findTeam($scope.team, setTeam, errorHandler)
     }
-})
+  })
+}
+

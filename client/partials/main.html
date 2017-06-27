@@ -1,0 +1,156 @@
+
+<div id="wrapper">
+
+  <div id="left-sidebar">
+    <div id="team-menu" ng-click="openMainMenu()">
+      <div>
+        <h2 id="team-name">{{team.name}}</h2>
+        <span class="availability-icon">0</span>
+        <span id="availability-username">{{persona.username}}</span>
+      </div>
+      <a href="#" ng-click="notificationsMenu()"><img src="" class="icon" alt="Notifications icon"></a>
+    </div>
+    <div id="nav-column">
+      <div class="side-nav-section">
+        <label class="side-nav-section-title">CHANNELS</label>
+        <img src="" class="add-icon" alt="Create new channel">
+        <ul>
+          <li class="channel-link" ng-repeat="channel in team.channels">
+            <a href="">{{channel.name}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="side-nav-section">
+        <label class="side-nav-section-title">DIRECT MESSAGES</label>
+        <img src="" class="add-icon" alt="Open a Direct Message">
+        <ul>
+          <li class="direct-message-link" ng-repeat="dm in team.dms">
+            <a href="">
+              <img src="" class="availability-icon" alt="Online">
+              <span ng-repeat="member in dm.members">
+                {{member.username}}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div id="side-nav-search">
+        <img src="" class="icon" alt="Jump to Conversation">
+      </div>
+
+    </div>
+  </div>
+
+  <div id="main-content">
+    <div id="top-bar">
+      <div id="header-left">
+        <div id="channel-title-container">
+          <h3 id="channel-title">#{{channel.name}}PLACEHOLDER</h3>
+          <div id="under-title-strip">
+            <img src="" class="tiny-icon" alt="Star this channel">
+            <span class="divider">|</span>
+            <span class="under-title-link">
+              <img src="" class="tiny-icon" alt="View member list">
+              {{channel.members.length}}
+            </span>
+
+            <span class="divider">|</span>
+            <span class="under-title-link">
+              <img src="" class="tiny-icon" alt="View pinned items">
+              {{channel.pinned.length}}
+            </span>
+            <span class="divider">|</span>
+            <span id="topic" ng-if="channel.topic"><a href="#" ng-click="showEditTopic()">{{channel.topic}}</a></span>
+            <span id="topic" ng-if="!channel.topic"><a href="#" ng-click="showEditTopic()">Add topic</a></span>
+          </div>
+        </div>
+      </div>
+      <div id="header-right">
+        <div id="left-buttons-container">
+          <img src="" class="icon" alt="Settings">
+          <img src="" class="icon" alt="Show Details">
+        </div>
+        <div id="details-width-matcher">
+          <input id="search-bar" type="search" ng-model="searchQeury">
+          <div id="right-buttons-container">
+            <img src="" class="icon" alt="Show Activity">
+            <img src="" class="icon" alt="Show Starred Items">
+            <img src="" class="icon" alt="More Items">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="channel-content">
+                                          <!-- switch the conditional once toggling details is done -->
+      <div id="posts-container" ng-class="{compact:!showDetails}">
+        <div id="channel-info">
+          <h4>{{channel.name}}</h4>
+          <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt}}
+            <!-- Need to format date-->. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>              channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
+          <p><a href="#" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
+        </div>
+
+        <div class="content-chunk" ng-repeat="item in posts | filter:searchQuery">
+          <!-- the 'posts' array will contain timeline divider objects inserted by the factory as well,
+          so in the repeat here we can just put a conditional to check if each item is an actual post or
+          a timeline divider. I'm just checking for posts by looking for a content attribute,
+          or timeline dividers by their date attribute -->
+          <div class="post" ng-if="item.content">
+            <img class="profile-pic" src="{{item._persona.profile_pic.file_path}}" alt="{{item._persona.username}}">
+            <div class="post-content-container">
+              <label class="post-info-line">
+                <span class="post-author">{{item._persona.username}}</span>
+                {{item.createdAt}} <!-- Need to format date-->
+              </label>
+              <p ng-class="{notification:item.notification}">{{item.content}}</p>
+            </div>
+          </div>
+          <div class="timeline-divider" ng-if="item.date">
+            <label class="timeline-label">{{item.date}}</label>
+            <!-- Need to format date-->
+          </div>
+        </div>
+
+        <div id="new-post-bar">
+          <!-- will be fixed at the bottom of the container-->
+          <form id="search-box" ng-submit="addPost()">
+            <a id="add-link" href="#">+</a>
+            <input type="text" name="new-post-content" ng-model="newPost.content">
+            <a id="emoji selector" class="icon" href="#">:)</a>
+          </form>
+          <div id="notification-bar">
+            PLACEHOLDER is typing...
+          </div>
+        </div>
+
+      </div>                              <!-- switch the conditional once toggling details is done -->
+      <div id="channel-details" ng-class="{hidden:showDetails}">
+        <div id="details-top-section" class="details-section">
+          <h5>About {{channel.name}}</h5>
+          <a href="#" ng-click="closeChannelDetails()">(X)</a>
+        </div>
+        <div class="details-section expandable">
+          <img class="icon" src="" alt="Channel Details Icon">
+          <label class="details-label">Channel Details</label>
+        </div>
+        <div class="details-section expandable">
+          <img class="icon" src="" alt="Pinned Items Icon">
+          <label class="details-label">Pinned Items</label>
+        </div>
+        <div class="details-section expandable">
+          <img class="icon" src="" alt="Members Icon">
+          <label class="details-label">{{channel.members.length}} Members</label>
+        </div>
+        <div class="details-section expandable">
+          <img class="icon" src="" alt="Shared Files Icon">
+          <label class="details-label">Shared Files</label>
+        </div>
+        <div class="details-section expandable">
+          <img class="icon" src="" alt="Notifications Icon">
+          <label class="details-label">Notification Preferences</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

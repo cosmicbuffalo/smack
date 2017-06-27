@@ -1,4 +1,5 @@
-smack.factory("loginFactory", function ($http) {
+module.exports = function (app) {
+  app.factory("loginFactory", function ($http) {
 
   var factory = {};
   //gets set from findteam() if the team exists and gets sent to controller to confirm team existence 
@@ -51,3 +52,5 @@ smack.factory("loginFactory", function ($http) {
 
   return factory;
 });
+
+}

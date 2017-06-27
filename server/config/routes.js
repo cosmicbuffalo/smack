@@ -2,6 +2,7 @@
 var users = require('./../controllers/users')
 var teams = require('./../controllers/teams')
 var posts = require('./../controllers/posts')
+var channels = require('./../controllers/channels')
 
 
 module.exports = function(app){
