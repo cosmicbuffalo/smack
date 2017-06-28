@@ -37,8 +37,7 @@ fileSchema = new mongoose.Schema({
     // Boolean field required to help the search feature so that way we can filter out results.. we dont want people look at others stuff :D
     profilePic : {
 
-        type: Boolean,
-        required : true
+        type: Boolean
     }
 
 
