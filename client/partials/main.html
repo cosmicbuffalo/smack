@@ -4,7 +4,9 @@
     <div id="team-menu" ng-click="openMainMenu()">
       <div>
         <span id="team-name">{{team.name}}Team Name</span>
-        <a href="#" ng-click="notificationsMenu()"><img src="" class="icon" alt="Notifications icon"></a>
+        <a href="#" ng-click="notificationsMenu()">
+          <img src="" id="notifications-icon" class="icon" alt="Notifications icon">
+        </a>
       </div>
       <span class="availability-icon">0</span>
       <span id="availability-username">{{persona.username}}persona_username</span>
@@ -14,7 +16,7 @@
     <div id="nav-column">
       <div class="side-nav-section">
         <label class="side-nav-section-title">CHANNELS</label>
-        <img src="" class="add-icon" alt="Create new channel">
+        <img src="" class="add-icon icon" alt="Create new channel">
         <ul>
           <li class="channel-link" ng-repeat="channel in team.channels">
             <a href="">{{channel.name}}</a>
@@ -23,7 +25,7 @@
       </div>
       <div class="side-nav-section">
         <label class="side-nav-section-title">DIRECT MESSAGES</label>
-        <img src="" class="add-icon" alt="Open a Direct Message">
+        <img src="" class="add-icon icon" alt="Open a Direct Message">
         <ul>
           <li class="direct-message-link" ng-repeat="dm in team.dms">
             <a href="">

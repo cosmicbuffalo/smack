@@ -23,15 +23,16 @@ body, #view, #wrapper{
   background-color: #4d394b;
   color:#AB9BA9;
   font-weight: 200;
+  box-sizing: border-box;
+  padding: 0px 20px;
 }
-.add-icon{
-  width: 24px;
-  height:24px;
+.add-icon, #notifications-icon{
+  float: right;
 }
 #team-name{
-  font-size: 
+  font-size: 20px;
   color:white;
-  font-weight: 600;
+  font-weight: 500;
 }
 .overflow-text{
   overflow: hidden;
