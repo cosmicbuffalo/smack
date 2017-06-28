@@ -19,11 +19,11 @@
     </div>
     <div id="content">
       <div id="login-box" class="align-middle drop-shadow">
-        <form ng-submit="login()">
+        <form ng-submit="foundEmail ? login() : checkEmail()">
           <h2>Sign in to {{team.name}}</h2>
           <p>Enter your email <b>email address</b> and <b>password</b></p>
-          <input type="text" name="email" placeholder="you@example.com" ng-model="persona.email"><br>
-          <input type="text" name="pw" placeholder="password" ng-model="persona.pw"><br>
+          <input type="text" name="email" placeholder="you@example.com" ng-model="persona.email" value="{{email}}"><br>
+          <input type="text" name="pw" placeholder="password" ng-model="persona.password"><br>
           <div class="errorMessage">
             {{validationErrors}}
           </div>

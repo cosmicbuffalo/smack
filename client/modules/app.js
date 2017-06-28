@@ -7,8 +7,12 @@ app.config(function($routeProvider){
     templateUrl:'partials/findteam.html',
     controller:'findTeamController'
   })
+  .when('/createteam',{
+    templateUrl:'partials/createteam.html',
+    controller:'findTeamController'
+  })
   //login to team
-  .when('/:teamURL',{
+  .when('/:teamURL/',{
     templateUrl:'partials/login.html',
     controller:'loginController'
   })

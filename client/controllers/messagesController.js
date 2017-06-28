@@ -28,9 +28,9 @@ smack.controller('loginController', function ($scope, userFactory, $location, $c
   //log persona out and redirect to team login
   $scope.logOut = function () {
         $cookies.remove('currentPersonaId');
-        $location.path("/" + currentTeamURL + "/");
+        $location.path("/");
     }
-  //logOut and switch teams
+  //logOut and switch teams i.e only be logged into one team at a time
   $scope.changeTeam = function () {
         $cookies.remove('currentPersonaId');
         $cookies.remove('currentTeamURL');
@@ -39,3 +39,4 @@ smack.controller('loginController', function ($scope, userFactory, $location, $c
 
 
 })
+
