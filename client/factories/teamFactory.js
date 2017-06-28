@@ -26,7 +26,7 @@ module.exports = function (app) {
     });
   }
 
-  factory.checkEmail = function(email){
+  factory.checkEmail = function(email, callback){
     if (!factory.team){
       console.log("There is no team in the factory")
       errorHandler("NO TEAM IN FACTORY")
