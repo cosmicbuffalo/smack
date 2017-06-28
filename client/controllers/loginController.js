@@ -45,6 +45,10 @@ module.exports = function (app) {
       console.log($scope.persona);
       userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
     }
+    $(document).ready(function () {
+      $('#myModal').modal('show');
+    })
+    
   })
 
 }
