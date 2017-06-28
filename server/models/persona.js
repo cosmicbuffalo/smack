@@ -13,13 +13,13 @@ personaSchema = new mongoose.Schema({
     // ------ One to One relationship to a User.. User can have multiple personas
     _user : {
         type: Schema.Types.ObjectId,
-        ref : "Users",
+        ref : "User",
         required : true
     },
     // ---- One to One relationship here to a team
     _team : {
         type : Schema.Types.ObjectId,
-        ref : "Teams",
+        ref : "Team",
         required : true
     },
     // -- Links to picture stored locally.

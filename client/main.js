@@ -7,6 +7,8 @@ require('./factories/userFactory.js')(app)
 
 require('./factories/teamFactory.js')(app)
 
+require('./factories/postFactory.js')(app)
+
 
 
 //set up controllers

@@ -1,5 +1,5 @@
 module.exports = function (app) {
-  app.factory("teamFactory", function ($http, $location, $cookies) {
+  app.factory("teamFactory", function ($http, $location, $cookies, postFactory) {
 
   var factory = {};
   //gets set from findteam() if the team exists and gets sent to controller to confirm team existence
@@ -19,6 +19,7 @@ module.exports = function (app) {
         factory.teamURL = response.data.team.url;
         console.log("factory.teamURL: ", factory.teamURL);
         console.log("Team: ", factory.team)
+        postFactory.setChannel(factory.team.channels[0])
         if (callback){
           callback(factory.teamURL);
         }

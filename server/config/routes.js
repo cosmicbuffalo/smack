@@ -20,7 +20,7 @@ module.exports = function (app) {
 
   // // --- PERSONA ROUTES ---
   app.post('/api/teams/:teamUrl/personas', personas.create)  //should create new persona for specific team, add the persona to the user specified in post data, and return persona object or errors
-  // app.post('/api/personas/:personaId', personas.getPersona)  //get all persona data from id
+  app.get('/api/personas/:personaId', personas.getPersona)  //get all persona data from id
   app.post('/api/personas/:personaId', personas.update)
   // // ---- TEAM ROUTES ----
   app.get('/api/teams', teams.index)                   //should return full list of teams
@@ -39,7 +39,7 @@ module.exports = function (app) {
 
   // // ---- POST ROUTES ----
   app.get('/api/channels/:channelId/posts', posts.allForChannel)          //should retrieve all the posts associated with a specific channel and return them in order from oldest to newest
-  app.post('/api/channels/:channelId/posts', posts.create)                //should create a new post in a specific channel, returns post object or errors
+  app.post('/api/channels/:channelId/posts', posts.create)                //should create a new post in a specific channel, returns post object or errors {_persona:personaID, content:text, **OPTIONAL** file:file}
   // app.post('/api/posts/:postId', posts.update)                            //should update post with post data and return post object or errors
   // app.post('/api/channels/:channelId/posts/:postId/delete', posts.delete) //should delete post from channel along with all comments and return success or errors
 
