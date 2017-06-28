@@ -57,9 +57,11 @@ module.exports = function (app) {
       });
     }
 
-    factory.createPassword = function( postData, callback, errorHandler){
-      if (teamFactory.currentPersona){
-        
+    factory.createPassword = function (postData, errorHandler) {
+      if (teamFactory.currentPersona) {
+        postData = {
+          password: postData.password
+        }
       }
     }
 

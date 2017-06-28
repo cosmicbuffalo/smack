@@ -7,6 +7,7 @@ module.exports = function (app) {
     //ng-model persona which takes persona.email and persona.password
     $scope.persona = {};
     $scope.email = {};
+    $scope.password = {};
     $scope.foundEmail = null;
     $scope.validationErrors = null;
 
@@ -29,6 +30,11 @@ module.exports = function (app) {
         $scope.validationErrors = "Email not found, please ask for an invite";
       } else {
         $scope.foundEmail = $scope.email;
+        if (teamFactory.currentPersona.password) {
+
+        } else {
+          $('#myModal').modal('show');
+        }
       }
     }
 
@@ -45,10 +51,16 @@ module.exports = function (app) {
       console.log($scope.persona);
       userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
     }
-    $(document).ready(function () {
-      $('#myModal').modal('show');
-    })
-    
+    $scope.createPassword = function () {
+      $('#myModal').modal('hide');
+      factory.createPassword($scope.password.password, errorHandler)
+
+
+    }
+    // $(document).ready(function () {
+      // $('#myModal').modal();
+    // })
+
   })
 
 }
