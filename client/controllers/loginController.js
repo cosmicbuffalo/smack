@@ -25,6 +25,7 @@ module.exports = function (app) {
       $location.path("/" + $scope.currentTeamURL + "/messages");
     }
 
+    //FIRST TO HAPPEN
     $scope.checkEmail = function () {
       if (!teamFactory.checkEmail($scope.persona.email)) {
         $scope.validationErrors = "Email not found, please ask for an invite";
@@ -38,6 +39,7 @@ module.exports = function (app) {
       }
     }
 
+    //AFTER SUCCESSFUL CHECK OF EMAIL AND PASSWORD CREATION
     //login persona to TEAM
     $scope.login = function () {
       //angular stuff to only fire off the function if the form is valid and submitted. could be tweaked
@@ -48,12 +50,19 @@ module.exports = function (app) {
       // } else {
       //   console.log("didnt pass ng validations ")
       // }
+      $scope.persona.personaId = teamFactory.currentPersona._id
       console.log($scope.persona);
       userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
     }
-    $scope.createPassword = function () {
+
+    var modalCloser = function(){
       $('#myModal').modal('hide');
-      factory.createPassword($scope.password.password, errorHandler)
+    }
+
+
+    //AFTER SUCCESSFUL EMAIL CHECK IF NO PASSWORD
+    $scope.createPassword = function () {
+      userFactory.createPassword({password:$scope.password.password}, modalCloser)
 
 
     }
