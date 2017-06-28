@@ -32,12 +32,12 @@ personaSchema = new mongoose.Schema({
         type: String,
         minlength : 8,
         maxlength : 100,
-        // validate: {
-        //     validator: function (password) {
-        //         return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/.test(password);
-        //     },
-        //     message: "Password failed validation, you must have at least 1 number, uppercase and special character"
-        // }
+        validate: {
+            validator: function (password) {
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/.test(password);
+            },
+            message: "Password failed validation, you must have at least 1 number, uppercase and special character"
+        }
 
     }
 
@@ -45,10 +45,16 @@ personaSchema = new mongoose.Schema({
 
 
 personaSchema.pre('save', function (done) {
-    if (!this.isModified('password')){ return done() };
-    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
-    done();
+  console.log("Entered persona pre save function")
+  if (!this.isModified('password')){
+    console.log("Password hasn't changed")
+    return done()
+  };
+  console.log("Hashing password")
+  this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
+  done();
 })
+
 
 
 mongoose.model('Persona', personaSchema);

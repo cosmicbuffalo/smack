@@ -1,5 +1,5 @@
 module.exports = function (app) {
-  app.factory("userFactory", function ($http) {
+  app.factory("userFactory", function ($http, teamFactory) {
 
     var factory = {};
     //gets set from findteam() if the team exists and gets sent to controller to confirm team existence
@@ -57,11 +57,17 @@ module.exports = function (app) {
       });
     }
 
-    factory.createPassword = function (postData, errorHandler) {
+    factory.createPassword = function (postData, callback) {
       if (teamFactory.currentPersona) {
-        postData = {
-          password: postData.password
-        }
+        $http.post('/api/personas/' + teamFactory.currentPersona._id, postData).then(function(response){
+          if (!response.data.errors){
+            console.log("Got repsponse: ", response.data)
+
+          } else {
+            console.log(response.data.errors)
+          }
+          callback();
+        })
       }
     }
 

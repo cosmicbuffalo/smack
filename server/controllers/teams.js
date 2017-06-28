@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
 var Team = mongoose.model('Team')
 var Persona = mongoose.model('Persona')
 var User = mongoose.model('User')
+var bcrypt = require('bcrypt')
 
 
 exports.index = function (req, res, next) {
@@ -62,6 +63,7 @@ exports.show = function (req, res, next) {
 exports.login = function (req, res, next) {
   console.log("Entered teams.login")
   console.log("BODY OF REQUEST: ", req.body);
+  console.log("REQUEST PARAMS: ", req.params)
   //find team based on route param
   Team.findOne({ url: req.params.teamUrl }, function (err, team) {
     if (err) {
@@ -73,13 +75,16 @@ exports.login = function (req, res, next) {
     //if team found, search team personas for persona with matching email
     else {
       console.log("team exists");
-      Persona.findOne({ email: req.body.email, _team: team }, function (err, persona) {
+      Persona.findOne({ _id: req.body.personaId }, function (err, persona) {
         if (err) {
           next(err)
         } else if (!persona) {
           console.log("persona not found");
           res.json({ success: false, error: "The persona does not exist" });
         } else {
+          console.log(persona)
+          console.log(req.body.password, persona.password)
+          console.log(bcrypt.compareSync(req.body.password, persona.password))
           if (bcrypt.compareSync(req.body.password, persona.password)) {
             res.json({ success: true, persona: persona })
           } else {

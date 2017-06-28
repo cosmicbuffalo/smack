@@ -75,12 +75,22 @@ exports.update = function(req, res, next){
   console.log("BODY OF REQUEST: ", req.body)
   console.log("REQUEST PARAMS: ", req.params)
 
-  Persona.findOneAndUpdate({_id:req.params.personaId}, {$set:req.body}, {new:true}, function(err, persona){
+  Persona.findOne({_id:req.params.personaId}, function(err, persona){
     if (err){
       next(err);
     } else {
-      console.log("Successfully updated persona")
-      res.json({success:true, persona:persona})
+      console.log("Found persona, updating password before save")
+      persona.password = req.body.password
+      persona.save(function(err2){
+        if (err2){
+          next(err2);
+        } else {
+          console.log("Successfully updated persona")
+          res.json({success:true, persona:persona})
+        }
+      })
+
+
     }
 
   })
