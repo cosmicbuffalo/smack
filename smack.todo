@@ -1,2 +1,27 @@
 ☐ Invites
     ☐ 
+
+
+
+☐ login reg
+  ☐ find team
+  ☐ create team
+  ☐ create password after Invite
+  ☐ login with email and password
+  ☐ 
+
+
+
+
+  ☐ login steps
+    ☐ findteam
+      ☐ if team, find email
+      ☐ if no email, display message, get invited
+      ☐ if email, but no password, show create password
+      ☐ if email, and if passsword, redirect to enter password
+      ☐ if no match, deisplay error
+      ☐ if match redirect to messages and save userId to cookies
+
+
+  ☐ check cookies for redirects
+    ☐ at findteam check user cookies
