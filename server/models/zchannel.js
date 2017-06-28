@@ -13,7 +13,7 @@ channelSchema = new Schema ({
     },
     purpose : {
         type: String,
-        required : true, 
+        required : false, 
         minlength : [10, "Minimum length of a channel purpose is 10 characters"]
     },
 
