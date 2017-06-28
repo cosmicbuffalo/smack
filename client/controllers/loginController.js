@@ -7,17 +7,19 @@ module.exports = function (app) {
     //ng-model persona which takes persona.email and persona.password
     $scope.persona = {};
     $scope.email = {};
+    $scope.invite = {};
     $scope.password = {};
     $scope.foundEmail = null;
     $scope.validationErrors = null;
+    $scope.successMessages = null;
 
     //url of the current team passed in from route params
     $scope.currentTeamURL = $routeParams.teamURL;
 
     //sets errors into scope for display in view
-    var errorHandler = function (errors) {
-      $scope.validationErrors = errors;
-      console.log(errors);
+    var errorHandler = function (error) {
+      $scope.validationErrors = error;
+      console.log(error);
     }
     // set persona id into scope.
     function setCurrentPersona(currentPersona) {
@@ -55,20 +57,23 @@ module.exports = function (app) {
       userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
     }
 
-    var modalCloser = function(){
+    var modalCloser = function () {
       $('#myModal').modal('hide');
     }
 
 
     //AFTER SUCCESSFUL EMAIL CHECK IF NO PASSWORD
     $scope.createPassword = function () {
-      userFactory.createPassword({password:$scope.password.password}, modalCloser)
-
-
+      userFactory.createPassword({ password: $scope.password.password }, modalCloser)
     }
-    // $(document).ready(function () {
-      // $('#myModal').modal();
-    // })
+    var inviteSuccess = function (result) {
+      $scope.successMessages = result;
+      console.log("created invite:", result)
+    }
+    $scope.invite = function () {
+      teamFactory.invite($scope.invite.email, inviteSuccess, errorHandler);
+    }
+
 
   })
 

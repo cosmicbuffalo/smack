@@ -62,6 +62,18 @@ module.exports = function (app) {
       return false
     }
   }
+  factory.invite = function (email, callback, errorHandler) {
+     $http.post('api/teams/' + factory.teamURL +  '/invite', {email: email}).then(function(response){
+          if (!response.data.error){
+            console.log("Got repsponse: ", response.data)
+            callback(response.data)
+          } else {
+            console.log("reached error handler")
+            errorHandler(response.data.error)
+          }
+        })
+    // /api/teams/:teamUrl/invite
+  }
 
   return factory;
 });

@@ -16,6 +16,11 @@ app.config(function($routeProvider){
     templateUrl:'partials/login.html',
     controller:'loginController'
   })
+  //invite to team
+  .when('/:teamURL/invite',{
+    templateUrl:'partials/invite.html',
+    controller:'loginController'
+  })
   //the APP
   .when('/:teamURL/messages',{
     templateUrl:'partials/main.html',

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema
+    Schema = mongoose.Schema;
 
 
 
@@ -20,5 +20,8 @@ commentSchema = new mongoose.Schema({
     }
     
  })
+
+
+
 
  mongoose.model("Comment", commentSchema);

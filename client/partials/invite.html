@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Sign into your team</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">
+      <a href="" id="slackLogo">Slack</a>
+      <ul>
+        <li><a href="">Product</a></li>
+        <li><a href="">Pricing</a></li>
+        <li><a href="">Support</a></li>
+        <li><a href="">Your Teams</a></li>
+      </ul>
+    </div>
+    <div id="content">
+      <div id="login-box" class="align-middle drop-shadow">
+        <form ng-submit="invite()">
+          <h2>Invite to {{currentTeamURL}}</h2>
+          <p>Enter invite <b>email address</b></p>
+          <input type="text" name="email" placeholder="you@example.com" ng-model="invite.email"><br>
+          <div class="errorMessage">
+            {{validationErrors}}
+          </div>
+          <div class="successMessage">
+            {{successMessages.success}} 
+            {{successMessages.message}} 
+            {{successMessages.persona}} 
+          </div>
+          <button type="submit">Invite</button><br>
+        </form>
+      </div>
+    </div>
+    <div id="footer"></div>
+  </div>
+
+
+
+</body>
+
+</html>
