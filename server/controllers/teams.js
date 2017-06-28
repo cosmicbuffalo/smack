@@ -4,16 +4,16 @@ var Persona = mongoose.model('Persona')
 var User = mongoose.model('User')
 
 
-exports.index = function (req, res, next){
+exports.index = function (req, res, next) {
 
   console.log("Entered teams.index")
 
-  Team.find({}).populate('channels personas').exec(function(err, teams){
-    if (err){
+  Team.find({}).populate('channels personas').exec(function (err, teams) {
+    if (err) {
       next(err);
     } else {
       console.log("Found teams!");
-      res.json({success:true, teams:teams});
+      res.json({ success: true, teams: teams });
     }
   })
 
@@ -31,22 +31,29 @@ exports.create = function (req, res, next) {
       next(err)
     } else {
       console.log("Successfully created new team")
-      res.json({ success:true, message: "Successfully created new team", team: newTeam })
+      res.json({ success: true, message: "Successfully created new team", team: newTeam })
     }
   })
 
 };
 
-exports.show = function(req, res, next){
+exports.show = function (req, res, next) {
   console.log("Entered teams.show")
   console.log("BODY OF REQUEST: ", req.body);
 
-  Team.findOne({url:req.params.teamUrl}).populate('channels personas').exec(function(err, team){
-    if (err){
+  Team.findOne({ url: req.params.teamUrl }).populate('channels personas').exec(function (err, team) {
+    if (err) {
       next(err);
     } else {
-      console.log("Found team!")
-      res.json({success:true, team:team})
+      Team.populate(team, { path: 'personas._user', model: "User" }, function (err2, populatedTeam) {
+        if (err2) {
+          next(err2)
+        } else {
+          console.log("Found team!")
+          res.json({ success: true, team: populatedTeam })
+        }
+      })
+
     }
   })
 }
@@ -61,7 +68,7 @@ exports.login = function (req, res, next) {
       next(err)
     } else if (!team) {
       console.log("team not found");
-      res.json({ success:false, error: "The team does not exist" });
+      res.json({ success: false, error: "The team does not exist" });
     }
     //if team found, search team personas for persona with matching email
     else {
@@ -71,12 +78,12 @@ exports.login = function (req, res, next) {
           next(err)
         } else if (!persona) {
           console.log("persona not found");
-          res.json({ success:false, error: "The persona does not exist" });
+          res.json({ success: false, error: "The persona does not exist" });
         } else {
           if (bcrypt.compareSync(req.body.password, persona.password)) {
-            res.json({ success:true, persona: persona })
+            res.json({ success: true, persona: persona })
           } else {
-            res.json({ success:false, error: "passwords do not match" })
+            res.json({ success: false, error: "passwords do not match" })
           }
 
         }
@@ -94,7 +101,7 @@ exports.invite = function (req, res, next) {
       next(err)
     } else if (!team) {
       console.log("team not found");
-      res.json({ success:false, error: "The team does not exist" });
+      res.json({ success: false, error: "The team does not exist" });
     }
     //if team found, check if user exists
     else {
@@ -108,11 +115,11 @@ exports.invite = function (req, res, next) {
           //if no user create the user with the email in req.body
           if (!user) {
             //create user with email
-            user = new User({ email: req.body.email, personas:[] });
+            user = new User({ email: req.body.email, personas: [] });
           }
           //if user found, create/push persona in user
           console.log("Got user, ...")
-          var newPersona = new Persona({ email: req.body.email, _team:team, _user:user });
+          var newPersona = new Persona({ email: req.body.email, _team: team, _user: user });
           console.log("Attempting to save persona")
           newPersona.save(function (err) {
             if (err) {
@@ -138,7 +145,7 @@ exports.invite = function (req, res, next) {
                       next(err)
                     } else {
                       console.log("Persona saved to team and user successfully")
-                      res.json({ success:true, message: "Successfully created persona for team", persona:newPersona})
+                      res.json({ success: true, message: "Successfully created persona for team", persona: newPersona })
                     }
                   })
                 }
