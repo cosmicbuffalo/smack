@@ -12,7 +12,7 @@ app.config(function($routeProvider){
     controller:'findTeamController'
   })
   //login to team
-  .when('/:teamURL',{
+  .when('/:teamURL/',{
     templateUrl:'partials/login.html',
     controller:'loginController'
   })

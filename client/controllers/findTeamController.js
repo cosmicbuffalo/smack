@@ -1,6 +1,6 @@
 
 module.exports = function (app) {
-  app.controller('findTeamController', function ($scope, userFactory, $location, $cookies) {
+  app.controller('findTeamController', function ($scope, userFactory, teamFactory, $location, $cookies) {
     console.log("reached findTeamController");
     //ng-model team from view
     $scope.team = {};
@@ -28,7 +28,7 @@ module.exports = function (app) {
     }
     //check db if team exists
     $scope.findTeam = function () {
-      userFactory.findTeam($scope.team, setTeam, errorHandler)
+      teamFactory.findTeam($scope.team, setTeam, errorHandler)
     }
   })
 }
