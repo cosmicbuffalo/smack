@@ -42,7 +42,7 @@ teamSchema.pre('save', function(done){
 
     //Creates two default channels upon team creation
     // Will log Error for which team it failed to created basic channels for.
-    randomChannel.save(function(randomErr){
+    randomChannel.save(function(randomErr ){
         if (randomErr){
             console.log("Random Channel for: " + self.name + "team")
             done(randomErr)

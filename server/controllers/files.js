@@ -24,39 +24,57 @@ var storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
 
+        console.log("File req: " , req.body);
+
         Persona.findOne({ _id: req.body.personaId }, function (findPersonaErr, persona) {
+
             if (findPersonaErr) {
                 console.log('Could not find Persona with Id: ' + req.body.persona)
+            
             } else {
-                var file = new File({
-                    _person: persona,
+                
+                var newfile = new File({
+                    _persona: persona,
                     pinned: false
                 })
-                if (req.params.channelId) {
-                    Channel.findOne({ _id: req.params.channelId }, function (findChannelErr, channel) {
-                        if (findChannelErr) {
-                            console.log("Could not find Channel with Id: " + req.params.channelId)
+
+                newfile.save(function(){
+                    
+                    if (req.params.channelId) {
+                    
+                        Channel.findOne({ _id: req.params.channelId }, function (findChannelErr, channel) {
+                    
+                            if (findChannelErr) {
+                    
+                                console.log("Could not find Channel with Id: " + req.params.channelId)
+                    
+                            } else {
+                    
+                                newfile._channel = channel._id
+                            }
+                        })
+                    }
+                    if (req.body.forProfilePicture) {
+                        
+                        newfile.profilePic = req.body.forProfilePicture
+                    }
+                    var filePath = file.fieldname + '-' + newfile._id + fileExtensions[file.mimetype]
+                    
+                    newfile.filePath = "/uploads/" + filePath
+                    
+                    console.log(file)
+                    
+                    newfile.save(function (saveErr) {
+                        if (saveErr) {
+                            console.log(saveErr)
                         } else {
-                            file._channel = channel._id
+
+                            // returnFilePath(filePath)
+
+                            cb(null, filePath)
+
                         }
                     })
-                }
-                if (req.body.forProfilePicture) {
-                    file.profilePic = req.body.forProfilePicture
-                }
-
-                var filePath = file.fieldname + '-' + file._id + fileExtensions[file.mimetype]
-                file.filePath = filePath
-                file.save(function (saveErr) {
-                    if (saveErr) {
-                        console.log('Could not save file!')
-                    } else {
-
-                        // returnFilePath(filePath)
-
-                        cb(null, filePath)
-
-                    }
                 })
             }
         })
@@ -71,11 +89,12 @@ var upload = multer({ storage: storage }).single('fileUpload');
 
 
 exports.create = function (req, res) {
-    // req.body
+    var self = this
+    console.log('User req:  ' , req.body)
     upload(req, res, function (uploadErr) {
 
         console.log(req.file);
-        if (err) {
+        if (uploadErr) {
             res.json({ err: uploadErr })
         } else {
             res.json({ success: true, message: "files and relationships created!" })

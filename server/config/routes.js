@@ -49,7 +49,7 @@ module.exports = function (app) {
   // app.post('/api/posts/:postId/comments/:commentId', comments.update)         //will find comment and update with post data, then return comment object or errors
 
   //---- FILE ROUTES ----
-  app.post('/api/channels/:channelId/files', files.create)        //should take a file in post data and add it to a channel and the database, returns success or failure
+  app.post('/api/files/upload', files.create)        //should take a file in post data and add it to a channel and the database, returns success or failure
   // Object Keys should have:  {'fileUpload': filedata, personaId: data, **EITHER** forProfilePicture: boolean, **OR** channelId: data }
 
 
