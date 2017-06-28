@@ -1,8 +1,8 @@
 module.exports = function (app) {
-  app.factory("userFactory", function ($http) {
+  app.factory("userFactory", function ($http, teamFactory) {
 
     var factory = {};
-    //gets set from findteam() if the team exists and gets sent to controller to confirm team existence 
+    //gets set from findteam() if the team exists and gets sent to controller to confirm team existence
     factory.teamURL = null;
     //holds currentPersona from getPersona()
     factory.currentPersona = {};
@@ -28,7 +28,7 @@ module.exports = function (app) {
       });
     }
 
-    // controller method to get back persona data 
+    // controller method to get back persona data
     factory.getPersona = function (currentPersonaId, callback, errorHandler) {
       $http.post("/api/personas/" + currentPersonaId).then(function (response) {
         console.log(response);
@@ -44,7 +44,7 @@ module.exports = function (app) {
       callback(factory.currentUser);
       console.log(factory.currentUser);
     }
-    //login persona and send persona back to contoller to set into cookies 
+    //login persona and send persona back to contoller to set into cookies
     factory.login = function (user, currentTeamURL, callback, errorHandler) {
       $http.post("/api/teams/" + currentTeamURL + "/login", user).then(function (response) {
         console.log(response);
@@ -55,6 +55,20 @@ module.exports = function (app) {
           errorHandler(response.data.errors);
         }
       });
+    }
+
+    factory.createPassword = function (postData, callback) {
+      if (teamFactory.currentPersona) {
+        $http.post('/api/personas/' + teamFactory.currentPersona._id, postData).then(function(response){
+          if (!response.data.errors){
+            console.log("Got repsponse: ", response.data)
+
+          } else {
+            console.log(response.data.errors)
+          }
+          callback();
+        })
+      }
     }
 
     return factory;

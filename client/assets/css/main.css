@@ -1,83 +1,93 @@
-*{
+* {
   margin: 0px;
   padding: 0px;
 }
-html, body, #view, #wrapper{
-  width:100%;
-  height:100%;
+
+html, body, #view, #wrapper {
+  width: 100%;
+  height: 100%;
 }
-body, #view, #wrapper{
+
+body, #view, #wrapper {
   position: absolute;
-  top:0px;
+  top: 0px;
 }
 
-
-#wrapper{
-  width:100%;
+#wrapper {
+  width: 100%;
 }
 
-#left-sidebar{
+#left-sidebar {
   width: 220px;
-  height:100%;
+  height: 100%;
   position: absolute;
   background-color: #4d394b;
-  color:#AB9BA9;
+  color: #AB9BA9;
   font-weight: 200;
   box-sizing: border-box;
   padding: 0px 20px;
 }
-.add-icon, #notifications-icon{
+
+.add-icon, #notifications-icon {
   float: right;
 }
-#team-name{
+
+#team-name {
   font-size: 20px;
-  color:white;
+  color: white;
   font-weight: 500;
 }
-.overflow-text{
+
+.overflow-text {
   overflow: hidden;
   white-space: nowrap;
 }
 
-#main-content{
+#main-content {
   margin-left: 220px;
   min-width: 540px;
   height: 100%;
 }
 
-#top-bar{
+#top-bar {
   border-bottom: 1px dotted gray;
   padding: 12px 20px 0px;
   height: 60px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
-#top-bar div{
+
+#top-bar div {
   display: inline-block;
 }
 
-.icon{
+.icon {
   width: 24px;
-  height:24px;
+  height: 24px;
 }
-.tiny-icon{
+
+.tiny-icon {
   width: 20px;
-  height:20px;
+  height: 20px;
 }
-#header-left{
+
+#header-left {
   display: flex;
 }
-#channel-title-container h3{
+
+#channel-title-container h3 {
   margin: 0px;
 }
-#header-right{
+
+#header-right {
   float: right;
 }
 
-#channel-content{
+#channel-content {
   height: 100%;
   height: calc(100% - 60px);
 }
-#channel-details{
+
+#channel-details {
   width: 300px;
   height: 100%;
   position: absolute;
@@ -85,27 +95,93 @@ body, #view, #wrapper{
   border-left: 1px dotted gray;
   box-sizing: border-box
 }
-#channel-details.hidden{
+
+#channel-details.hidden {
   display: none;
 }
-#posts-container{
+
+#posts-container {
   width: 100%;
   position: absolute;
   left: 220px;
   height: calc(100% - 60px);
 }
-.compact{
+
+.compact {
   width: calc(100% - 520px) !important;
 }
-#new-post-bar{
+
+#new-post-bar {
   width: 100%;
   position: absolute;
   bottom: 0px;
   /*left: 220px;*/
-  padding:0px 20px;
+  padding: 0px 20px;
 }
-#search-box{
+
+#search-box {
   border: 3px solid lightgray;
   border-radius: 8px;
 }
 
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+div[ng-message], .errorMessage {
+  color: lightcoral;
+  font-size: .9em;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+.successMessage {
+  color: lightgreen;
+  font-size: .9em;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.disabled {
+  background: gray !important;
+  color: lightgray !important;
+}
+
+#sidebar {
+  width: 225px;
+  background: #4d394b;
+  display: inline-block;
+}
+
+#login-box {
+  text-align: center;
+  display: inline-block;
+  border: 1px solid black;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  padding: 50px;
+}
+
+#content {
+  text-align: center
+}
+
+#header{
+  border-bottom: 2px solid black;
+  height: 100px
+}

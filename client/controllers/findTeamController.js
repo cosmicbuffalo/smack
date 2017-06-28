@@ -20,11 +20,12 @@ module.exports = function (app) {
     function setTeam(teamURL) {
       console.log("teamURL: ", teamURL)
       if (teamURL) {
-         $location.path("/" + teamURL);
+        $cookies.put("currentTeamURL", teamURL)
+        $location.path("/" + teamURL);
       } else {
         console.log("team not found");
       }
-     
+
     }
     //check db if team exists
     $scope.findTeam = function () {
@@ -32,4 +33,3 @@ module.exports = function (app) {
     }
   })
 }
-

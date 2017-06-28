@@ -7,16 +7,19 @@ module.exports = function (app) {
     //ng-model persona which takes persona.email and persona.password
     $scope.persona = {};
     $scope.email = {};
+    $scope.invite = {};
+    $scope.password = {};
     $scope.foundEmail = null;
     $scope.validationErrors = null;
+    $scope.successMessages = null;
 
     //url of the current team passed in from route params
     $scope.currentTeamURL = $routeParams.teamURL;
 
     //sets errors into scope for display in view
-    var errorHandler = function (errors) {
-      $scope.validationErrors = errors;
-      console.log(errors);
+    var errorHandler = function (error) {
+      $scope.validationErrors = error;
+      console.log(error);
     }
     // set persona id into scope.
     function setCurrentPersona(currentPersona) {
@@ -24,14 +27,21 @@ module.exports = function (app) {
       $location.path("/" + $scope.currentTeamURL + "/messages");
     }
 
+    //FIRST TO HAPPEN
     $scope.checkEmail = function () {
       if (!teamFactory.checkEmail($scope.persona.email)) {
         $scope.validationErrors = "Email not found, please ask for an invite";
       } else {
         $scope.foundEmail = $scope.email;
+        if (teamFactory.currentPersona.password) {
+
+        } else {
+          $('#myModal').modal('show');
+        }
       }
     }
 
+    //AFTER SUCCESSFUL CHECK OF EMAIL AND PASSWORD CREATION
     //login persona to TEAM
     $scope.login = function () {
       //angular stuff to only fire off the function if the form is valid and submitted. could be tweaked
@@ -42,9 +52,29 @@ module.exports = function (app) {
       // } else {
       //   console.log("didnt pass ng validations ")
       // }
+      $scope.persona.personaId = teamFactory.currentPersona._id
       console.log($scope.persona);
       userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
     }
+
+    var modalCloser = function () {
+      $('#myModal').modal('hide');
+    }
+
+
+    //AFTER SUCCESSFUL EMAIL CHECK IF NO PASSWORD
+    $scope.createPassword = function () {
+      userFactory.createPassword({ password: $scope.password.password }, modalCloser)
+    }
+    var inviteSuccess = function (result) {
+      $scope.successMessages = result;
+      console.log("created invite:", result)
+    }
+    $scope.invite = function () {
+      teamFactory.invite($scope.invite.email, inviteSuccess, errorHandler);
+    }
+
+
   })
 
 }

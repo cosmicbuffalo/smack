@@ -45,10 +45,16 @@ personaSchema = new mongoose.Schema({
 
 
 personaSchema.pre('save', function (done) {
-    if (!this.isModified('password')){ return done() };
-    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
-    done();
+  console.log("Entered persona pre save function")
+  if (!this.isModified('password')){
+    console.log("Password hasn't changed")
+    return done()
+  };
+  console.log("Hashing password")
+  this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
+  done();
 })
+
 
 
 mongoose.model('Persona', personaSchema);
