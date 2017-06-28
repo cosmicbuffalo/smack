@@ -11,14 +11,15 @@ module.exports = function (app) {
     $scope.password = {};
     $scope.foundEmail = null;
     $scope.validationErrors = null;
+    $scope.successMessages = null;
 
     //url of the current team passed in from route params
     $scope.currentTeamURL = $routeParams.teamURL;
 
     //sets errors into scope for display in view
-    var errorHandler = function (errors) {
-      $scope.validationErrors = errors;
-      console.log(errors);
+    var errorHandler = function (error) {
+      $scope.validationErrors = error;
+      console.log(error);
     }
     // set persona id into scope.
     function setCurrentPersona(currentPersona) {
@@ -66,6 +67,7 @@ module.exports = function (app) {
       userFactory.createPassword({ password: $scope.password.password }, modalCloser)
     }
     var inviteSuccess = function (result) {
+      $scope.successMessages = result;
       console.log("created invite:", result)
     }
     $scope.invite = function () {

@@ -63,11 +63,12 @@ module.exports = function (app) {
   }
   factory.invite = function (email, callback, errorHandler) {
      $http.post('api/teams/' + factory.teamURL +  '/invite', {email: email}).then(function(response){
-          if (!response.data.errors){
+          if (!response.data.error){
             console.log("Got repsponse: ", response.data)
             callback(response.data)
           } else {
-            errorHandler(response.data.errors)
+            console.log("reached error handler")
+            errorHandler(response.data.error)
           }
         })
     // /api/teams/:teamUrl/invite
