@@ -1,5 +1,5 @@
 module.exports = function (app) {
-  app.factory("loginFactory", function ($http) {
+  app.factory("userFactory", function ($http) {
 
   var factory = {};
   //gets set from findteam() if the team exists and gets sent to controller to confirm team existence 
@@ -10,10 +10,11 @@ module.exports = function (app) {
   //hits api and returns a team url if exists else sends back error
   factory.findTeam = function (team, callback, errorHandler) {
     var URL = team.URL;
-    $http.post('/api/teams/' + URL).then(function (response) {
+    $http.get('/api/teams/' + URL).then(function (response) {
       console.log(response);
       if (!response.data.errors) {
-        factory.teamURL = response.data.URL;
+        factory.teamURL = response.data.team.url;
+        console.log("factory.teamURL: ", factory.teamURL);
         callback(factory.teamURL);
       } else {
         errorHandler(response.data.errors);

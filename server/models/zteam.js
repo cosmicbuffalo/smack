@@ -45,7 +45,7 @@ teamSchema.pre('save', function(done){
     randomChannel.save(function(randomErr){
         if (randomErr){
             console.log("Random Channel for: " + self.name + "team")
-            next(randomErr)
+            done(randomErr)
         }else{
             generalChannel.save(function(generalErr){
                 if (generalErr){

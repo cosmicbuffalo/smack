@@ -12,13 +12,19 @@ module.exports = function (app) {
 
     //handles error coming from database and sets into scope
     var errorHandler = function (errors) {
-        $scope.validationErrors = errors;
-        //maybe reload page?
-        console.log(errors);
+      $scope.validationErrors = errors;
+      //maybe reload page?
+      console.log(errors);
     }
     //if team exists in db, set redirect to team url
     function setTeam(teamURL) {
-        $location.path("/" + teamURL);
+      console.log("teamURL: ", teamURL)
+      if (teamURL) {
+         $location.path("/" + teamURL);
+      } else {
+        console.log("team not found");
+      }
+     
     }
     //check db if team exists
     $scope.findTeam = function () {
