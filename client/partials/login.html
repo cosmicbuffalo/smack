@@ -11,27 +11,32 @@
 <body>
   <div id="container">
     <div id="header">
-      <div class="float-left">Slack</div>
-      <div class="float-right">Product</div>
-      <div class="float-right">Pricing</div>
-      <div class="float-right">Support</div>
-      <div class="float-right">Your Teams</div>
+      <a href="" id="slackLogo">Slack</a>
+      <ul>
+        <li><a href="">Product</a></li>
+        <li><a href="">Pricing</a></li>
+        <li><a href="">Support</a></li>
+        <li><a href="">Your Teams</a></li>
+      </ul>
     </div>
     <div id="content">
-      <div id="login-box" class="align-middle drop-shadow">
+      <div id="login-box" class="align-middle drop-shadow" class="form-horizontal">
         <form ng-submit="foundEmail ? login() : checkEmail()">
           <h2>Sign in to {{team.name}}</h2>
           <p>Enter your email <b>email address</b> and <b>password</b></p>
-          <input type="text" name="email" placeholder="you@example.com" ng-model="persona.email" value="{{email}}"><br>
-          <input type="text" name="pw" placeholder="password" ng-model="persona.password"><br>
-          <div class="errorMessage">
-            {{validationErrors}}
+          <div id="login-form">
+            <input class="form-control taller" type="text" name="email" placeholder="you@example.com" ng-model="persona.email" value="{{email}}"><br>
+            <input class="form-control taller" type="text" name="pw" placeholder="password" ng-model="persona.password"><br>
+            <div class="errorMessage">
+              {{validationErrors}}
+            </div>
+            <button type="submit" class="btn btn-default btn-grn btn-lg btn-block taller">Sign in</button><br>
+            <input type="checkbox" checked="checked">Keep Me Signed In
+            <a href="">Forgot Password?</a><br>
+            <a href="">I forgot which email I used</a>
+            <p>Don't have a team yet? <a href="#!/createteam">Create a team</a></p>
           </div>
-          <button type="submit">Sign in</button><br>
-          <input type="checkbox" checked="checked">Keep Me Signed In
-          <a href="">Forgot Password?</a><br>
-          <a href="">I forgot which email I used</a>
-          <p>Don't have a team yet? <a href="#!/createteam">Create a team</a></p>
+
         </form>
       </div>
     </div>
@@ -64,8 +69,8 @@
             </div>
             <div class="form-group">
               <label>Confirm Password</label>
-              <input type="password" class="form-control" ng-model="password.passwordConfirm" placeholder="confirm password" name="passwordConfirm" compare-to="password.password"
-                required/>
+              <input type="password" class="form-control" ng-model="password.passwordConfirm" placeholder="confirm password" name="passwordConfirm"
+                compare-to="password.password" required/>
               <div ng-messages="passwordForm.passwordConfirm.$error" ng-if='passwordForm.passwordConfirm.$dirty'>
                 <div ng-message="compareTo">Please make sure you're passwords match</div>
               </div>

@@ -11,24 +11,28 @@
 <body>
   <div id="container">
     <div id="header">
-      <div class="float-left">Slack</div>
-      <div class="float-right">Product</div>
-      <div class="float-right">Pricing</div>
-      <div class="float-right">Support</div>
-      <div class="float-right">Your Teams</div>
+      <a href="" id="slackLogo">Slack</a>
+      <ul>
+        <li><a href="">Product</a></li>
+        <li><a href="">Pricing</a></li>
+        <li><a href="">Support</a></li>
+        <li><a href="">Your Teams</a></li>
+      </ul>
     </div>
     <div id="content">
       <div id="login-box" class="align-middle drop-shadow">
-        <form ng-submit="findTeam()">
+        <form ng-submit="findTeam()" class="form-horizontal">
           <h2>Sign in to your team</h2>
           <p>Enter your team's <b>Slack URL.</b></p>
-          <input type="text" name="slack-url" placeholder="your-team-url" ng-model="team.URL">
-          <h3 style="display: inline"><b>.slack.com</b></h3><br>
-          <div class="errorMessage">
-            {{validationErrors}}
+          <div id="login-form">
+            <input class="form-control taller" id="urlInput" type="text" name="slack-url" placeholder="your-team-url" ng-model="team.URL">
+            <h3 style="display: inline"><b>.slack.com</b></h3><br>
+            <div class="errorMessage">
+              {{validationErrors}}
+            </div>
+            <button type="submit" class="btn btn-default btn-grn btn-lg btn-block taller">Continue <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+            <p>Don't have a team yet? <a href="#!/createteam">Create a team</a></p>
           </div>
-          <button type="submit">Continue <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-          <p>Don't have ateam yet? <a href="#!/createteam">Create a team</a></p>
         </form>
         {{team}}
       </div>
