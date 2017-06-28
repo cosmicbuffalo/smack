@@ -1,97 +1,12 @@
 var mongoose = require('mongoose'),
     Persona = mongoose.model('Persona'),
     File = mongoose.model('File'),
-    multer = require('multer');
-
-var fileExtensions = {
-    'image/gif': '.gif',
-    'text/plain': '.txt',
-    'image/png': '.png',
-    'image/jpeg': '.jpg',
-    'application/zip': '.zip',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '.docx',
-    'application/pdf': '.pdf',
-    'application/vnd.ms-excel': '.xls',
-    'application/vnd.ms-powerpoint': 'ppt'
-}
-
-
-var storage = multer.diskStorage({
-
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
-
-    },
-    filename: function (req, file, cb) {
-
-        console.log("File req: " , req.body);
-
-        Persona.findOne({ _id: req.body.personaId }, function (findPersonaErr, persona) {
-
-            if (findPersonaErr) {
-                console.log('Could not find Persona with Id: ' + req.body.persona)
-            
-            } else {
-                
-                var newfile = new File({
-                    _persona: persona,
-                    pinned: false
-                })
-
-                newfile.save(function(){
-                    
-                    if (req.params.channelId) {
-                    
-                        Channel.findOne({ _id: req.params.channelId }, function (findChannelErr, channel) {
-                    
-                            if (findChannelErr) {
-                    
-                                console.log("Could not find Channel with Id: " + req.params.channelId)
-                    
-                            } else {
-                    
-                                newfile._channel = channel._id
-                            }
-                        })
-                    }
-                    if (req.body.forProfilePicture) {
-                        
-                        newfile.profilePic = req.body.forProfilePicture
-                    }
-                    var filePath = file.fieldname + '-' + newfile._id + fileExtensions[file.mimetype]
-                    
-                    newfile.filePath = "/uploads/" + filePath
-                    
-                    console.log(file)
-                    
-                    newfile.save(function (saveErr) {
-                        if (saveErr) {
-                            console.log(saveErr)
-                        } else {
-
-                            // returnFilePath(filePath)
-
-                            cb(null, filePath)
-
-                        }
-                    })
-                })
-            }
-        })
-    }
-});
-
-var upload = multer({ storage: storage }).single('fileUpload');
-
-
-
-
-
+    uploader = require('./upload_helper')
 
 exports.create = function (req, res) {
     var self = this
     console.log('User req:  ' , req.body)
-    upload(req, res, function (uploadErr) {
+    uploader.upload(req, res, function (uploadErr) {
 
         console.log(req.file);
         if (uploadErr) {
@@ -99,6 +14,39 @@ exports.create = function (req, res) {
         } else {
             res.json({ success: true, message: "files and relationships created!" })
             //do that
+        }
+    })
+}
+
+exports.allForChannel = function(req, res){
+
+    channelId = req.params.channelId
+    
+    File.find({_channel : channelId }, function(findFileErr, files){
+        
+        if (findFileErr){
+
+            res.json({success: false, message: "Could not find files with channel id: " + channelId, errors: "Couldn't find channels files!"})
+        }
+        else{
+
+            res.json({succes : true, message: "Found the files with channel id: " + channelId, files: files})
+        }
+    })
+}
+
+exports.allForUser = function(req, res ) { 
+    personaId = req.params.personaId
+
+    File.find({ _persona: personaId, profilePic : {$ne: true} }, function(findFileErr, files){
+
+        if  (findFileErr){
+            
+            res.json({success: false, message: "Could not find files with persona id: " + personaId, errors: "Couldn't find users files!" })
+        
+        }else{
+        
+            res.json({ success : true, message: "found all personas' files", files: files})
         }
     })
 
