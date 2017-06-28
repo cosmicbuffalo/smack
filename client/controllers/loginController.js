@@ -7,6 +7,7 @@ module.exports = function (app) {
     //ng-model persona which takes persona.email and persona.password
     $scope.persona = {};
     $scope.email = {};
+    $scope.invite = {};
     $scope.password = {};
     $scope.foundEmail = null;
     $scope.validationErrors = null;
@@ -54,8 +55,10 @@ module.exports = function (app) {
     $scope.createPassword = function () {
       $('#myModal').modal('hide');
       factory.createPassword($scope.password.password, errorHandler)
+    }
 
-
+    $scope.invite = function () {
+      teamFactory.invite($scope.invite.email, );
     }
     // $(document).ready(function () {
       // $('#myModal').modal();

@@ -51,6 +51,10 @@ module.exports = function (app) {
       return false
     }
   }
+  factory.invite = function (email) {
+    
+    // /api/teams/:teamUrl/invite
+  }
 
   return factory;
 });
