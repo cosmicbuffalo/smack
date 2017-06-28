@@ -1,0 +1,1 @@
+console.error("Error: Cannot find module 'C:\\Users\\Armando\\Desktop\\Smack\\main.js' from 'C:\\Users\\Armando\\Desktop\\Smack'");

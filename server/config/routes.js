@@ -1,9 +1,10 @@
 //import controllers
-var users = require('./../controllers/users')
-var teams = require('./../controllers/teams')
-var posts = require('./../controllers/posts')
-var channels = require('./../controllers/channels')
-var files = require('./../controllers/files')
+var users = require('./../controllers/users'),
+    teams = require('./../controllers/teams'),
+    posts = require('./../controllers/posts'),
+    channels = require('./../controllers/channels'),
+    files = require('./../controllers/files'),
+    comments = require('./../controllers/comments')
 
 
 module.exports = function (app) {
@@ -40,15 +41,13 @@ module.exports = function (app) {
   // app.post('/api/channels/:channelId/posts/:postId/delete', posts.delete) //should delete post from channel along with all comments and return success or errors
 
   // // --- COMMENT ROUTES ---
-  // app.post('/api/posts/:postId/comments', comments.create)                    //should create a new comment for a specific post, returns comment object or errors
-  // app.post('/api/posts/:postId/comments/:commentId/delete', comments.delete)  //will find comment and delete from post and persona, return success or errors
-  // app.post('/api/posts/:postId/comments/:commentId', comments.update)         //will find comment and update with post data, then return comment object or errors
+  app.post('/api/posts/:postId/comments', comments.create)// Object Keys: {personaId : cookieId, content: data }                should create a new comment for a specific post, returns comment object or errors
+  app.post('/api/posts/:postId/comments/:commentId/delete', comments.delete)  // NO OBJECT NEEDED JUST NEEDS A ROUTE PARAMS       will find comment and delete from post and persona, return success or errors
+  app.post('/api/comments/:commentId', comments.update)         //will find comment and update with post data, then return comment object or errors
 
   //---- FILE ROUTES ----
   app.post('/api/files/upload', files.create)        //should take a file in post data and add it to a channel and the database, returns success or failure
   // Object Keys should have:  {'fileUpload': filedata, personaId: data, **EITHER** forProfilePicture: boolean, **OR** channelId: data }
-
-
-  // app.get('/api/channels/:channelId/files', files.allForChannel)  //should find all files associated with a channel and return a list of file objects
-  // app.get('/api/personas/:personaId/files', files.allForUser)     //should find all files associated with a perona and return a list of file objects or errors
+  app.get('/api/channels/:channelId/files', files.allForChannel)  //should find all files associated with a channel and return a list of file objects
+  app.get('/api/personas/:personaId/files', files.allForUser)     //should find all files associated with a perona and return a list of file objects or errors
 }
