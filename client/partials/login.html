@@ -2,35 +2,41 @@
 <html lang="en">
 
 <head>
-    <title>Sign into your team</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <title>Sign into your team</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="container" >
-        <div id="header"></div>
-        <div id="content">
-            <div id="login-box" class="align-middle drop-shadow">
-                <form ng-submit="login()">
-                    <h2>Sign in to {{team.name}}</h2>
-                    <p>Enter your email <b>email address</b> and <b>password</b></p>
-                    <input type="text" name="email" placeholder="you@example.com" ng-model="persona.email"><br>
-                    <input type="text" name="pw" placeholder="password" ng-model="persona.pw"><br>
-                    <div class="errorMessage">
-                        {{validationErrors}}
-                    </div>
-                    <button type="submit">Sign in</button><br>
-                    <input type="checkbox" checked="checked">Keep Me Signed In
-                    <a href="">Forgot Password?</a><br>
-                    <a href="">I forgot which email I used</a>
-                    <p>Don't have a team yet? <a href="#!/createteam">Create a team</a></p>
-                </form>
-            </div>
-        </div>
-        <div id="footer"></div>
+  <div id="container">
+    <div id="header">
+      <div class="float-left">Slack</div>
+      <div class="float-right">Product</div>
+      <div class="float-right">Pricing</div>
+      <div class="float-right">Support</div>
+      <div class="float-right">Your Teams</div>
     </div>
+    <div id="content">
+      <div id="login-box" class="align-middle drop-shadow">
+        <form ng-submit="login()">
+          <h2>Sign in to {{team.name}}</h2>
+          <p>Enter your email <b>email address</b> and <b>password</b></p>
+          <input type="text" name="email" placeholder="you@example.com" ng-model="persona.email"><br>
+          <input type="text" name="pw" placeholder="password" ng-model="persona.pw"><br>
+          <div class="errorMessage">
+            {{validationErrors}}
+          </div>
+          <button type="submit">Sign in</button><br>
+          <input type="checkbox" checked="checked">Keep Me Signed In
+          <a href="">Forgot Password?</a><br>
+          <a href="">I forgot which email I used</a>
+          <p>Don't have a team yet? <a href="#!/createteam">Create a team</a></p>
+        </form>
+      </div>
+    </div>
+    <div id="footer"></div>
+  </div>
 </body>
 
 </html>

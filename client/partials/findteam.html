@@ -2,32 +2,38 @@
 <html lang="en">
 
 <head>
-    <title>Find your team</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <title>Find your team</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="container" class="align-middle">
-        <div id="header"></div>
-        <div id="content">
-            <div id="login-box" class="align-middle drop-shadow">
-                <form ng-submit="findTeam()">
-                    <h2>Sign in to your team</h2>
-                    <p>Enter your team's <b>Slack URL.</b></p>
-                    <input type="text" name="slack-url" placeholder="your-team-url" ng-model="team.URL">
-                    <h3 style="display: inline"><b>.slack.com</b></h3><br>
-                    <div class="errorMessage">
-                        {{validationErrors}}
-                    </div>
-                    <button type="submit">Continue <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-                    <p>Don't have ateam yet? <a href="#!/createteam">Create a team</a></p>
-                </form>
-            </div>
-        </div>
-        <div id="footer"></div>
+  <div id="container">
+    <div id="header">
+      <div class="float-left">Slack</div>
+      <div class="float-right">Product</div>
+      <div class="float-right">Pricing</div>
+      <div class="float-right">Support</div>
+      <div class="float-right">Your Teams</div>
     </div>
+    <div id="content">
+      <div id="login-box" class="align-middle drop-shadow">
+        <form ng-submit="findTeam()">
+          <h2>Sign in to your team</h2>
+          <p>Enter your team's <b>Slack URL.</b></p>
+          <input type="text" name="slack-url" placeholder="your-team-url" ng-model="team.URL">
+          <h3 style="display: inline"><b>.slack.com</b></h3><br>
+          <div class="errorMessage">
+            {{validationErrors}}
+          </div>
+          <button type="submit">Continue <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+          <p>Don't have ateam yet? <a href="#!/createteam">Create a team</a></p>
+        </form>
+      </div>
+    </div>
+    <div id="footer"></div>
+  </div>
 </body>
 
 </html>
