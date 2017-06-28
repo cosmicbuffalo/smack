@@ -5,7 +5,7 @@ var app = require('./modules/app.js')
 //set up factories
 require('./factories/userFactory.js')(app)
 
-// require('./factories/message.js')(app)
+require('./factories/teamFactory.js')(app)
 
 
 
