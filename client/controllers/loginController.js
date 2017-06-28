@@ -25,23 +25,25 @@ module.exports = function (app) {
     }
 
     $scope.checkEmail = function () {
-      if (!teamFactory.checkEmail($scope.email)) {
+      if (!teamFactory.checkEmail($scope.persona.email)) {
         $scope.validationErrors = "Email not found, please ask for an invite";
       } else {
         $scope.foundEmail = $scope.email;
       }
     }
 
-    //login persona to TEAM 
+    //login persona to TEAM
     $scope.login = function () {
       //angular stuff to only fire off the function if the form is valid and submitted. could be tweaked
-      $scope.submitted = true;
-      if ($scope.loginForm.$valid) {
-        console.log($scope.persona);
-        userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
-      } else {
-        console.log("didnt pass ng validations ")
-      }
+      // $scope.submitted = true;
+      // if ($scope.loginForm) {
+      //   console.log($scope.persona);
+      //   userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
+      // } else {
+      //   console.log("didnt pass ng validations ")
+      // }
+      console.log($scope.persona);
+      userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
     }
   })
 

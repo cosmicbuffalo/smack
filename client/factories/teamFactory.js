@@ -26,18 +26,25 @@ module.exports = function (app) {
     });
   }
 
-  factory.checkEmail = function(email, callback){
+  factory.checkEmail = function(email){
+    console.log("Received email:", email)
     if (!factory.team){
       console.log("There is no team in the factory")
-      errorHandler("NO TEAM IN FACTORY")
+      // errorHandler("NO TEAM IN FACTORY")
       return false
     } else {
       var personas = factory.team.personas
       console.log("Checking emails of each persona")
       for(var x = 0; x < personas.length; x++){
-        if (personas[x]._user.email == email){
-          return true
+        console.log(personas[x]._user)
+        if (personas[x]._user){
+          console.log(personas[x]._user.email, email)
+          if (personas[x]._user.email == email){
+            console.log("Found email match")
+            return true
+          }
         }
+        
       }
       console.log("No email match found in team persona list")
       return false
