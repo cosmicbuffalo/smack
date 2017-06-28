@@ -5,6 +5,7 @@ module.exports = function (app) {
     //gets set from findteam() if the team exists and gets sent to controller to confirm team existence
     factory.teamURL = null;
     factory.currentPersonaId = $cookies.get('currentPersonaId')
+    factory.personaIdLogin = $cookies.get('personaIdLogin')
     //holds currentPersona from getPersona()
     factory.currentPersona = {};
     //holds user object
@@ -60,13 +61,15 @@ module.exports = function (app) {
     }
 
     factory.createPassword = function (postData, callback) {
-      if (factory.currentPersona) {
-        $http.post('/api/personas/' + factory.currentPersona._id, postData).then(function(response){
+      console.log(factory.personaIdLogin)
+
+      if (factory.personaIdLogin) {
+        $http.post('/api/personas/' + factory.personaIdLogin, postData).then(function(response){
           if (!response.data.errors){
             console.log("Got repsponse: ", response.data)
 
           } else {
-            console.log(response.data.errors)
+            console.log(response.data)
           }
           callback();
         })
