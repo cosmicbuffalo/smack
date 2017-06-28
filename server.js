@@ -12,6 +12,8 @@ app.use(express.static(path.join(__dirname, "uploads")));
 app.use(bp.json())
 app.use(bp.urlencoded({extended:true}))
 
+
+
 //run schema to prep database
 require('./server/config/mongoose')
 

@@ -4,6 +4,8 @@ var teams = require('./../controllers/teams')
 var posts = require('./../controllers/posts')
 var channels = require('./../controllers/channels')
 var files = require('./../controllers/files')
+var users = require('./../controllers/users')
+var personas = require('./../controllers/personas')
 
 
 module.exports = function (app) {
@@ -12,12 +14,14 @@ module.exports = function (app) {
 
 
   // ---- USER ROUTES ----
+  app.get('/api/users', users.index)
   // app.post('/api/users/login', users.login)  //will authenticate login and return failure result + errors or success + user object
   // app.post('/api/users', users.create)       //should create new user with email and name, returns user object on success, errors on failure
 
   // // --- PERSONA ROUTES ---
-  // app.post('/api/users/:userId/personas', personas.create)  //should create new persona for specific user, add the persona to the team specified in post data, and return persona object or errors
+  app.post('/api/teams/:teamUrl/personas', personas.create)  //should create new persona for specific team, add the persona to the user specified in post data, and return persona object or errors
   // app.post('/api/personas/:personaId', personas.getPersona)  //get all persona data from id
+  app.post('/api/personas/:personaId', personas.update)
   // // ---- TEAM ROUTES ----
   app.get('/api/teams', teams.index)                   //should return full list of teams
   app.get('/api/teams/:teamUrl', teams.show)           //should return the object for a specific team or errors if not found
@@ -45,7 +49,7 @@ module.exports = function (app) {
   // app.post('/api/posts/:postId/comments/:commentId', comments.update)         //will find comment and update with post data, then return comment object or errors
 
   //---- FILE ROUTES ----
-  app.post('/api/channels/:channelId/files', files.create)        //should take a file in post data and add it to a channel and the database, returns success or failure
+  app.post('/api/files/upload', files.create)        //should take a file in post data and add it to a channel and the database, returns success or failure
   // Object Keys should have:  {'fileUpload': filedata, personaId: data, **EITHER** forProfilePicture: boolean, **OR** channelId: data }
 
 

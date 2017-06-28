@@ -41,10 +41,11 @@ module.exports = function (app) {
           console.log(personas[x]._user.email, email)
           if (personas[x]._user.email == email){
             console.log("Found email match")
+            factory.currentPersona = personas[x]
             return true
           }
         }
-        
+
       }
       console.log("No email match found in team persona list")
       return false
