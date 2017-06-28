@@ -11,6 +11,7 @@ module.exports = function (app) {
 
   //hits api and returns a team url if exists else sends back error
   factory.findTeam = function (team, callback = null, errorHandler = null) {
+    console.log(team);
     var url = team.url;
     $http.get('/api/teams/' + url).then(function (response) {
       console.log(response);
@@ -52,7 +53,8 @@ module.exports = function (app) {
           console.log(personas[x]._user.email, email)
           if (personas[x]._user.email == email){
             console.log("Found email match")
-            factory.currentPersona = personas[x]
+            factory.currentPersona = personas[x];
+            $cookies.put('personaIdLogin', factory.currentPersona._id);
             return true
           }
         }
@@ -62,8 +64,8 @@ module.exports = function (app) {
       return false
     }
   }
-  factory.invite = function (email, callback, errorHandler) {
-     $http.post('api/teams/' + factory.teamURL +  '/invite', {email: email}).then(function(response){
+  factory.invite = function (email, url,callback, errorHandler) {
+     $http.post('api/teams/' + url +  '/invite', {email: email}).then(function(response){
           if (!response.data.error){
             console.log("Got repsponse: ", response.data)
             callback(response.data)
@@ -72,7 +74,6 @@ module.exports = function (app) {
             errorHandler(response.data.error)
           }
         })
-    // /api/teams/:teamUrl/invite
   }
 
   return factory;

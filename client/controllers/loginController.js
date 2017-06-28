@@ -71,7 +71,7 @@ module.exports = function (app) {
       console.log("created invite:", result)
     }
     $scope.invite = function () {
-      teamFactory.invite($scope.invite.email, inviteSuccess, errorHandler);
+      teamFactory.invite($scope.invite.email, $scope.currentTeamURL, inviteSuccess, errorHandler);
     }
 
 
