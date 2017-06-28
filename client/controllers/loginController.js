@@ -20,6 +20,10 @@ module.exports = function(app){
     $location.path("/" + $scope.currentTeamURL + "/messages");
   }
 
+  $scope.findEmail = function () {
+    
+  }
+
   //login persona to TEAM 
   $scope.login = function () {
     //angular stuff to only fire off the function if the form is valid and submitted. could be tweaked
