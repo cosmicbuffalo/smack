@@ -261,7 +261,13 @@
             <form id="search-box" ng-submit="addPost()">
               <a id="add-link" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
               <input type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}">              </input>
-              <a id="emojiselector" class="icon" href="#"><i class="fa fa-smile-o" aria-hidden="true"></i></a>
+              <!--<a id="emojiselector" class="icon" href=""><i class="fa fa-smile-o" aria-hidden="true"></i></a>-->
+              <div class="dropup">
+                <a id="emojiselector" class="icon dropdown-toggle" data-toggle="dropdown" href=""><i class="fa fa-smile-o" aria-hidden="true"></i></a>
+                <ul class="dropdown-menu">
+                  <p>emojis</p>
+                </ul>
+              </div>
             </form>
           </div>
           <div id="notification-bar">

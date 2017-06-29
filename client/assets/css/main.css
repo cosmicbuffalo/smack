@@ -283,6 +283,8 @@ p.compensate-prof-pic span i{
   /*padding: 8px;*/
   /*border-right: 2px solid gray;*/
   font-size: 2em;
+  float: right;
+  margin-right: 20px
 }
 
 #new-post-bar a, #new-post-bar div {
