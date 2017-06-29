@@ -28,6 +28,24 @@ module.exports = function (app) {
     });
   }
 
+  factory.createChannel = function(teamId, channelObj, callback){
+    console.log(channelObj);
+    $http.post('/api/teams/' + teamId + '/channels', channelObj).then(function(res){
+      if(res.data.success){
+        callback()
+        console.log("EVERYTHING WOKRED!")
+      }
+      else{
+        console.log("EVERYTHING FUCKED UP")
+      }
+    })
+    
+  }
+
+
+
+
+
 
   return factory;
 });
