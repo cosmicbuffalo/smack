@@ -122,21 +122,21 @@
         <div id="channel-title-container">
           <h3 id="channel-title">#{{channel.name}}PLACEHOLDER</h3>
           <div id="under-title-strip">
-            <img src="" class="tiny-icon" alt="Star this channel">
+            <img src="./assets/img/startiny.svg" class="tiny-icon" alt="Star this channel">
             <span class="divider">|</span>
             <span class="under-title-link">
-              <img src="" class="tiny-icon" alt="View member list">
+              <img src="./assets/img/avatartiny.svg" class="tiny-icon" alt="View member list">
               {{channel.members.length}}
             </span>
 
             <span class="divider">|</span>
             <span class="under-title-link">
-              <img src="" class="tiny-icon" alt="View pinned items">
+              <img src="./assets/img/push-pintiny.svg" class="tiny-icon" alt="View pinned items">
               {{channel.pinned.length}}
             </span>
             <span class="divider">|</span>
             <span id="topic" ng-if="channel.topic"><a href="#" ng-click="showEditTopic()">{{channel.topic}}</a></span>
-            <span id="topic" ng-if="!channel.topic"><a href="#" ng-click="showEditTopic()">Add topic</a></span>
+            <span id="topic" ng-if="!channel.topic"><a href="#" ng-click="showEditTopic()" style="font-style: italic" ng-mouseenter="show=true" ng-mouseleave="show=false">Add a topic <img src="./assets/img/pencil-outline.svg" class="tiny-icon" alt="pencil outline" ng-show="show"></a></span>
           </div>
         </div>
       </div>
@@ -181,54 +181,68 @@
         </div>
       </div>
     </div>
+
+
+
+
+
     <div id="channel-content">
       <!-- switch the conditional once toggling details is done -->
-      <div id="posts-container" ng-class="{compact:!showDetails}">
-        <div id="channel-info">
-          <h4>{{channel.name}}</h4>
-          <!--{{channel}}-->
-          <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt
-            | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span>
-            <span ng-if="channel.private">private </span> channel. Purpose:<span class="italic">{{channel.purpose}}</span>            (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
-          <p><a href="#!/{{team.url}}/invite" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
-        </div>
+      <div id="channel-container" ng-class="{compact:isChannelDetailsOpen}">
+        <div id="posts-container">
+          <div id="channel-info">
+            <h4>{{channel.name}}</h4>
+            <!--{{channel}}-->
+            <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt
+              | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span>
+              <span
+                ng-if="channel.private">private </span> channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
+            <p><a href="#!/{{team.url}}/invite" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
+          </div>
 
-        <div class="content-chunk" ng-repeat="item in posts track by $index">
-          <!-- the 'posts' array will contain timeline divider objects inserted by the factory as well,
-          so in the repeat here we can just put a conditional to check if each item is an actual post or
-          a timeline divider. I'm just checking for posts by looking for a content attribute,
-          or timeline dividers by their date attribute -->
-          <div class="post" ng-if="item.content">
-            <!--{{item}}-->
-            <!--{{item._persona}}-->
-            <img class="profile-pic" src="{{item._persona.profile_pic.file_path || 'https://ca.slack-edge.com/T2Q9DHVCM-U4MGD9BFY-ga4addff983f-48'}}"
-              alt="{{item._persona.username}}" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
-            <div class="post-content-container">
-              <label class="post-info-line" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
-                <span class="post-author">{{item._persona.username}}</span>
-                <span class="gray-text post-time">{{item.createdAt | date:"h:mm a"}}</span>
-              </label>
-              <p ng-class="{notification:item.notification, 'compensate-prof-pic':(posts[$index - 1] && posts[$index - 1]._persona._id == item._persona._id)}">{{item.content}}</p>
+          <div class="content-chunk" ng-repeat="item in posts track by $index">
+            <!-- the 'posts' array will contain timeline divider objects inserted by the factory as well,
+            so in the repeat here we can just put a conditional to check if each item is an actual post or
+            a timeline divider. I'm just checking for posts by looking for a content attribute,
+            or timeline dividers by their date attribute -->
+            <div class="post" ng-if="item.content">
+              <!--{{item}}-->
+              <!--{{item._persona}}-->
+              <img class="profile-pic" src="{{item._persona.profile_pic.file_path || 'https://ca.slack-edge.com/T2Q9DHVCM-U4MGD9BFY-ga4addff983f-48'}}"
+                alt="{{item._persona.username}}" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
+              <div class="post-content-container">
+                <label class="post-info-line" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
+                  <span class="post-author">{{item._persona.username}}</span>
+                  <span class="gray-text post-time">
+                    {{item.createdAt | date:"h:mm a"}}
+                    <i class="info-line-star fa fa-star-o"></i>
+                  </span>
+                </label>
+                <p ng-class="{notification:item.notification, 'compensate-prof-pic':(posts[$index - 1] && posts[$index - 1]._persona._id == item._persona._id)}">
+                  <span class="gray-text post-time" ng-if="(posts[$index - 1] && posts[$index - 1]._persona._id == item._persona._id)">{{item.createdAt | date:"h:mm"}} <i class="fa fa-star-o"></i></span>                  {{item.content}}
+                </p>
+              </div>
+            </div>
+            <div class="timeline-divider" ng-if="item.date">
+              <!--{{item}}-->
+              <label class="timeline-label">{{item.date | date:"MMM d"}}</label>
             </div>
           </div>
-          <div class="timeline-divider" ng-if="item.date">
-            <!--{{item}}-->
-            <label class="timeline-label">{{item.date | date:"MMM d"}}</label>
-          </div>
-        </div>
 
-        <div id="new-post-bar">
-          <!-- will be fixed at the bottom of the container-->
-          <form id="search-box" ng-submit="addPost()">
-            <a id="add-link" href="#">+</a>
-            <input type="text" name="new-post-content" ng-model="newPost.content">
-            <a id="emoji selector" class="icon" href="#">:)</a>
-          </form>
+        </div>
+        <div id="bottom-bar-container">
+          <div id="new-post-bar">
+            <!-- will be fixed at the bottom of the container-->
+            <form id="search-box" ng-submit="addPost()">
+              <a id="add-link" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+              <input type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}"> </input>
+              <a id="emojiselector" class="icon" href="#"><i class="fa fa-smile-o" aria-hidden="true"></i></a>
+            </form>
+          </div>
           <div id="notification-bar">
             PLACEHOLDER is typing...
           </div>
         </div>
-
       </div>
       <!-- switch the conditional once toggling details is done -->
       <div id="channel-details" ng-class="{hidden:!isChannelDetailsOpen}" ng-init="isChannelDetailsOpen = true">
@@ -249,9 +263,7 @@
               </h4>
             </div>
             <div id="collapse1" class="panel-collapse collapse in">
-              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.
+              <div class="panel-body">Purpose {{channel.purpose}} Created by {{}} on {{}}
               </div>
             </div>
           </div>
@@ -264,9 +276,8 @@
               </h4>
             </div>
             <div id="collapse2" class="panel-collapse collapse">
-              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.
+              <div class="panel-body">No items have been pinned yet! Open the context menu on important messages or files and choose Pin to {{team.channel}}channel
+                … to stick them here.
               </div>
             </div>
           </div>
@@ -279,9 +290,8 @@
               </h4>
             </div>
             <div id="collapse3" class="panel-collapse collapse">
-              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.
+              <div class="panel-body">
+                <p><a href="#!/{{team.url}}/invite" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
               </div>
             </div>
           </div>
