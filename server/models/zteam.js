@@ -24,7 +24,7 @@ teamSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref : "Channel"
     }]
-})
+}, {timestamps : true})
 //---------------------- Presave Create channels  (general and random)------------------
 teamSchema.pre('save', function(done){
   if (this.isNew){

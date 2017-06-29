@@ -88,8 +88,7 @@
       <div id="posts-container" ng-class="{compact:!showDetails}">
         <div id="channel-info">
           <h4>{{channel.name}}</h4>
-          <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt}}
-            <!-- Need to format date-->. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>            channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
+          <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>            channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
           <p><a href="#" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
         </div>
 
@@ -99,18 +98,18 @@
           a timeline divider. I'm just checking for posts by looking for a content attribute,
           or timeline dividers by their date attribute -->
           <div class="post" ng-if="item.content">
+            <!--{{item}}-->
             <img class="profile-pic" src="{{item._persona.profile_pic.file_path}}" alt="{{item._persona.username}}">
             <div class="post-content-container">
               <label class="post-info-line">
                 <span class="post-author">{{item._persona.username}}</span>
-                {{item.createdAt}} <!-- Need to format date-->
+                {{item.createdAt | date:"h:mm a"}}
               </label>
               <p ng-class="{notification:item.notification}">{{item.content}}</p>
             </div>
           </div>
           <div class="timeline-divider" ng-if="item.date">
-            <label class="timeline-label">{{item.date}}</label>
-            <!-- Need to format date-->
+            <label class="timeline-label">{{item.date | date:"MMM d"}}</label>
           </div>
         </div>
 

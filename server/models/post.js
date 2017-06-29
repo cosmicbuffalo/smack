@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     Comment = mongoose.model('Comment'),
     File = mongoose.model('File')
-    
+
 
 
 
@@ -18,32 +18,32 @@ postSchema = new mongoose.Schema ({
     },
 
     _persona : {
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : "Persona",
         required : true
     },
 
     _channel : {
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : "Channel",
         required : true
     },
     // post does not require user to upload a file each time.
     _file : {
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : "File",
         required : false
     },
 
     // personas can comment on these Posts
     comments : [{
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : "Comment"
     }]
 
 
 
-})
+}, {timestamps : true})
 
 postSchema.pre('remove', function(next){
      // Remove all the assignment docs that reference the removed post.

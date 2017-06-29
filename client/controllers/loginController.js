@@ -33,10 +33,10 @@ module.exports = function (app) {
         $scope.validationErrors = "Email not found, please ask for an invite";
       } else {
         $scope.foundEmail = $scope.email;
-        if (teamFactory.currentPersona.password) {
-
-        } else {
+        if (!teamFactory.currentPersona.password || !teamFactory.currentPersona.username) {
           $('#myModal').modal('show');
+        } else {
+          
         }
       }
     }
@@ -64,7 +64,11 @@ module.exports = function (app) {
 
     //AFTER SUCCESSFUL EMAIL CHECK IF NO PASSWORD
     $scope.createPassword = function () {
-      userFactory.createPassword({ password: $scope.password.password }, modalCloser)
+      var postData = { password: $scope.password.password }
+      if ($scope.password.username){
+        postData.username = $scope.password.username
+      }
+      userFactory.createPassword(postData, modalCloser)
     }
     var inviteSuccess = function (result) {
       $scope.successMessages = result;
