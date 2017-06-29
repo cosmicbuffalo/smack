@@ -362,6 +362,14 @@
             </div>
             <div id="collapse3" class="panel-collapse collapse">
               <div class="panel-body">
+                <div ng-repeat="i in [1, 2, 3, 4]">
+                  <img class="profile-pic-channel-details" src="{{item._persona.profile_pic.file_path || 'https://ca.slack-edge.com/T2Q9DHVCM-U4MGD9BFY-ga4addff983f-48'}}"
+                    alt="{{item._persona.username}}">
+                  <span class="username-channel-details" id="availability-username">placeholder{{member.username}}</span>
+                  <i class="fa fa-circle circle-channel-details" aria-hidden="true"></i>
+                </div>
+
+
                 <p><a href="" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
               </div>
             </div>
