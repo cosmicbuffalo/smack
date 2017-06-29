@@ -5,12 +5,15 @@
 
 
 
-  <div id="left-sidebar" ng-controller= "sidebarController">
+  <div id="left-sidebar" ng-controller="sidebarController">
     <div id="team-menu" ng-click="openMainMenu()">
       <div>
-        <span id="team-name">{{team.name}}</span>
-        <a href="#" ng-click="notificationsMenu()">
-          <img src="" id="notifications-icon" class="icon" alt="Notifications icon">
+        <div class="team-name-container">
+          <span id="team-name" class="overflow_ellipsis">{{team.name}}</span>
+        </div>
+        <a href=""><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+        <a href="#" ng-click="notificationsMenu()" class="bell-icon">
+          <i class="fa fa-bell-o fa fa-bold" aria-hidden="true" class="bell-icon"></i>
         </a>
       </div>
       <span class="availability-icon">0</span>
@@ -45,10 +48,7 @@
       <div id="side-nav-search">
         <img src="" class="icon" alt="Jump to Conversation">
       </div>
-
     </div>
-    {{test}}
-
   </div>
 
 
@@ -98,15 +98,40 @@
       </div>
       <div id="header-right">
         <div id="left-buttons-container">
-          <img src="./assets/img/settings.svg" class="icon" alt="Settings">
+          <div class="dropdown">
+            <a class=" dropdown-toggle" data-toggle="dropdown"><img src="./assets/img/settings.svg" class="icon" alt="Settings"></a>
+            <ul class="dropdown-menu pull-right">
+              <li><a href="">Jump to date ...</a></li>
+              <li><a href="">Invite team members to join ...</a></li>
+              <li><a href="">View channel details</a></li>
+              <li><a href="">Additional options ...</a></li>
+              <li class="divider"></li>
+              <li><a href="">Notification preferences ...</a></li>
+              <li><a href="">Mute {{channel.name}} ...</a></li>
+              <li class="divider"></li>
+              <li><a href="">Add an app or integration</a></li>
+              <li class="divider"></li>
+              <li><a href="">Leave {{channel.name}}</a></li>
+            </ul>
+          </div>
           <img src="./assets/img/sidebar.svg" class="icon" alt="Show Details" ng-click="isChannelDetailsOpen = !isChannelDetailsOpen">
         </div>
         <div id="details-width-matcher">
-          <input id="search-bar" type="search" ng-model="searchQeury" class="form-control">
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span><input id="search-bar" type="search" ng-model="searchQuery" class="form-control" placeholder="Search"></input>
           <div id="right-buttons-container">
             <img src="./assets/img/arroba.svg" class="icon" alt="Show Activity">
             <img src="./assets/img/star.svg" class="icon" alt="Show Starred Items">
-            <img src="./assets/img/showmore.svg" class="icon" alt="More Items">
+            <div class="dropdown">
+              <a class=" dropdown-toggle" data-toggle="dropdown"><img src="./assets/img/showmore.svg" class="icon dropdown-toggle" alt="More Items"></a>
+              <ul class="dropdown-menu pull-right">
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">Your Files</li>
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">All Files</li>
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">Team Directory</li>
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">Help</li>
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">What's New</li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </div>
@@ -118,7 +143,7 @@
           <h4>{{channel.name}}</h4>
           <!--{{channel}}-->
           <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>            channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
-          <p><a href="#" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
+          <p><a href="#!/{{team.url}}/invite" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
         </div>
 
         <div class="content-chunk" ng-repeat="item in posts track by $index">
@@ -160,9 +185,10 @@
       <!-- switch the conditional once toggling details is done -->
       <div id="channel-details" ng-class="{hidden:!isChannelDetailsOpen}" ng-init="isChannelDetailsOpen = true">
         <div id="details-top-section" class="details-section">
-          <h3>About {{channel.name}}</h3>
+          <h3>About  #{{channel.name}}</h3>
           <!--<a href="#" ng-click="closeChannelDetails()">(X)</a>-->
-          <img class="icon" src="./assets/img/cancel.svg" alt="Channel Details Icon" ng-click="isChannelDetailsOpen = false">
+          <!--<img class="icon" src="./assets/img/cancel.svg" alt="Channel Details Icon" ng-click="isChannelDetailsOpen = false">-->
+          <button type="button" class="close" aria-label="Close" ng-click="isChannelDetailsOpen = false"><span aria-hidden="true">&times;</span></button>
         </div>
 
         <div class="panel-group" id="accordion">
