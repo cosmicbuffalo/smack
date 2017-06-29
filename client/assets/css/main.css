@@ -73,10 +73,12 @@ body, #view, #wrapper {
 }
 
 .tiny-icon {
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
 }
-
+#under-title-strip{
+  font-weight: 300;
+}
 #header-left {
   display: flex;
 }
@@ -259,13 +261,13 @@ div[ng-message], .errorMessage {
 }
 
 #details-width-matcher .form-control {
-  width: 255px;
+  width: 253px;
   display: inline-block;
   padding-left: 30px;
 }
 .glyphicon-search {
     margin-right:-25px; 
-    margin-left:25px; 
+    margin-left:15px; 
 }
 
 #details-top-section h3 {
@@ -366,6 +368,15 @@ label {
 .bell-icon {
   vertical-align: top;
 }
+#topic {
+  /*border: 1px solid #797a7c;*/
+  border-radius: 5px;
+  padding: 1px 3px;
+  width: 70px;
+}
+a, u {
+    text-decoration: none !important;
+}
 
 
 @media screen and (max-width: 1365px) {
@@ -373,7 +384,7 @@ label {
     width: 315px;
   }
   #details-width-matcher .form-control {
-  width: 200px;;
+  width: 199px;;
   display: inline-block;
 }
 }

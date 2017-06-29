@@ -78,21 +78,21 @@
         <div id="channel-title-container">
           <h3 id="channel-title">#{{channel.name}}PLACEHOLDER</h3>
           <div id="under-title-strip">
-            <img src="" class="tiny-icon" alt="Star this channel">
+            <img src="./assets/img/startiny.svg" class="tiny-icon" alt="Star this channel">
             <span class="divider">|</span>
             <span class="under-title-link">
-              <img src="" class="tiny-icon" alt="View member list">
+              <img src="./assets/img/avatartiny.svg" class="tiny-icon" alt="View member list">
               {{channel.members.length}}
             </span>
 
             <span class="divider">|</span>
             <span class="under-title-link">
-              <img src="" class="tiny-icon" alt="View pinned items">
+              <img src="./assets/img/push-pintiny.svg" class="tiny-icon" alt="View pinned items">
               {{channel.pinned.length}}
             </span>
             <span class="divider">|</span>
             <span id="topic" ng-if="channel.topic"><a href="#" ng-click="showEditTopic()">{{channel.topic}}</a></span>
-            <span id="topic" ng-if="!channel.topic"><a href="#" ng-click="showEditTopic()">Add topic</a></span>
+            <span id="topic" ng-if="!channel.topic"><a href="#" ng-click="showEditTopic()" style="font-style: italic" ng-mouseenter="show=true" ng-mouseleave="show=false">Add topic<img src="./assets/img/pencil-outline.svg" class="tiny-icon" alt="pencil outline" ng-show="show"></a></span>
           </div>
         </div>
       </div>
