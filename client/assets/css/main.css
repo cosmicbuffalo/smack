@@ -126,6 +126,8 @@ body, #view, #wrapper {
   width: 20px;
   height: 20px;
   margin: 0px 8px;
+  font-weight: bold;
+  stroke-width: 10
 }
 
 .icon:hover {
@@ -146,6 +148,9 @@ body, #view, #wrapper {
 }
 
 #channel-title-container h3 {
+  font-weight: 700;
+  font-size: 16px;
+  color: black;
   margin: 0px;
 }
 
@@ -217,6 +222,7 @@ body, #view, #wrapper {
   margin-bottom: 20px;
   margin-left: 20px
 }
+
 #notification-bar {
   position: absolute;
   bottom: 5px;
