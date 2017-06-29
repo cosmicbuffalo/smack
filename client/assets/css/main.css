@@ -282,9 +282,29 @@ p.compensate-prof-pic span i{
   /* background: gray; */
   /*padding: 8px;*/
   /*border-right: 2px solid gray;*/
-  font-size: 2em;
+  /*font-size: 2em;
   float: right;
-  margin-right: 20px
+  margin-right: 20px*/
+}
+.dropup a  {
+  /*bottom: 30px !important;*/
+  /*left: 1233px;*/
+  /* background: gray; */
+  /*padding: 8px;*/
+  /*border-right: 2px solid gray;*/
+  font-size: 2em;
+  line-height: 50px;
+  margin-right: -160px;
+  /*margin-bottom: 5px;*/
+  /*position: absolute !important;*/
+    right: 50;
+    top: 10;
+  color: rgba(0,0,0,.35);
+}
+#bottom-bar-container .dropdown-menu{
+  padding: 20px;
+  width: 200px !important;
+  height: 200px !important
 }
 
 #new-post-bar a, #new-post-bar div {
