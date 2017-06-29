@@ -8,9 +8,12 @@
   <div id="left-sidebar" ng-controller= "sidebarController">
     <div id="team-menu" ng-click="openMainMenu()">
       <div>
-        <span id="team-name">{{team.name}}</span>
-        <a href="#" ng-click="notificationsMenu()">
-          <img src="" id="notifications-icon" class="icon" alt="Notifications icon">
+        <div class="team-name-container">
+          <span id="team-name" class="overflow_ellipsis">{{team.name}}</span>
+        </div>
+        <a href=""><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+        <a href="#" ng-click="notificationsMenu()" class="bell-icon">
+          <i class="fa fa-bell-o fa fa-bold" aria-hidden="true" class="bell-icon"></i>
         </a>
       </div>
       <span class="availability-icon">0</span>
@@ -45,10 +48,7 @@
       <div id="side-nav-search">
         <img src="" class="icon" alt="Jump to Conversation">
       </div>
-
     </div>
-    {{test}}
-
   </div>
 
 
