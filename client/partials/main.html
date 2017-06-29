@@ -149,17 +149,16 @@
         <div id="channel-title-container">
           <h3 id="channel-title">#{{channel.name}}</h3>
           <div id="under-title-strip">
-            <img src="./assets/img/startiny.svg" class="tiny-icon" alt="Star this channel">
+            <i class="info-line-star fa fa-star-o"></i>
             <span class="divider">|</span>
             <span class="under-title-link">
-              <img src="./assets/img/avatartiny.svg" class="tiny-icon" alt="View member list">
-              {{channel.members.length}}
+              <i class="fa fa-user-o" aria-hidden="true"> {{channel.members.length}}</i>
+              
             </span>
 
             <span class="divider">|</span>
             <span class="under-title-link">
-              <img src="./assets/img/push-pintiny.svg" class="tiny-icon" alt="View pinned items">
-              {{channel.pinned.length}}
+              <i class="fa fa-thumb-tack" aria-hidden="true"> 0{{channel.pinned.length}}</i>
             </span>
             <span class="divider">|</span>
             <span id="topic" ng-if="channel.topic"><a href="#" ng-click="showEditTopic()">{{channel.topic}}</a></span>

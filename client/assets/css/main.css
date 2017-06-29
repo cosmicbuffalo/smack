@@ -138,6 +138,27 @@ p.compensate-prof-pic span{
   color:#ffcc00;
   cursor: pointer;
 }
+#top-bar .fa-star-o:hover{
+  color:#ffcc00;
+  cursor: pointer;
+}
+#top-bar i{
+  margin-top: 7px;
+}
+#top-bar .fa-user-o:hover, #top-bar .fa-thumb-tack:hover{
+  color:#1987bf;
+  font-weight: bold;
+  cursor: pointer;
+}
+#top-bar .fa-star-o:before {
+  vertical-align: middle;
+  font-size: 1.2em;
+}
+#top-bar .fa-user-o:before {
+  vertical-align: middle;
+  font-size: 1.1em;
+}
+
 .post i.info-line-star{
   font-weight: 600;
   font-size: 1.1em;
