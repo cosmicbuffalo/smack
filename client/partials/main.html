@@ -142,7 +142,7 @@
         <div id="channel-info">
           <h4>{{channel.name}}</h4>
           <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>            channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
-          <p><a href="#" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
+          <p><a href="#!/{{team.url}}/invite" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
         </div>
 
         <div class="content-chunk" ng-repeat="item in posts">
