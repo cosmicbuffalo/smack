@@ -36,7 +36,7 @@ module.exports = function (app) {
         if (!teamFactory.currentPersona.password || !teamFactory.currentPersona.username) {
           $('#myModal').modal('show');
         } else {
-          
+          $scope.successMessages = "Found Email Match, please enter your password";
         }
       }
     }

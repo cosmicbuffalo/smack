@@ -61,12 +61,15 @@
           <form ng-submit="createPassword()" name="passwordForm" novalidate>
             <div class="form-group">
               <label>Username</label>
-              <input type="text" class="form-control" ng-model="password.username" placeholder="username" name="username" ng-pattern="/^(?=\w{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/" required/>
+              <input type="text" class="form-control" ng-model="password.username" placeholder="username" name="username" ng-pattern="/^(?=\w{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/"
+                required/>
               <div ng-messages="passwordForm.username.$error">
                 <div ng-message="pattern">Username can only contain letters, numbers or underscores and must be between 4 and 20 characters long</div>
               </div>
             </div>
-
+            <div class="successrMessage">
+              {{successMessages}}
+            </div>
             <div class="form-group">
               <label>Password</label>
               <input type="password" class="form-control" ng-model="password.password" placeholder="password" name="password" ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/"
@@ -84,7 +87,6 @@
                 <div ng-message="compareTo">Please make sure you're passwords match</div>
               </div>
             </div>
-            
             <div class="errorMessage">
               {{validationErrors}}
             </div>

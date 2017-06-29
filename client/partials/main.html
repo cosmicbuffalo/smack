@@ -9,9 +9,32 @@
     <div id="team-menu" ng-click="openMainMenu()">
       <div>
         <div class="team-name-container">
-          <span id="team-name" class="overflow_ellipsis">{{team.name}}</span>
+          <!--<a href="" class="dropdown"></a>-->
+          <div class="dropdown">
+            <a class=" dropdown-toggle" data-toggle="dropdown"><span id="team-name" class="overflow_ellipsis">{{team.name}}</span></a>
+            <ul class="dropdown-menu pull-left">
+              <li><a href="">avatar and name</a></li>
+              <li><a href="">Set a status</a></li>
+              <li><a href="">Profile & account</a></li>
+              <li><a href="">Preferences</a></li>
+              <li><a href="">Set yourself to <b>away</b></a></li>
+              <li><a href="">Help and feedback</a></li>              
+              <li class="divider"></li>
+              <li><a href="">Channel avatar and name</a></li>
+              <li><a href="">Invite people</a></li>
+              <li><a href="">Apps & integrations</a></li>
+              <li><a href="">Customize Smack</a></li>
+              <li><a href="">Statistics</a></li>
+              <li><a href="" ng-click="logOut()">Sign out of <b>{{team.name}}</b></a></li>
+              <li class="divider"></li>
+              <li><a href="" ng-click="changeTeam()">Switch to <b>another team name{{}}</b></a></li>
+              <li><a href="">Sign into another team ...</a></li>
+              <li class="divider"></li>
+              <li><a href="">Open the Smack App <img src="./assets/img/diagonal-arrow.svg" class="tiny-icon" alt="View pinned items"></a></li>
+            </ul>
+          </div>
         </div>
-        <a href="" class="dropdown"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+        <i class="fa fa-angle-down" aria-hidden="true"></i>
         <a href="#" ng-click="notificationsMenu()" class="bell-icon">
           <i class="fa fa-bell-o" aria-hidden="true" class="bell-icon"></i>
         </a>
@@ -87,7 +110,7 @@
             <p>Channels you can join (though some are private!)</p>
             <ul>
               <li ng-repeat="channel in team.channels">
-                
+
               </li>
 
             </ul>
@@ -202,8 +225,7 @@
             <!--{{channel}}-->
             <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt
               | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span>
-              <span
-                ng-if="channel.private">private </span> channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
+              <span ng-if="channel.private">private </span> channel. Purpose:<span class="italic">{{channel.purpose}}</span>              (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
             <p><a href="#!/{{team.url}}/invite" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
           </div>
 
@@ -242,7 +264,7 @@
             <!-- will be fixed at the bottom of the container-->
             <form id="search-box" ng-submit="addPost()">
               <a id="add-link" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-              <input type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}"> </input>
+              <input type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}">              </input>
               <a id="emojiselector" class="icon" href="#"><i class="fa fa-smile-o" aria-hidden="true"></i></a>
             </form>
           </div>

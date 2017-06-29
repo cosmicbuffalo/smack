@@ -35,11 +35,18 @@ body, #view, #wrapper {
 }
 
 #team-name {
-  font-size: 20px;
+  font-size: 18px;
   color: white;
-  font-weight: 500;
+  font-weight: 600;
 }
+#team-name:hover {
+  cursor: pointer;
+}
+div.dropdown{
+  padding: 0px !important;
+  margin: 0px !important;
 
+}
 .overflow-text {
   overflow: hidden;
   white-space: nowrap;
@@ -526,10 +533,6 @@ label {
   width: 146px;
 }
 
-#team-name {
-  font-size: 16px;
-  font-weight: 600;
-}
 
 .bell-icon {
   padding-left: 10px;
