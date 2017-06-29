@@ -19,6 +19,7 @@
     "angular-route": "^1.6.4",
     "angular-cookies": "^1.6.4",
     "jquery": "^3.2.1",
-    "angular-messages": "^1.6.4"
+    "angular-messages": "^1.6.4",
+    "bootstrap-toggle": "^2.2.2"
   }
 }

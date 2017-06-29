@@ -17,23 +17,21 @@
         </a>
       </div>
       <i class="fa fa-circle" aria-hidden="true"></i>
-      <span id="availability-username">{{persona.username}}persona_username</span>
-
-
+      <span id="availability-username">{{persona.username}}</span>
     </div>
     <div id="nav-column">
       <div class="side-nav-section">
-        <label class="side-nav-section-title">CHANNELS</label>
-        <i class="fa fa-plus-circle" data-toggle="modal" data-target="#addChannelModal" aria-hidden="true"></i>
+        <label class="side-nav-section-title" data-toggle="modal" data-target="#filterChannelModal">CHANNELS</label>
+        <i class="fa fa-plus-circle add-channels" data-toggle="modal" data-target="#addChannelModal" aria-hidden="true"></i>
         <ul>
-          <li class="channel-link" ng-repeat="channel in team.channels">
-            <a href="">{{channel.name}}</a>
+          <li class="channel-link overflow_ellipsis" ng-repeat="channel in team.channels">
+            <i class="fa fa-hashtag" aria-hidden="true"></i> {{channel.name}}
           </li>
         </ul>
       </div>
       <div class="side-nav-section">
         <label class="side-nav-section-title">DIRECT MESSAGES</label>
-        <img src="" class="add-icon icon" alt="Open a Direct Message">
+        <i class="fa fa-plus-circle add-Dm" data-toggle="modal" data-target="#addDmModal" aria-hidden="true"></i>
         <ul>
           <li class="direct-message-link" ng-repeat="dm in team.dms">
             <a href="">
@@ -49,19 +47,52 @@
         <img src="" class="icon" alt="Jump to Conversation">
       </div>
     </div>
-    <div class="modal fade" id="addChannelModal" role="dialog">
+    <!--Add Channel Modal-->
+    <div class="modal fade sidebar-modal-styles" id="addChannelModal" role="dialog">
       <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            
-          </div>
-          <div class="model-content">
-            <h3><b>Create a channel</b></h3>
+        <div id="modal-exit" data-dismiss="modal">
+          <i class="fa fa-times grey-escape" aria-hidden="true"></i><br>
+          <span class="grey-escape">esc</span>
+        </div>
+        <div class="model-content create-channel-modal">
+          <div class="create-channel-content">
+            <h1><b>Create a<span>{{publicOrPrivate}}</span> channel</b></h1>
             <p>Channels are where your team communicates. They're best when organized around a topic - #leads, for example.</p>
-            fdfdasfdsafjdklsfjads;fkldas;
+            <form ng-submit="clicked(channelObj)">
+
+              <input type="checkbox" id="channel-option" data-toggle="toggle" data-onstyle="warning" data-offstyle="success" class="channel-toggle">
+              <span>{{publicOrPrivateDesription}}</span>
+              <input type="text" ng-model="channelObj.teamName" class="form-control " placeholder="e.g. leads">
+              <p>Names must be lowercase, without spaces or periods, and shorter than 22 characters</p>
+              <label>Purpose(optional)</label><br>
+              <input type="text" ng-model="channelObj.purpose" class="form-control">
+              <p>What's this channel about?</p>
+              <button type="submit" class="btn btn-default btn-grn btn-lg btn-block taller">Create Channel</button>
+            </form>
           </div>
+        </div>
       </div>
     </div>
+    <!--Filter Channel Model-->
+    <div class="modal fade sidebar-modal-styles" id="filterChannelModal" role="dialog">
+      <div class="modal-content">
+        <div id="modal-exit" data-dismiss="modal">
+          <i class="fa fa-times grey-escape" aria-hidden="true"></i><br>
+          <span class="grey-escape">esc</span>
+        </div>
+        <div class="model-content create-channel-modal">
+          <div class="create-channel-content">
+            <h1><b>Browse all Channels</b></h1>
+            <input type="text" placeholder="Search channels" class="form-control" ng-model="browseChannels">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
   </div>
 
 
@@ -130,7 +161,8 @@
           <img src="./assets/img/sidebar.svg" class="icon" alt="Show Details" ng-click="isChannelDetailsOpen = !isChannelDetailsOpen">
         </div>
         <div id="details-width-matcher">
-          <span class="glyphicon glyphicon-search" aria-hidden="true"></span><input id="search-bar" type="search" ng-model="searchQuery" class="form-control" placeholder="Search"></input>
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span><input id="search-bar" type="search" ng-model="searchQuery"
+            class="form-control" placeholder="Search"></input>
           <div id="right-buttons-container">
             <img src="./assets/img/arroba.svg" class="icon" alt="Show Activity">
             <img src="./assets/img/star.svg" class="icon" alt="Show Starred Items">
@@ -155,7 +187,9 @@
         <div id="channel-info">
           <h4>{{channel.name}}</h4>
           <!--{{channel}}-->
-          <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>            channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
+          <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt
+            | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span>
+            <span ng-if="channel.private">private </span> channel. Purpose:<span class="italic">{{channel.purpose}}</span>            (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
           <p><a href="#!/{{team.url}}/invite" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
         </div>
 
@@ -167,7 +201,8 @@
           <div class="post" ng-if="item.content">
             <!--{{item}}-->
             <!--{{item._persona}}-->
-            <img class="profile-pic" src="{{item._persona.profile_pic.file_path || 'https://ca.slack-edge.com/T2Q9DHVCM-U4MGD9BFY-ga4addff983f-48'}}" alt="{{item._persona.username}}" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
+            <img class="profile-pic" src="{{item._persona.profile_pic.file_path || 'https://ca.slack-edge.com/T2Q9DHVCM-U4MGD9BFY-ga4addff983f-48'}}"
+              alt="{{item._persona.username}}" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
             <div class="post-content-container">
               <label class="post-info-line" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
                 <span class="post-author">{{item._persona.username}}</span>
@@ -198,7 +233,7 @@
       <!-- switch the conditional once toggling details is done -->
       <div id="channel-details" ng-class="{hidden:!isChannelDetailsOpen}" ng-init="isChannelDetailsOpen = true">
         <div id="details-top-section" class="details-section">
-          <h3>About  #{{channel.name}}</h3>
+          <h3>About #{{channel.name}}</h3>
           <!--<a href="#" ng-click="closeChannelDetails()">(X)</a>-->
           <!--<img class="icon" src="./assets/img/cancel.svg" alt="Channel Details Icon" ng-click="isChannelDetailsOpen = false">-->
           <button type="button" class="close" aria-label="Close" ng-click="isChannelDetailsOpen = false"><span aria-hidden="true">&times;</span></button>

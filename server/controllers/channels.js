@@ -5,41 +5,49 @@ var mongoose = require('mongoose'),
   Post = mongoose.model('Post');
 
 
-exports.create = function (req, res) {
+exports.create = function (req, res, next) {
   console.log("Creating new channel with the teamId: " + req.params.teamId);
 
   Team.findOne({ _id: req.params.teamId }, function (teamFindErr, team) {
     if (teamFindErr) {
 
-      res.json({ success: false, message: "Could not find Team with Id: " + req.params.teamId, errors: "No such Team exists!" })
-
+      // res.json({ success: false, message: "Could not find Team with Id: " + req.params.teamId, errors: "No such Team exists!" })
+      next(teamFindErr)
     } else {
-
+      console.log('team found')
       Persona.findOne({ _id: req.body.personaId }, function (personaFindErr, persona) {
 
         if (personaFindErr) {
 
-          res.json({ success: false, message: "Could not find persona with Id: " + req.body.personaId, errors: "No such User exists!" })
-
+          // res.json({ success: false, message: "Could not find persona with Id: " + req.body.personaId, errors: "No such User exists!" })
+          next(personaFindErr)
         } else {
-
+          console.log('persona found')
           var newChannel = new Channel({
             name: req.body.teamName,
             private: req.body.private,
             purpose: req.body.purpose,
             _team: team
           })
-          newChannel._members.push(persona);
+          newChannel.members = [persona];
 
           newChannel.save(function (newChannelSaveErr) {
 
             if (newChannelSaveErr) {
 
-              res.json({ success: false, message: "Could not create new Channel Document in Channel Collection.. The object failed validations ", errors: "Channel Failed to be created!" })
-
+              // res.json({ success: false, message: "Could not create new Channel Document in Channel Collection.. The object failed validations ", errors: "Channel Failed to be created!" })
+              next(newChannelSaveErr)
             } else {
+              team.channels.push(newChannel)
+              team.save(function (teamSaveErr) {
+                if (teamSaveErr) {
+                  next(teamSaveErr)
+                } else {
+                  console.log('working!')
+                  res.json({ success: true, message: "New Channel was created with Id: " + newChannel._id + "with personaId: " + persona._id + " as its first member" })
+                }
+              })
 
-              res.json({ success: true, message: "New Channel was created with Id: " + newChannel._id + "with personaId: " + persona._id + " as its first member" })
             }
           })
         }

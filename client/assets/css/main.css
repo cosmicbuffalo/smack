@@ -463,8 +463,12 @@ label {
 .fa-plus-circle{
   color: #685666;
   font-size: 17px;
+}
+.add-channels{
   margin-left: 99px;
-
+}
+.add-Dm{
+  margin-left: 50px;
 }
 
 .fa-plus-circle:hover{
@@ -474,8 +478,12 @@ label {
 .side-nav-section-title{
   padding-left : 14px;
 }
+.side-nav-section-title:hover{
+  color: #ffffe2;
+  font-style: bold;
+}
 
-#addChannelModal .modal-content{
+.sidebar-modal-styles .modal-content{
     top: 50%;
     left: 50%;
     width: 100%;
@@ -500,4 +508,63 @@ label {
   width: 200px;;
   display: inline-block;
 }
+}
+
+#modal-exit{
+  padding: 14px 16px 5px 16px;
+  border-radius: 60px;
+  display: inline-block;
+  margin-top: 33px;
+  margin-right: 83px; 
+  height: 76px;
+  width: 79px;
+  float: right;
+}
+.grey-escape{
+  color: #717274
+
+}
+.fa-times{
+  font-size: 30px;
+}
+
+#modal-exit:hover{
+  background-color: #e8e8e8
+}
+
+.create-channel-modal{
+    padding-top: 96px;
+    color: black;
+}
+.create-channel-content{
+  text-align: left;
+  margin-left: 8%;
+  display: inline-block;
+}
+
+.toggle{
+  width: 100px !important;
+  border-radius: 30px;
+  margin-bottom: 10px;
+}
+.toggle-handle {
+  border-radius: 30px;
+  padding: 0px 32px;
+}
+.toggle-on.btn{
+  padding-right:50px !important;
+}
+
+.fa-hashtag{
+  font-size: 12px;
+  font-style: oblique;
+}
+.channel-link{
+  list-style-type: none;
+  padding-left: 14px;
+  width: 90%;
+}
+
+.channel-link:hover{
+  background-color: #3e313c
 }
