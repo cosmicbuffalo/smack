@@ -5,9 +5,13 @@ module.exports = function (app) {
     $scope.persona = {}
 
     $scope.team = {}
+  
 
     $scope.channel = {}
 
+    $scope.channels = null;
+    $scope.channelInvite = null;
+    
 
     $scope.posts = []
 
@@ -71,7 +75,13 @@ module.exports = function (app) {
     }
 
     $scope.inviteToChannel = function () {
+      $scope.channels = teamFactory.team.channels;
+      console.log($scope.channels)
       $('#channelInviteModal').modal('show');
+    }
+    $scope.inviteToChannelSubmit = function () {
+      
+      $('#channelInviteModal').modal('hide');
     }
   })
 

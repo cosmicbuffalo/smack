@@ -371,6 +371,20 @@
           <h4 class="modal-title" id="myModalLabel">Invite to Channel {{}}</h4>
         </div>
         <div class="modal-body">
+          <form ng-submit="inviteToChannelSubmit()">
+            <p>Enter invite <b>email address</b></p>
+            <input class="form-control taller" type="text" name="email" placeholder="you@example.com" ng-model="channelInvite.email"><br>
+            <select name="repeatSelect" id="selectChannelInvite" ng-model="channelInvite.channel">
+            <option ng-repeat="channel in channels" value="{{channel._id}}">{{channel.name}}</option>
+          </select>
+            <div class="errorMessage">
+              {{validationErrors}}
+            </div>
+            <div class="successMessage">
+              {{successMessages.success}} {{successMessages.message}} {{successMessages.persona}}
+            </div>
+            <button type="submit" class="btn btn-default btn-grn btn-lg btn-block taller">Invite</button><br>
+          </form>
         </div>
       </div>
     </div>
