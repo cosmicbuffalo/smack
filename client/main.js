@@ -17,7 +17,7 @@ require('./factories/channelFactory.js')(app)
 require('./controllers/findTeamController.js')(app)
 
 require('./controllers/loginController.js')(app)
-
+require('./controllers/sidebarController.js')(app)
 // require('./controllers/users.js')(app)
 
 require('./controllers/mainController.js')(app)

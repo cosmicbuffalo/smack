@@ -8,7 +8,9 @@ module.exports = function (app) {
 
     $scope.channel = {}
 
+
     $scope.posts = []
+
 
     $scope.newPost = {}
 

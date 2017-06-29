@@ -41,9 +41,9 @@ var storage = multer.diskStorage({
 
 
                 if (req.body.channelId) {
-                    console.log("--------------------channelId if hit!-----------------")
+
                     Channel.findOne({ _id: req.body.channelId }, function (findChannelErr, channel) {
-                        console.log(channel)
+                        
                         if (findChannelErr) {
 
                             console.log("Could not find Channel with Id: " + req.params.channelId)
