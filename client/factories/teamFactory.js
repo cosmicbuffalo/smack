@@ -17,7 +17,7 @@ module.exports = function (app) {
       if (!factory.team) {
         $http.get('/api/teams/' + url).then(function (response) {
           console.log(response);
-          if (!response.data.errors) {
+          if (!response.data.error) {
             factory.team = response.data.team
             factory.teamURL = response.data.team.url;
             console.log("factory.teamURL: ", factory.teamURL);
@@ -33,7 +33,7 @@ module.exports = function (app) {
             }
           } else {
             if (errorHandler) {
-              errorHandler(response.data.errors);
+              errorHandler(response.data.error);
             }
           }
         });

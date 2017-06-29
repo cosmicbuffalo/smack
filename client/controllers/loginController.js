@@ -16,6 +16,15 @@ module.exports = function (app) {
 
     //url of the current team passed in from route params
     $scope.currentTeamURL = $routeParams.teamURL;
+    console.log()
+    //check if user is logged in
+    var currentPersonaId = $cookies.get('currentPersonaId');
+    if (currentPersonaId) {
+      $location.path("/" + $scope.currentTeamURL + "/messages");
+
+    } else {
+
+    }
 
     //sets errors into scope for display in view
     var errorHandler = function (error) {
@@ -39,8 +48,8 @@ module.exports = function (app) {
         } else {
           $scope.foundEmailBool = true;
           $scope.successMessages = "Found Email Match, please enter your password";
-        $scope.validationErrors = null;
-          
+          $scope.validationErrors = null;
+
         }
       }
     }
@@ -69,7 +78,7 @@ module.exports = function (app) {
     //AFTER SUCCESSFUL EMAIL CHECK IF NO PASSWORD
     $scope.createPassword = function () {
       var postData = { password: $scope.password.password }
-      if ($scope.password.username){
+      if ($scope.password.username) {
         postData.username = $scope.password.username
       }
       userFactory.createPassword(postData, modalCloser)

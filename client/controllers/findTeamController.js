@@ -9,7 +9,7 @@ module.exports = function (app) {
     //array of logged in team urls to create links in view
     $scope.loggedInTeams = [];
 
-  
+
 
     //handles error coming from database and sets into scope
     var errorHandler = function (errors) {
@@ -29,15 +29,16 @@ module.exports = function (app) {
 
     }
 
-    var currentTeamURL = $cookies.get('currentTeamURL');    
+    var currentTeamURL = $cookies.get('currentTeamURL');
     //check db if team exists
     $scope.findTeam = function () {
-      if (currentTeamURL && currentTeamURL ===  $scope.team.url) {
-        $location.path("/" + currentTeamURL);
+      if (!currentTeamURL) {
+        teamFactory.findTeam($scope.team, setTeam, errorHandler);
       } else {
-        teamFactory.findTeam($scope.team, setTeam, errorHandler)
+        if (currentTeamURL === $scope.team.url) {
+          $location.path("/" + currentTeamURL);
+        }
       }
-      
     }
   })
 }

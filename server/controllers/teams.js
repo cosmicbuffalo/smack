@@ -47,14 +47,20 @@ exports.show = function (req, res, next) {
     if (err) {
       next(err);
     } else {
-      Team.populate(team, { path: 'personas._user', model: "User" }, function (err2, populatedTeam) {
-        if (err2) {
-          next(err2)
-        } else {
-          console.log("Found team!")
-          res.json({ success: true, team: populatedTeam })
-        }
-      })
+      if (team) {
+        Team.populate(team, { path: 'personas._user', model: "User" }, function (err2, populatedTeam) {
+          if (err2) {
+            next(err2)
+          } else {
+            console.log("Found team!")
+            res.json({ success: true, team: populatedTeam })
+          }
+        })
+      }
+      else{
+        console.log("no team!")
+        res.json({ success: false, error: "no team found" })
+      }
 
     }
   })
