@@ -76,11 +76,20 @@ body, #view, #wrapper {
 }
 .timeline-divider{
   text-align: center;
+  
+}
+.timeline-label{
   border-radius: 27px;
   padding:2px 11px;
   background-color: white;
   z-index: 1000;
 }
+.timeline-label-fixed{
+  position: fixed;
+  top: 60px;
+  transform: translateY(-50%) translateX(-50%);
+}
+
 .post{
   /*border-top: 1px solid lightgray;*/
   padding: 4px 26px;
@@ -160,15 +169,18 @@ body, #view, #wrapper {
   display: none;
 }
 
-#posts-container {
+#channel-container {
   width: 100%;
   position: absolute;
   left: 220px;
   height: calc(100% - 60px);
 }
-
 .compact {
   width: calc(100% - 520px) !important;
+}
+#posts-container{
+  height: calc(100% - 50px);
+  overflow: scroll;
 }
 
 #new-post-bar {
