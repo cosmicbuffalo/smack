@@ -128,7 +128,7 @@ exports.invite = function (req, res) {
 
             } else {
 
-              res.json({ success: true, message: "Channel successfully added persona with Id: " + user._id })
+              res.json({ success: true, message: "Channel successfully added persona with Id: " + persona._id })
             }
           })
         }
@@ -162,7 +162,7 @@ exports.show = function (req, res, next) {
               res.json({ success: true, channel: populatedChannelRound2 })
             }
           })
-          
+
         }
       })
 

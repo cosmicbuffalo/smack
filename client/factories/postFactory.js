@@ -1,3 +1,9 @@
+class DateDivider{
+  constructor(date){
+    this.date = date
+  }
+}
+
 module.exports = function (app) {
   app.factory("postFactory", function ($http, userFactory) {
 
@@ -5,22 +11,29 @@ module.exports = function (app) {
 
   factory.channel = {};
 
-  factory.setChannel = function(channel){
+  factory.setChannel = function(channel, callback=null){
     console.log("Setting channel in post factory")
     console.log(channel)
     factory.channel = channel
-    factory.setPosts(factory.channel)
+    factory.setPosts(factory.channel, callback)
   }
 
   factory.posts = [];
 
-  factory.setPosts = function(){
+  factory.setPosts = function(data, callback){
     console.log("Setting posts in postFactory")
     if (!factory.channel.posts){
       return false
     } else {
       factory.posts = factory.channel.posts
       //HERE IS WHERE DATE DIVIDERS WILL BE INSERTED
+      var firstDivider = new DateDivider(factory.posts[0].createdAt)
+
+      factory.posts.splice(0,0,firstDivider)
+      if (callback){
+        callback(factory.posts)
+      }
+
     }
   }
 
