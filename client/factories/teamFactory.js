@@ -1,12 +1,12 @@
 module.exports = function (app) {
-  app.factory("teamFactory", function ($http, $location, $cookies, postFactory) {
+  app.factory("teamFactory", function ($http, $location, $cookies, channelFactory) {
 
   var factory = {};
   //gets set from findteam() if the team exists and gets sent to controller to confirm team existence
   factory.teamURL = null;
   //holds currentPersona from getPersona()
   factory.currentPersona = null;
-
+  factory.currentChannel = null;
   factory.team = null;
 
   //hits api and returns a team url if exists else sends back error
@@ -20,7 +20,8 @@ module.exports = function (app) {
         factory.teamURL = response.data.team.url;
         console.log("factory.teamURL: ", factory.teamURL);
         console.log("Team: ", factory.team)
-        postFactory.setChannel(factory.team.channels[0])
+        factory.currentChannel = factory.team.channels[0]
+        channelFactory.findChannel(factory.currentChannel._id)
         if (callback){
           callback(factory.teamURL);
         }

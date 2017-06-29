@@ -93,7 +93,7 @@
           <p><a href="#" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
         </div>
 
-        <div class="content-chunk" ng-repeat="item in posts | filter:searchQuery">
+        <div class="content-chunk" ng-repeat="item in posts">
           <!-- the 'posts' array will contain timeline divider objects inserted by the factory as well,
           so in the repeat here we can just put a conditional to check if each item is an actual post or
           a timeline divider. I'm just checking for posts by looking for a content attribute,

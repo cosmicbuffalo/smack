@@ -9,6 +9,8 @@ require('./factories/teamFactory.js')(app)
 
 require('./factories/postFactory.js')(app)
 
+require('./factories/channelFactory.js')(app)
+
 
 
 //set up controllers
