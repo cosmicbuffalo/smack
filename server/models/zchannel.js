@@ -1,8 +1,8 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     Post = mongoose.model('Post');
-    
-    
+
+
 
 channelSchema = new Schema ({
 
@@ -13,39 +13,39 @@ channelSchema = new Schema ({
     },
     purpose : {
         type: String,
-        required : false, 
+        required : false,
         minlength : [10, "Minimum length of a channel purpose is 10 characters"]
     },
 
     private : {
         type : Boolean,
         required: true
-    }, 
-    
-    //Adding personas to specfic channels. 
+    },
+
+    //Adding personas to specfic channels.
     members : [{
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : "Persona"
     }],
 
     posts : [{
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : "Post"
     }],
-    
+
     files : [{
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref : "File"
     }],
-    
+
     _team : {
         type : Schema.Types.ObjectId,
         ref: "Team"
     }
 
-    
 
-})
+
+}, {timestamps : true})
 channelSchema.pre('remove', function(next) {
     var self = this
     // Remove all the assignment docs that reference the removed channel.

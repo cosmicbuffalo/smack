@@ -337,5 +337,24 @@ label {
   right: 15px;
   left: auto;
   top: 30px;
-  padding: 10px 5px 
+  padding: 1
+}
+.overflow_ellipsis {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.team-name-container{
+  display: inline-block;
+  width: 146px;
+
+}
+#team-name{
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.bell-icon{
+  vertical-align: top;
 }

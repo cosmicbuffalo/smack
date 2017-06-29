@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
 
 personaSchema = new mongoose.Schema({
-    userName: {
+    username: {
         type: String,
         required: false,
         minlength : [2,"Username for this group is too short!"]

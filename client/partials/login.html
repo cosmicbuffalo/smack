@@ -44,7 +44,7 @@
   </div>
 
   <!--------------------------------->
-  <!--create password modal-->
+  <!--create username and password modal-->
   <!-------------------------------->
   <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -60,6 +60,14 @@
           <!------------------>
           <form ng-submit="createPassword()" name="passwordForm" novalidate>
             <div class="form-group">
+              <label>Username</label>
+              <input type="text" class="form-control" ng-model="password.username" placeholder="username" name="username" ng-pattern="/^(?=\w{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/" required/>
+              <div ng-messages="passwordForm.username.$error">
+                <div ng-message="pattern">Username can only contain letters, numbers or underscores and must be between 4 and 20 characters long</div>
+              </div>
+            </div>
+
+            <div class="form-group">
               <label>Password</label>
               <input type="password" class="form-control" ng-model="password.password" placeholder="password" name="password" ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/"
                 required/>
@@ -67,6 +75,7 @@
                 <div ng-message="pattern">Password should a have a number, an upper-case letter and a special charachter, 8-32 chars</div>
               </div>
             </div>
+
             <div class="form-group">
               <label>Confirm Password</label>
               <input type="password" class="form-control" ng-model="password.passwordConfirm" placeholder="confirm password" name="passwordConfirm"
@@ -75,6 +84,7 @@
                 <div ng-message="compareTo">Please make sure you're passwords match</div>
               </div>
             </div>
+            
             <div class="errorMessage">
               {{validationErrors}}
             </div>
