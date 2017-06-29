@@ -10,6 +10,7 @@ module.exports = function (app) {
     $scope.invite = {};
     $scope.password = {};
     $scope.foundEmail = null;
+    $scope.foundEmailBool = false;
     $scope.validationErrors = null;
     $scope.successMessages = null;
 
@@ -36,7 +37,10 @@ module.exports = function (app) {
         if (!teamFactory.currentPersona.password || !teamFactory.currentPersona.username) {
           $('#myModal').modal('show');
         } else {
+          $scope.foundEmailBool = true;
           $scope.successMessages = "Found Email Match, please enter your password";
+        $scope.validationErrors = null;
+          
         }
       }
     }

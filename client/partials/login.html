@@ -22,13 +22,16 @@
     <div id="content">
       <div id="login-box" class="align-middle drop-shadow" class="form-horizontal">
         <form ng-submit="foundEmail ? login() : checkEmail()">
-          <h2>Sign in to {{team.name}}</h2>
+          <h2>Sign in to {{currentTeamURL}}</h2>
           <p>Enter your email <b>email address</b> and <b>password</b></p>
           <div id="login-form">
             <input class="form-control taller" type="text" name="email" placeholder="you@example.com" ng-model="persona.email" value="{{email}}"><br>
-            <input class="form-control taller" type="password" name="pw" placeholder="password" ng-model="persona.password"><br>
+            <input class="form-control taller" type="password" name="pw" placeholder="password" ng-model="persona.password" ng-if="foundEmailBool">
             <div class="errorMessage">
               {{validationErrors}}
+            </div>
+            <div class="successMessage">
+              {{successMessages}}
             </div>
             <button type="submit" class="btn btn-default btn-grn btn-lg btn-block taller">Sign in</button><br>
             <input type="checkbox" checked="checked">Keep Me Signed In
@@ -66,9 +69,6 @@
               <div ng-messages="passwordForm.username.$error">
                 <div ng-message="pattern">Username can only contain letters, numbers or underscores and must be between 4 and 20 characters long</div>
               </div>
-            </div>
-            <div class="successrMessage">
-              {{successMessages}}
             </div>
             <div class="form-group">
               <label>Password</label>

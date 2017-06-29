@@ -14,6 +14,13 @@ module.exports = function (app) {
 
     $scope.newPost = {}
 
+    var currentPersonaId = $cookies.get('currentPersonaId');
+    if (!currentPersonaId) {
+      $location.path("/");
+    } else {
+      
+    }
+
     var setPersona = function(){
       console.log("Entered set persona in main controller")
       $scope.persona = userFactory.currentPersona
@@ -62,10 +69,6 @@ module.exports = function (app) {
       postFactory.addPost($scope.newPost, addPostSuccess, errorHandler)
 
     }
-
-
-
-
   })
 
 }
