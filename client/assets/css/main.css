@@ -53,7 +53,7 @@ body, #view, #wrapper {
 
 #top-bar {
   border-bottom: 1px dotted gray;
-  padding: 12px 20px 0px;
+  padding: 12px 0px 20px 15px;
   height: 60px;
   box-sizing: border-box;
 }
@@ -65,7 +65,7 @@ body, #view, #wrapper {
 .icon {
   width: 20px;
   height: 20px;
-  margin: 0px 10px;
+  margin: 0px 8px;
 }
 
 .icon:hover {
@@ -259,7 +259,7 @@ div[ng-message], .errorMessage {
 }
 
 #details-width-matcher .form-control {
-  width: 56%;
+  width: 255px;
   display: inline-block;
 }
 
@@ -340,25 +340,34 @@ label {
   top: 30px;
   padding: 1
 }
+
 .overflow_ellipsis {
-    display: block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
-.team-name-container{
+
+.team-name-container {
   display: inline-block;
   width: 146px;
-
 }
-#team-name{
+
+#team-name {
   font-size: 16px;
   font-weight: 900;
 }
 
-.bell-icon{
+.bell-icon {
   vertical-align: top;
 }
 
-
-
+@media screen and (max-width: 1365px) {
+  #channel-details {
+    width: 315px;
+  }
+  #details-width-matcher .form-control {
+  width: 200px;;
+  display: inline-block;
+}
+}
