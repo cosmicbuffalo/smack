@@ -16,7 +16,7 @@ module.exports = function (app) {
         factory.channel = response.data.channel
 
         console.log("Channel: ", factory.channel)
-        postFactory.setChannel(factory.channel)
+        postFactory.setChannel(factory.channel, callback)
         if (callback){
           callback(factory.channel);
         }
