@@ -30,6 +30,7 @@ module.exports = function (app) {
 
 
   // --- CHANNEL ROUTES ---
+  app.get('/api/channels/:channelId', channels.show)
   app.post('/api/teams/:teamId/channels', channels.create)//Object Keys: {personaId: data, teamName: data, purpose: data, private: boolean}       should create new channel with post data, returns channel object or errors
   app.post('/api/channels/:channelId', channels.update)// Object Keys it can be one or the other or both: {name: data, purpose: data}  should update channel with post data and return channel object or errors
   app.post('/api/teams/:teamId/channels/:channelId/delete', channels.delete)  // Object Keys: None just needs the channelId and it should delete channel from team and posts/comments in channel and return success or errors
