@@ -79,9 +79,9 @@ exports.delete = function (req, res) { // true means it is removing just one
             if (teamUpdateErr) {
 
                 res.json({ success: false, message: "Could not delete Team reference  to channel with channelId " + channelId, errors: "Could not delete channel!" })
-            
+
             } else {
-                
+
                 Channel.remove({ _id: channel }, true, function (channelRemoveErr) {
 
                     if (channelRemoveErr) {
@@ -139,5 +139,25 @@ exports.invite = function (req, res) {
 }
 
 
+exports.show = function (req, res, next) {
+  console.log("Entered channels.show")
+  console.log("BODY OF REQUEST: ", req.body);
+  console.log("REQUEST PARAMS: ", req.params)
 
+  Channel.findOne({ _id: req.params.channelId }).populate('members posts files').exec(function (err, channel) {
+    if (err) {
+      next(err);
+    } else {
+      console.log(channel)
+      Channel.populate(channel, { path: 'posts.comments', model: "Comment" }, function (err2, populatedChannel) {
+        if (err2) {
+          next(err2)
+        } else {
+          console.log("Found Channel!")
+          res.json({ success: true, channel: populatedChannel })
+        }
+      })
 
+    }
+  })
+}

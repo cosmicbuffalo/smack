@@ -1,35 +1,60 @@
-module.exports = function(app){
+module.exports = function (app) {
 
-  app.controller('mainController', function($scope, $location, userFactory, teamFactory, postFactory){
+  app.controller('mainController', function($scope, $location, userFactory, teamFactory, channelFactory, postFactory, $cookies){
+
+    $scope.persona = {}
+
+    $scope.team = {}
+
+    $scope.channel = {}
 
 
+    $scope.posts = []
 
-    var initializeScope = function (){
+
+    $scope.newPost = {}
+
+    var setPersona = function(){
+      console.log("Entered set persona in main controller")
       $scope.persona = userFactory.currentPersona
 
-
-
-      $scope.channel = postFactory.channel
-
-      $scope.posts = postFactory.posts
-
       $scope.newPost = {
-        _persona:$scope.persona._id
+        _persona: $scope.persona._id
       }
     }
-
-    var addPostSuccess = function(data){
-      console.log("Entered main controller add post success function")
-      console.log(data)
-      $scope.newPost = {_persona:$scope.persona._id}
+    var setTeam = function(data){
+      console.log("Entered set team in main controller")
+      $scope.team = teamFactory.team
+      channelFactory.findChannel(teamFactory.currentChannel._id, setChannel)
     }
 
-    var errorHandler = function(errors){
+    var setChannel = function (data){
+      console.log("Entered set channel in main controller")
+      $scope.channel = channelFactory.channel
+      $scope.posts = $scope.channel.posts
+      console.log("Scope.posts: ", $scope.posts)
+
+    }
+
+    if ($cookies.get('currentTeamURL')){
+      console.log("Found team URL in cookies: ", $cookies.get('currentTeamURL'))
+      teamFactory.findTeam({url:$cookies.get('currentTeamURL')}, setTeam)
+    }
+
+
+
+    var addPostSuccess = function (data) {
+      console.log("Entered main controller add post success function")
+      console.log(data)
+      $scope.newPost = { _persona: $scope.persona._id }
+    }
+
+    var errorHandler = function (errors) {
       console.log("Entered main controller error handler function")
       console.log(errors);
     }
 
-    $scope.addPost = function(){
+    $scope.addPost = function () {
 
       console.log("Triggered add post function")
       console.log("New Post object before adding persona and channel: ", $scope.newPost);
@@ -38,9 +63,7 @@ module.exports = function(app){
 
     }
 
-    $(document).ready(function(){
-      initializeScope();
-    })
+
 
 
   })

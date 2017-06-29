@@ -6,49 +6,65 @@ var mongoose = require('mongoose'),
 
 
 
-exports.create = function (req, res) {
+exports.create = function (req, res, next) {
+  console.log("Entered comments.create")
+  console.log("BODY OF REQUEST: ", req.body);
+  console.log("REQUEST PARAMS: ", req.params)
+  postId = req.params.postId;
+  personaId = req.body._persona;
 
-    postId = req.params.postId;
-    personaId = req.body.personaId;
+  Post.findOne({ _id: postId }, function (findPostErr, post) {
 
-    Post.findOne({ _id: postId }, function (findPostErr, post) {
+    if (findPostErr) {
+        next(findPostErr)
+        // res.json({ success: false, message: "Could not find post with id: " + postId, errors: "Couldn't add comment to post!" })
 
-        if (findPostErr) {
+    } else {
+      console.log("Found post, finding persona")
+      Persona.findOne({ _id: personaId }, function (findPersonaErr, persona) {
 
-            res.json({ success: false, message: "Could not find post with id: " + postId, errors: "Couldn't add comment to post!" })
+        if (findPersonaErr) {
+          next(findPersonaErr)
+          // res.json({ success: false, message: "Could not find persona with id: " + personaId, errors: "Couldn't add comment to post!" })
 
         } else {
+          console.log("Found persona")
+          console.log("Post: ", post)
+          console.log("Persona: ", persona)
+          var newComment = new Comment({
+              content: req.body.content,
+              _persona: persona,
+              _post: post
+          });
+          console.log("Attempting to save comment")
+          newComment.save(function (newCommentSaveErr) {
 
-            Persona.findOne({ _id: personaId }, function (findPersonaErr, persona) {
+            if (newCommentSaveErr) {
+              next(newCommentSaveErr)
+              // res.json({ success: false, message: "Could not save new comment!", errors: "Comment failed to be created!" })
 
-                if (findPersonaErr) {
-
-                    res.json({ success: false, message: "Could not find persona with id: " + personaId, errors: "Couldn't add comment to post!" })
-
+            } else {
+              console.log("Saved comment, pushing to post")
+              post.comments.push(newComment)
+              // persona.comments.push(newComment)
+              console.log("Attempting to save post")
+              post.save(function(postSaveErr){
+                if (postSaveErr){
+                  next(postSaveErr)
                 } else {
-
-                    var newComment = new Comment({
-                        content: req.body.cotent,
-                        _persona: persona,
-                        _post: post
-                    });
-
-                    newComment.save(function (newCommentSaveErr) {
-
-                        if (newCommentSaveErr) {
-
-                            res.json({ success: false, message: "Could not save new comment!", errors: "Comment failed to be created!" })
-
-                        } else {
-
-                            res.json({ success: true })
-                        }
-                    })
+                  console.log("Saved post, comment was created successfully!")
+                  
+                  res.json({succes:true, comment:newComment})
                 }
-            })
+              })
 
+            }
+          })
         }
-    })
+      })
+
+    }
+  })
 }
 
 exports.delete = function (req, res) {
@@ -107,5 +123,3 @@ exports.update = function (req, res) {
             }
         })
 }
-
-
