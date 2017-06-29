@@ -78,7 +78,7 @@ body, #view, #wrapper {
 
 .timeline-divider {
   text-align: center;
-  
+
 }
 .timeline-label{
   border-radius: 27px;
@@ -226,7 +226,7 @@ p.compensate-prof-pic span i{
   height: calc(100% - 60px);
 }
 .compact {
-  width: calc(100% - 534px) !important;
+  width: calc(100% - 589px) !important;
 }
 #posts-container{
   height: calc(100% - 50px);
@@ -624,6 +624,10 @@ a, u {
 @media screen and (max-width: 1365px) {
   #channel-details {
     width: 315px;
+  }
+  div.compact{
+    width: calc(100% - 534px) !important;
+
   }
   #details-width-matcher .form-control {
     width: 199px;
