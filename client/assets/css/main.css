@@ -261,6 +261,11 @@ div[ng-message], .errorMessage {
 #details-width-matcher .form-control {
   width: 255px;
   display: inline-block;
+  padding-left: 30px;
+}
+.glyphicon-search {
+    margin-right:-25px; 
+    margin-left:25px; 
 }
 
 #details-top-section h3 {
@@ -361,6 +366,7 @@ label {
 .bell-icon {
   vertical-align: top;
 }
+
 
 @media screen and (max-width: 1365px) {
   #channel-details {
