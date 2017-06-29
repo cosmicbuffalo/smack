@@ -21,26 +21,30 @@ module.exports = function (app) {
         userFactory.getPersona(personaId, setPersona)
 
         function setTeamInScope(data) {
-            $scope.team = teamFactory.team
+            console.log('SET TEAM IN SCOPE DATA', data)
+            $scope.team = data
         }
 
         if ($cookies.get('currentTeamURL')) {
             console.log("Found team URL in cookies: ", $cookies.get('currentTeamURL'))
-            teamFactory.findTeam({ url: $cookies.get('currentTeamURL') }, setTeamInScope)
+            teamFactory.findTeam({ url: $cookies.get('currentTeamURL') }, false, false, setTeamInScope)
         }
 
 
         $scope.clicked = function (channelObj) {
             channelObj.private = $scope.channelType
             channelObj.personaId = userFactory.personaIdLogin
-            channelFactory.createChannel(teamFactory.team._id, channelObj, reloadTeam)
+            channelFactory.createChannel(teamFactory.team._id, channelObj, reloadTeam, modalCloser)
 
             
         }
+        var modalCloser = function () {
+            $('#addChannelModal').modal('hide');
+    }
 
         function reloadTeam(){
             console.log("RELOADING TEAMMMMMMM!!!!!")
-            teamFactory.findTeam({ url: $cookies.get('currentTeamURL') }, setTeamInScope)
+            teamFactory.getTeam({ url: $cookies.get('currentTeamURL') }, false, false, setTeamInScope)
         }
 
 

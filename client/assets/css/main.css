@@ -591,6 +591,7 @@ label {
 
 .fa-plus-circle:hover {
   color: #ab9ba9;
+  cursor: pointer;
 }
 
 .side-nav-section-title {
@@ -599,6 +600,7 @@ label {
 .side-nav-section-title:hover{
   color: #ffffe2;
   font-style: bold;
+  cursor: pointer;
 }
 
 .sidebar-modal-styles .modal-content{
@@ -693,8 +695,15 @@ a, u {
   list-style-type: none;
   padding-left: 14px;
   width: 90%;
+  
 }
 
 .channel-link:hover{
-  background-color: #3e313c
+  background-color: #3e313c;
+  cursor: pointer;
+}
+
+#nav-column{
+  height: 654px;
+  overflow: hidden;
 }
