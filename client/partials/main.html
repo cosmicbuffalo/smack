@@ -1,9 +1,14 @@
 <div id="wrapper">
 
-  <div id="left-sidebar">
+
+
+
+
+
+  <div id="left-sidebar" ng-controller= "sidebarController">
     <div id="team-menu" ng-click="openMainMenu()">
       <div>
-        <span id="team-name">{{team.name}}Team Name</span>
+        <span id="team-name">{{team.name}}</span>
         <a href="#" ng-click="notificationsMenu()">
           <img src="" id="notifications-icon" class="icon" alt="Notifications icon">
         </a>
@@ -42,7 +47,30 @@
       </div>
 
     </div>
+    {{test}}
+
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <div id="main-content">
     <div id="top-bar">

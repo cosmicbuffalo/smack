@@ -13,6 +13,7 @@ module.exports = function (app) {
   factory.findTeam = function (team, callback = null, errorHandler = null) {
     console.log(team);
     var url = team.url;
+    if (!factory.team){
     $http.get('/api/teams/' + url).then(function (response) {
       console.log(response);
       if (!response.data.errors) {
@@ -30,6 +31,7 @@ module.exports = function (app) {
         }
       }
     });
+  }
   }
 
   if ($cookies.get('currentTeamURL')){

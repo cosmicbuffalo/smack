@@ -7,7 +7,7 @@ module.exports = function(app){
     var initializeScope = function (){
       $scope.persona = userFactory.currentPersona
 
-      $scope.team = teamFactory.team
+
 
       $scope.channel = postFactory.channel
 
