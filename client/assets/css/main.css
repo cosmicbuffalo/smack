@@ -62,25 +62,27 @@ body, #view, #wrapper {
   display: inline-block;
 }
 
-#channel-info{
-  padding:48px 16px 16px;
+#channel-info {
+  padding: 48px 16px 16px;
 }
 
-#channel-info h4{
+#channel-info h4 {
   color: #4c9689;
   font-weight: 500;
   font-size: 2em;
 }
-#channel-info p{
+
+#channel-info p {
   font-size: 1.2em;
 }
-.timeline-divider{
+
+.timeline-divider {
   text-align: center;
   
 }
 .timeline-label{
   border-radius: 27px;
-  padding:2px 11px;
+  padding: 2px 11px;
   background-color: white;
   z-index: 1000;
 }
@@ -93,31 +95,37 @@ body, #view, #wrapper {
 .post{
   /*border-top: 1px solid lightgray;*/
   padding: 4px 26px;
-  
 }
-.post:hover{
+
+.post:hover {
   background-color: #f7f7f7;
 }
-.post p, .post label{
+
+.post p, .post label {
   margin: 0px;
 }
-.post p.compensate-prof-pic{
-  margin-left:40px;
+
+.post p.compensate-prof-pic {
+  margin-left: 40px;
 }
-.gray-text{
-  color:#9e9ea6;
+
+.gray-text {
+  color: #9e9ea6;
 }
-.post-time{
+
+.post-time {
   font-weight: 400;
   font-size: .85em;
 }
-.post-content-container{
+
+.post-content-container {
   display: inline-block;
   padding-left: 4px;
 }
-.profile-pic{
+
+.profile-pic {
   width: 36px;
-  height:36px;
+  height: 36px;
   vertical-align: top;
   border-radius: 4px;
 }
@@ -133,8 +141,12 @@ body, #view, #wrapper {
 }
 
 .tiny-icon {
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
+}
+
+#under-title-strip {
+  font-weight: 300;
 }
 
 #header-left {
@@ -142,6 +154,9 @@ body, #view, #wrapper {
 }
 
 #channel-title-container h3 {
+  font-weight: 700;
+  font-size: 16px;
+  color: black;
   margin: 0px;
 }
 
@@ -183,18 +198,58 @@ body, #view, #wrapper {
   overflow: scroll;
 }
 
-#new-post-bar {
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-  /*left: 220px;*/
-  padding: 0px 20px;
+#add-link {
+  bottom: -1px !important;
+  left: 7px;
+  /* background: gray; */
+  padding: 11px;
+  border-right: 2px solid lightgray;
 }
 
-#search-box {
-  border: 3px solid lightgray;
-  border-radius: 8px;
+#emojiselector {
+  bottom: 30px !important;
+  left: 1233px;
+  /* background: gray; */
+  padding: 8px;
+  /*border-right: 2px solid gray;*/
+  font-size: 2em;
 }
+
+#new-post-bar a, #new-post-bar div {
+  position: absolute;
+  bottom: 0px;
+}
+
+#new-post-bar {
+  width: 92%;
+  position: absolute;
+  bottom: 5px;
+  padding: 0px 20px;
+  border: 3px solid lightgray;
+  border-radius: 10px;
+  padding: 10px 50px;
+  margin-bottom: 20px;
+  margin-left: 20px
+}
+
+#notification-bar {
+  position: absolute;
+  bottom: 5px;
+  left: 30px;
+  font-size: .9em;
+  font-style: italic;
+  font-weight: 300
+}
+
+#new-post-bar input:focus {
+  outline: none;
+}
+
+#new-post-bar input {
+  border: none;
+}
+
+#search-box {}
 
 .modal {
   text-align: center;
@@ -233,6 +288,7 @@ div[ng-message], .errorMessage {
   background: gray !important;
   color: lightgray !important;
 }
+
 
 /*#container {}*/
 
@@ -322,13 +378,14 @@ div[ng-message], .errorMessage {
 }
 
 #details-width-matcher .form-control {
-  width: 255px;
+  width: 253px;
   display: inline-block;
   padding-left: 30px;
 }
+
 .glyphicon-search {
-    margin-right:-25px; 
-    margin-left:25px; 
+  margin-right: -25px;
+  margin-left: 15px;
 }
 
 #details-top-section h3 {
@@ -426,90 +483,103 @@ label {
   font-weight: 600;
 }
 
-.bell-icon{
+.bell-icon {
   padding-left: 10px;
   vertical-align: top;
 }
 
-.fa-circle{
+.fa-circle {
   color: #38978d;
   font-size: 9px;
 }
 
-.fa-angle-down{
+.fa-angle-down {
   vertical-align: top;
   margin-top: 5px;
   font-size: 15px;
   font-weight: 900;
   color: #786f76;
 }
-.fa-angle-down:hover{
+
+.fa-angle-down:hover {
   color: #ffffff;
   font-weight: 900;
 }
 
-
-
-.fa-bell-o{
+.fa-bell-o {
   vertical-align: top;
   color: #786f76;
   font-weight: 900;
   margin-top: 5px;
 }
-.fa-bell-o:hover{
+
+.fa-bell-o:hover {
   color: #ffffff;
   font-weight: 900;
 }
 
-#team-menu{
+#team-menu {
   padding: 8px 0px 5px 16px
 }
-#team-menu:hover{
-  background-color:#3e313c; 
+
+#team-menu:hover {
+  background-color: #3e313c;
 }
-.dropdown{
+
+.dropdown {
   padding-left: 7px
 }
 
-
-.fa-plus-circle{
+.fa-plus-circle {
   color: #685666;
   font-size: 17px;
   margin-left: 99px;
-
 }
 
-.fa-plus-circle:hover{
-  color:#ab9ba9; 
+.fa-plus-circle:hover {
+  color: #ab9ba9;
 }
 
-.side-nav-section-title{
-  padding-left : 14px;
+.side-nav-section-title {
+  padding-left: 14px;
 }
 
-#addChannelModal .modal-content{
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translateY(-50%) translateX(-50%);
-    position: absolute;
-    border-radius: 0 !important
-}
-#addChannelModal{
+#addChannelModal .modal-content {
+  top: 50%;
+  left: 50%;
+  width: 100%;
   height: 100%;
-  }
+  transform: translateY(-50%) translateX(-50%);
+  position: absolute;
+  border-radius: 0 !important
+}
+
+#addChannelModal {
+  height: 100%;
+}
+
 .bell-icon {
   vertical-align: top;
 }
 
+#topic {
+  /*border: 1px solid #797a7c;*/
+  border-radius: 5px;
+  padding: 1px 3px;
+  width: 70px;
+}
+
+a, u {
+  text-decoration: none !important;
+}
 
 @media screen and (max-width: 1365px) {
   #channel-details {
     width: 315px;
   }
   #details-width-matcher .form-control {
-  width: 200px;;
-  display: inline-block;
-}
+    width: 199px;
+    ;
+    display: inline-block;
+  }
 }
