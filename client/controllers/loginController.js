@@ -17,7 +17,7 @@ module.exports = function (app) {
     //url of the current team passed in from route params
     $scope.currentTeamURL = $routeParams.teamURL;
     console.log()
-    //check if user is logged in
+    //check if user is logged in and redirect if yes
     var currentPersonaId = $cookies.get('currentPersonaId');
     if (currentPersonaId) {
       $location.path("/" + $scope.currentTeamURL + "/messages");

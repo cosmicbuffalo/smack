@@ -13,7 +13,7 @@ module.exports = function (app) {
 
 
     $scope.newPost = {}
-
+    //redirect if not logged in
     var currentPersonaId = $cookies.get('currentPersonaId');
     if (!currentPersonaId) {
       $location.path("/");
@@ -68,6 +68,10 @@ module.exports = function (app) {
 
       postFactory.addPost($scope.newPost, addPostSuccess, errorHandler)
 
+    }
+
+    $scope.inviteToChannel = function () {
+      $('#channelInviteModal').modal('show');
     }
   })
 
