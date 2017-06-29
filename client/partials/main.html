@@ -51,15 +51,15 @@
     </div>
     <div class="modal fade" id="addChannelModal" role="dialog">
       <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            
-          </div>
-          <div class="model-content">
-            <h3><b>Create a channel</b></h3>
-            <p>Channels are where your team communicates. They're best when organized around a topic - #leads, for example.</p>
-            fdfdasfdsafjdklsfjads;fkldas;
-          </div>
+        <div class="modal-header">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+        <div class="model-content">
+          <h3><b>Create a channel</b></h3>
+          <p>Channels are where your team communicates. They're best when organized around a topic - #leads, for example.</p>
+          fdfdasfdsafjdklsfjads;fkldas;
+        </div>
       </div>
     </div>
   </div>
@@ -105,7 +105,7 @@
             </span>
             <span class="divider">|</span>
             <span id="topic" ng-if="channel.topic"><a href="#" ng-click="showEditTopic()">{{channel.topic}}</a></span>
-            <span id="topic" ng-if="!channel.topic"><a href="#" ng-click="showEditTopic()" style="font-style: italic" ng-mouseenter="show=true" ng-mouseleave="show=false">Add topic<img src="./assets/img/pencil-outline.svg" class="tiny-icon" alt="pencil outline" ng-show="show"></a></span>
+            <span id="topic" ng-if="!channel.topic"><a href="#" ng-click="showEditTopic()" style="font-style: italic" ng-mouseenter="show=true" ng-mouseleave="show=false">Add a topic <img src="./assets/img/pencil-outline.svg" class="tiny-icon" alt="pencil outline" ng-show="show"></a></span>
           </div>
         </div>
       </div>
@@ -130,7 +130,8 @@
           <img src="./assets/img/sidebar.svg" class="icon" alt="Show Details" ng-click="isChannelDetailsOpen = !isChannelDetailsOpen">
         </div>
         <div id="details-width-matcher">
-          <span class="glyphicon glyphicon-search" aria-hidden="true"></span><input id="search-bar" type="search" ng-model="searchQuery" class="form-control" placeholder="Search"></input>
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span><input id="search-bar" type="search" ng-model="searchQuery"
+            class="form-control" placeholder="Search"></input>
           <div id="right-buttons-container">
             <img src="./assets/img/arroba.svg" class="icon" alt="Show Activity">
             <img src="./assets/img/star.svg" class="icon" alt="Show Starred Items">
@@ -155,7 +156,10 @@
         <div id="channel-info">
           <h4>{{channel.name}}</h4>
           <!--{{channel}}-->
-          <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>            channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
+          <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt
+            | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span>
+            <span
+              ng-if="channel.private">private </span> channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
           <p><a href="#!/{{team.url}}/invite" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
         </div>
 
@@ -167,7 +171,8 @@
           <div class="post" ng-if="item.content">
             <!--{{item}}-->
             <!--{{item._persona}}-->
-            <img class="profile-pic" src="{{item._persona.profile_pic.file_path || 'https://ca.slack-edge.com/T2Q9DHVCM-U4MGD9BFY-ga4addff983f-48'}}" alt="{{item._persona.username}}" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
+            <img class="profile-pic" src="{{item._persona.profile_pic.file_path || 'https://ca.slack-edge.com/T2Q9DHVCM-U4MGD9BFY-ga4addff983f-48'}}"
+              alt="{{item._persona.username}}" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
             <div class="post-content-container">
               <label class="post-info-line" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
                 <span class="post-author">{{item._persona.username}}</span>
@@ -185,20 +190,20 @@
         <div id="new-post-bar">
           <!-- will be fixed at the bottom of the container-->
           <form id="search-box" ng-submit="addPost()">
-            <a id="add-link" href="#">+</a>
-            <input type="text" name="new-post-content" ng-model="newPost.content">
-            <a id="emoji selector" class="icon" href="#">:)</a>
+            <a id="add-link" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <input type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}"> </input>
+            <a id="emojiselector" class="icon" href="#"><i class="fa fa-smile-o" aria-hidden="true"></i></a>
           </form>
-          <div id="notification-bar">
-            PLACEHOLDER is typing...
-          </div>
+        </div>
+        <div id="notification-bar">
+          PLACEHOLDER is typing...
         </div>
 
       </div>
       <!-- switch the conditional once toggling details is done -->
       <div id="channel-details" ng-class="{hidden:!isChannelDetailsOpen}" ng-init="isChannelDetailsOpen = true">
         <div id="details-top-section" class="details-section">
-          <h3>About  #{{channel.name}}</h3>
+          <h3>About #{{channel.name}}</h3>
           <!--<a href="#" ng-click="closeChannelDetails()">(X)</a>-->
           <!--<img class="icon" src="./assets/img/cancel.svg" alt="Channel Details Icon" ng-click="isChannelDetailsOpen = false">-->
           <button type="button" class="close" aria-label="Close" ng-click="isChannelDetailsOpen = false"><span aria-hidden="true">&times;</span></button>
