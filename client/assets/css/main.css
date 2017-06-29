@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,700');
 * {
   margin: 0px;
   padding: 0px;
@@ -11,6 +12,7 @@ html, body, #view, #wrapper {
 body, #view, #wrapper {
   position: absolute;
   top: 0px;
+  font-family: 'Lato', sans-serif !important;
 }
 
 #wrapper {
@@ -65,9 +67,11 @@ body, #view, #wrapper {
   height: 20px;
   margin: 0px 10px;
 }
-.icon:hover{
+
+.icon:hover {
   cursor: pointer
 }
+
 .tiny-icon {
   width: 20px;
   height: 20px;
@@ -91,12 +95,14 @@ body, #view, #wrapper {
 }
 
 #channel-details {
-  width: 300px;
+  width: 370px;
   height: 100%;
   position: absolute;
   right: 0px;
   border-left: 1px dotted gray;
-  box-sizing: border-box
+  box-sizing: border-box;
+  color: #6c6b6f !important;
+  font-weight: 300;
 }
 
 #channel-details.hidden {
@@ -247,52 +253,89 @@ div[ng-message], .errorMessage {
 .taller {
   height: 50px;
 }
-#login-form{
+
+#login-form {
   margin: 0px 50px;
 }
-#details-width-matcher .form-control{
+
+#details-width-matcher .form-control {
   width: 56%;
   display: inline-block;
 }
-#details-top-section h3{
+
+#details-top-section h3 {
   display: inline-block;
   vertical-align: middle;
   height: 100%;
   margin-top: 0px;
-  
+  font-weight: 700;
+  font-size: 16px
 }
-#details-top-section .icon{
+
+#details-top-section .icon {
   float: right;
   line-height: 65px;
   vertical-align: middle;
   height: 100%;
+  width: 13px;
 }
+
 #details-top-section {
   height: 65px;
-  padding: 19px 12px;
-  background:  #F7F7F7;
-  
+  padding: 24px 12px;
+  background: #F7F7F7;
 }
-.hidden{
+
+.hidden {
   display: none;
 }
+
 .panel-heading {
   cursor: pointer;
   height: 65px;
   padding: 25px 15px;
 }
-.details-label{
-cursor: pointer;
+
+.panel-title {
+  font-size: 1.3em;
+  font-weight: 300;
+}
+
+.panel-body {
+  font-size: 1.1em;
+  font-weight: 300;
+  font-style: italic
+}
+
+label {
+  font-weight: 300;
+}
+
+.details-label {
+  cursor: pointer;
 }
 
 .panel-heading .accordion-toggle:after {
-    /* symbol for "opening" panels */
-    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
-    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
-    float: right;        /* adjust as needed */
-    color: grey;         /* adjust as needed */
+  /* symbol for "opening" panels */
+  font-family: 'Glyphicons Halflings';
+  /* essential for enabling glyphicon */
+  content: "\e114";
+  /* adjust as needed, taken from bootstrap.css */
+  float: right;
+  /* adjust as needed */
+  color: grey;
+  /* adjust as needed */
 }
+
 .panel-heading .accordion-toggle.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+  /* symbol for "collapsed" panels */
+  content: "\e080";
+  /* adjust as needed, taken from bootstrap.css */
+}
+
+.dropdown-menu.pull-right {
+  right: 15px;
+  left: auto;
+  top: 30px;
+  padding: 10px 5px 
 }

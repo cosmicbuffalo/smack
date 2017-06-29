@@ -5,7 +5,7 @@
 
 
 
-  <div id="left-sidebar" ng-controller= "sidebarController">
+  <div id="left-sidebar" ng-controller="sidebarController">
     <div id="team-menu" ng-click="openMainMenu()">
       <div>
         <span id="team-name">{{team.name}}</span>
@@ -98,15 +98,40 @@
       </div>
       <div id="header-right">
         <div id="left-buttons-container">
-          <img src="./assets/img/settings.svg" class="icon" alt="Settings">
+          <div class="dropdown">
+            <a class=" dropdown-toggle" data-toggle="dropdown"><img src="./assets/img/settings.svg" class="icon" alt="Settings"></a>
+            <ul class="dropdown-menu pull-right">
+              <li><a href="">Jump to date ...</a></li>
+              <li><a href="">Invite team members to join ...</a></li>
+              <li><a href="">View channel details</a></li>
+              <li><a href="">Additional options ...</a></li>
+              <li class="divider"></li>
+              <li><a href="">Notification preferences ...</a></li>
+              <li><a href="">Mute {{channel.name}} ...</a></li>
+              <li class="divider"></li>
+              <li><a href="">Add an app or integration</a></li>
+              <li class="divider"></li>
+              <li><a href="">Leave {{channel.name}}</a></li>
+            </ul>
+          </div>
           <img src="./assets/img/sidebar.svg" class="icon" alt="Show Details" ng-click="isChannelDetailsOpen = !isChannelDetailsOpen">
         </div>
         <div id="details-width-matcher">
-          <input id="search-bar" type="search" ng-model="searchQeury" class="form-control">
+          <input id="search-bar" type="search" ng-model="searchQuery" class="form-control">
           <div id="right-buttons-container">
             <img src="./assets/img/arroba.svg" class="icon" alt="Show Activity">
             <img src="./assets/img/star.svg" class="icon" alt="Show Starred Items">
-            <img src="./assets/img/showmore.svg" class="icon" alt="More Items">
+            <div class="dropdown">
+              <a class=" dropdown-toggle" data-toggle="dropdown"><img src="./assets/img/showmore.svg" class="icon dropdown-toggle" alt="More Items"></a>
+              <ul class="dropdown-menu pull-right">
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">Your Files</li>
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">All Files</li>
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">Team Directory</li>
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">Help</li>
+                <li><img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">What's New</li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </div>
