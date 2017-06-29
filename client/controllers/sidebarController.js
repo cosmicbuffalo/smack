@@ -16,7 +16,9 @@ module.exports = function (app) {
         }
 
 
-
+        $scope.clicked = function() {
+            
+        }
 
 
 
