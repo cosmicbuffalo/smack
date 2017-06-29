@@ -1,10 +1,10 @@
-module.exports = function(app){
+module.exports = function (app) {
 
-  app.controller('mainController', function($scope, $location, userFactory, teamFactory, postFactory){
+  app.controller('mainController', function ($scope, $location, userFactory, teamFactory, postFactory) {
 
 
 
-    var initializeScope = function (){
+    var initializeScope = function () {
       $scope.persona = userFactory.currentPersona
 
       $scope.team = teamFactory.team
@@ -14,22 +14,22 @@ module.exports = function(app){
       $scope.posts = postFactory.posts
 
       $scope.newPost = {
-        _persona:$scope.persona._id
+        _persona: $scope.persona._id
       }
     }
 
-    var addPostSuccess = function(data){
+    var addPostSuccess = function (data) {
       console.log("Entered main controller add post success function")
       console.log(data)
-      $scope.newPost = {_persona:$scope.persona._id}
+      $scope.newPost = { _persona: $scope.persona._id }
     }
 
-    var errorHandler = function(errors){
+    var errorHandler = function (errors) {
       console.log("Entered main controller error handler function")
       console.log(errors);
     }
 
-    $scope.addPost = function(){
+    $scope.addPost = function () {
 
       console.log("Triggered add post function")
       console.log("New Post object before adding persona and channel: ", $scope.newPost);
@@ -38,8 +38,9 @@ module.exports = function(app){
 
     }
 
-    $(document).ready(function(){
+    $(document).ready(function () {
       initializeScope();
+
     })
 
 

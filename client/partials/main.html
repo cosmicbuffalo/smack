@@ -70,15 +70,15 @@
       </div>
       <div id="header-right">
         <div id="left-buttons-container">
-          <img src="" class="icon" alt="Settings">
-          <img src="" class="icon" alt="Show Details">
+          <img src="./assets/img/settings.svg" class="icon" alt="Settings">
+          <img src="./assets/img/sidebar.svg" class="icon" alt="Show Details" ng-click="isChannelDetailsOpen = !isChannelDetailsOpen">
         </div>
         <div id="details-width-matcher">
-          <input id="search-bar" type="search" ng-model="searchQeury">
+          <input id="search-bar" type="search" ng-model="searchQeury" class="form-control">
           <div id="right-buttons-container">
-            <img src="" class="icon" alt="Show Activity">
-            <img src="" class="icon" alt="Show Starred Items">
-            <img src="" class="icon" alt="More Items">
+            <img src="./assets/img/arroba.svg" class="icon" alt="Show Activity">
+            <img src="./assets/img/star.svg" class="icon" alt="Show Starred Items">
+            <img src="./assets/img/showmore.svg" class="icon" alt="More Items">
           </div>
         </div>
       </div>
@@ -128,30 +128,89 @@
 
       </div>
       <!-- switch the conditional once toggling details is done -->
-      <div id="channel-details" ng-class="{hidden:showDetails}">
+      <div id="channel-details" ng-class="{hidden:!isChannelDetailsOpen}" ng-init="isChannelDetailsOpen = true">
         <div id="details-top-section" class="details-section">
-          <h5>About {{channel.name}}</h5>
-          <a href="#" ng-click="closeChannelDetails()">(X)</a>
+          <h3>About {{channel.name}}</h3>
+          <!--<a href="#" ng-click="closeChannelDetails()">(X)</a>-->
+          <img class="icon" src="./assets/img/cancel.svg" alt="Channel Details Icon" ng-click="isChannelDetailsOpen = false">
         </div>
-        <div class="details-section expandable">
-          <img class="icon" src="" alt="Channel Details Icon">
-          <label class="details-label">Channel Details</label>
-        </div>
-        <div class="details-section expandable">
-          <img class="icon" src="" alt="Pinned Items Icon">
-          <label class="details-label">Pinned Items</label>
-        </div>
-        <div class="details-section expandable">
-          <img class="icon" src="" alt="Members Icon">
-          <label class="details-label">{{channel.members.length}} Members</label>
-        </div>
-        <div class="details-section expandable">
-          <img class="icon" src="" alt="Shared Files Icon">
-          <label class="details-label">Shared Files</label>
-        </div>
-        <div class="details-section expandable">
-          <img class="icon" src="" alt="Notifications Icon">
-          <label class="details-label">Notification Preferences</label>
+
+        <div class="panel-group" id="accordion">
+          <div class="panel">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" data-target="#collapse1"></a>
+                <img class="icon" src="./assets/img/information.svg" alt="Channel Details Icon">
+                <label class="details-label">Channel Details</label>
+              </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapse2">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" data-target="#collapse2"></a>
+                <img class="icon" src="./assets/img/push-pin.svg" alt="Pinned Items Icon">
+                <label class="details-label">Pinned Items</label>
+              </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3"></a>
+                <img class="icon" src="./assets/img/avatar.svg" alt="Members Icon">
+                <label class="details-label">{{channel.members.length}} Members</label>
+              </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-toggle="collapse" data-parent="#accordion" data-target="#collapse4">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" data-target="#collapse4"></a>
+                <img class="icon" src="./assets/img/file.svg" alt="Shared Files Icon">
+                <label class="details-label">Shared Files</label>
+              </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-toggle="collapse" data-parent="#accordion" data-target="#collapse5">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" data-target="#collapse5"></a>
+                <img class="icon" src="./assets/img/notification.svg" alt="Notifications Icon">
+                <label class="details-label">Notification Preferences</label>
+              </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
