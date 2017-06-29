@@ -269,7 +269,8 @@ div[ng-message], .errorMessage {
   height: 100%;
   margin-top: 0px;
   font-weight: 700;
-  font-size: 16px
+  font-size: 16px;
+  color: black;
 }
 
 #details-top-section .icon {
@@ -358,3 +359,6 @@ label {
 .bell-icon{
   vertical-align: top;
 }
+
+
+

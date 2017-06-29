@@ -182,9 +182,10 @@
       <!-- switch the conditional once toggling details is done -->
       <div id="channel-details" ng-class="{hidden:!isChannelDetailsOpen}" ng-init="isChannelDetailsOpen = true">
         <div id="details-top-section" class="details-section">
-          <h3>About {{channel.name}}</h3>
+          <h3>About  #{{channel.name}}</h3>
           <!--<a href="#" ng-click="closeChannelDetails()">(X)</a>-->
-          <img class="icon" src="./assets/img/cancel.svg" alt="Channel Details Icon" ng-click="isChannelDetailsOpen = false">
+          <!--<img class="icon" src="./assets/img/cancel.svg" alt="Channel Details Icon" ng-click="isChannelDetailsOpen = false">-->
+          <button type="button" class="close" aria-label="Close" ng-click="isChannelDetailsOpen = false"><span aria-hidden="true">&times;</span></button>
         </div>
 
         <div class="panel-group" id="accordion">
