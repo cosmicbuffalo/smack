@@ -150,14 +150,22 @@
         </div>
       </div>
     </div>
+
+
+
+
+
     <div id="channel-content">
       <!-- switch the conditional once toggling details is done -->
-      <div id="channel-container" ng-class="{compact:!showDetails}">
+      <div id="channel-container" ng-class="{compact:isChannelDetailsOpen}">
         <div id="posts-container">
           <div id="channel-info">
             <h4>{{channel.name}}</h4>
             <!--{{channel}}-->
-            <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span> <span ng-if="channel.private">private </span>            channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
+            <p>{{channel.members[0].username}} created this <span ng-if="channel.private">private </span>channel on {{channel.createdAt
+              | date:"MMM d, y"}}. This is the very beginning of the <span class="channel-name">{{channel.name}}</span>
+              <span
+                ng-if="channel.private">private </span> channel. Purpose:<span class="italic">{{channel.purpose}}</span> (<a href="#" ng-click="editChannelPurpose()">edit</a>)</p>
             <p><a href="#!/{{team.url}}/invite" ng-click="inviteToChannel()">Invite others to this <span ng-if="channel.private">private </span>channel</a></p>
           </div>
 
@@ -169,13 +177,19 @@
             <div class="post" ng-if="item.content">
               <!--{{item}}-->
               <!--{{item._persona}}-->
-              <img class="profile-pic" src="{{item._persona.profile_pic.file_path || 'https://ca.slack-edge.com/T2Q9DHVCM-U4MGD9BFY-ga4addff983f-48'}}" alt="{{item._persona.username}}" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
+              <img class="profile-pic" src="{{item._persona.profile_pic.file_path || 'https://ca.slack-edge.com/T2Q9DHVCM-U4MGD9BFY-ga4addff983f-48'}}"
+                alt="{{item._persona.username}}" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
               <div class="post-content-container">
                 <label class="post-info-line" ng-if="!posts[$index - 1]._persona || posts[$index - 1]._persona._id != item._persona._id">
                   <span class="post-author">{{item._persona.username}}</span>
-                  <span class="gray-text post-time">{{item.createdAt | date:"h:mm a"}}</span>
+                  <span class="gray-text post-time">
+                    {{item.createdAt | date:"h:mm a"}}
+                    <i class="info-line-star fa fa-star-o"></i>
+                  </span>
                 </label>
-                <p ng-class="{notification:item.notification, 'compensate-prof-pic':(posts[$index - 1] && posts[$index - 1]._persona._id == item._persona._id)}">{{item.content}}</p>
+                <p ng-class="{notification:item.notification, 'compensate-prof-pic':(posts[$index - 1] && posts[$index - 1]._persona._id == item._persona._id)}">
+                  <span class="gray-text post-time" ng-if="(posts[$index - 1] && posts[$index - 1]._persona._id == item._persona._id)">{{item.createdAt | date:"h:mm"}} <i class="fa fa-star-o"></i></span>                  {{item.content}}
+                </p>
               </div>
             </div>
             <div class="timeline-divider" ng-if="item.date">
@@ -185,19 +199,19 @@
           </div>
 
         </div>
-
-        <div id="new-post-bar">
-          <!-- will be fixed at the bottom of the container-->
-          <form id="search-box" ng-submit="addPost()">
-            <a id="add-link" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-            <input type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}"> </input>
-            <a id="emojiselector" class="icon" href="#"><i class="fa fa-smile-o" aria-hidden="true"></i></a>
-          </form>
+        <div id="bottom-bar-container">
+          <div id="new-post-bar">
+            <!-- will be fixed at the bottom of the container-->
+            <form id="search-box" ng-submit="addPost()">
+              <a id="add-link" href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+              <input type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}"> </input>
+              <a id="emojiselector" class="icon" href="#"><i class="fa fa-smile-o" aria-hidden="true"></i></a>
+            </form>
+          </div>
+          <div id="notification-bar">
+            PLACEHOLDER is typing...
+          </div>
         </div>
-        <div id="notification-bar">
-          PLACEHOLDER is typing...
-        </div>
-
       </div>
       <!-- switch the conditional once toggling details is done -->
       <div id="channel-details" ng-class="{hidden:!isChannelDetailsOpen}" ng-init="isChannelDetailsOpen = true">

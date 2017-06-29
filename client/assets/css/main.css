@@ -106,7 +106,42 @@ body, #view, #wrapper {
 }
 
 .post p.compensate-prof-pic {
-  margin-left: 40px;
+  /*margin-left: 40px;*/
+  position: relative;
+  left: -11px;
+}
+p.compensate-prof-pic span{
+  font-size: .8em;
+  /*display: inline-block;
+  position: absolute;*/
+  float:left;
+  left: 20px;
+  padding-top: 3px;
+  width: 43px;
+  margin-right: 6px;
+  visibility: hidden;
+}
+.post:hover p.compensate-prof-pic span{
+  visibility: visible;
+}
+.post:hover i.info-line-star{
+  visibility: visible;
+}
+.post i:hover{
+  color:#ffcc00;
+  cursor: pointer;
+}
+.post i.info-line-star{
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-left: 8px;
+  visibility: hidden;
+}
+p.compensate-prof-pic span i{
+  margin-top:2px;
+  font-weight: 600;
+  float: right;
+  font-size: 1.15em;
 }
 
 .gray-text {
@@ -185,57 +220,66 @@ body, #view, #wrapper {
 }
 
 #channel-container {
-  width: 100%;
+  width: calc(100% - 220px);
   position: absolute;
   left: 220px;
   height: calc(100% - 60px);
 }
 .compact {
-  width: calc(100% - 520px) !important;
+  width: calc(100% - 534px) !important;
 }
 #posts-container{
   height: calc(100% - 50px);
   overflow: scroll;
 }
 
+#bottom-bar-container{
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  padding: 0px 20px;
+}
+
 #add-link {
-  bottom: -1px !important;
-  left: 7px;
+  /*bottom: -1px !important;*/
+  /*left: 7px;*/
   /* background: gray; */
   padding: 11px;
   border-right: 2px solid lightgray;
 }
 
 #emojiselector {
-  bottom: 30px !important;
-  left: 1233px;
+  /*bottom: 30px !important;*/
+  /*left: 1233px;*/
   /* background: gray; */
-  padding: 8px;
+  /*padding: 8px;*/
   /*border-right: 2px solid gray;*/
   font-size: 2em;
 }
 
 #new-post-bar a, #new-post-bar div {
-  position: absolute;
-  bottom: 0px;
+  display: inline-block;
+  /*position: absolute;*/
+  /*bottom: 0px;*/
 }
 
 #new-post-bar {
-  width: 92%;
-  position: absolute;
-  bottom: 5px;
-  padding: 0px 20px;
+  width: 100%;
+  /*position: absolute;*/
+  /*bottom: 5px;*/
+  /*padding: 0px 20px;*/
   border: 3px solid lightgray;
   border-radius: 10px;
-  padding: 10px 50px;
-  margin-bottom: 20px;
-  margin-left: 20px
+  /*padding: 10px 50px;*/
+  /*margin-bottom: 20px;*/
+  /*margin-left: 20px;*/
+  background-color: white;
 }
 
 #notification-bar {
-  position: absolute;
-  bottom: 5px;
-  left: 30px;
+  /*position: absolute;*/
+  /*bottom: 5px;*/
+  /*left: 30px;*/
   font-size: .9em;
   font-style: italic;
   font-weight: 300
@@ -250,6 +294,10 @@ body, #view, #wrapper {
 }
 
 #search-box {}
+
+#search-box input[type='text']{
+  width: 83%;
+}
 
 .modal {
   text-align: center;
