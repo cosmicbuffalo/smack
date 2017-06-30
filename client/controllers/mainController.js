@@ -7,7 +7,7 @@ class DateDivider {
 module.exports = function (app) {
 
   
-  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams) {
+  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout) {
 
     $scope.loaded = false;    
     $timeout(function() { $scope.loaded = true; }, 3000);
@@ -137,7 +137,7 @@ module.exports = function (app) {
       $cookies.remove('currentPersonaId');
       $location.path("/");
     }
-    
+
     //logOut and switch teams
     $scope.changeTeam = function () {
       $cookies.remove('currentPersonaId');
