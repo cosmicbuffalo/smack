@@ -83,15 +83,18 @@ exports.update = function(req, res, next){
       next(err);
     } else {
       console.log("Found persona, updating password before save")
+      console.log("PERSONA FOUND: ", persona)
       persona.password = req.body.password
       if(req.body.username){
         persona.username = req.body.username
       }
+
       persona.save(function(err2){
         if (err2){
           next(err2);
         } else {
           console.log("Successfully updated persona")
+          console.log("UPDATED PERSONA: ", persona)
           res.json({success:true, persona:persona})
         }
       })

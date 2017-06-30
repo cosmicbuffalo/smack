@@ -83,8 +83,8 @@ exports.login = function (req, res, next) {
           console.log("persona not found");
           res.json({ success: false, error: "The persona does not exist" });
         } else {
-          console.log(persona)
-          console.log(req.body.password, persona.password)
+          console.log("FOUND PERSONA TO LOGIN: ", persona)
+          console.log("COMPARING PASSWORDS: ", req.body.password, persona.password)
           console.log(bcrypt.compareSync(req.body.password, persona.password))
           if (bcrypt.compareSync(req.body.password, persona.password)) {
             res.json({ success: true, persona: persona })
@@ -102,7 +102,7 @@ exports.invite = function (req, res, next) {
   console.log("Entered teams.invite")
   console.log("BODY OF REQUEST: ", req.body);
   //find team based on route param
-  Team.findOne({ url: req.params.teamUrl }, function (err, team) {
+  Team.findOne({ url: req.params.teamUrl }).populate('channels').exec(function (err, team) {
     if (err) {
       next(err)
     } else if (!team) {
@@ -150,8 +150,16 @@ exports.invite = function (req, res, next) {
                       // res.json({ result: "failure", message: "Error during comment creation/saving to user", errors: err })
                       next(err)
                     } else {
-                      console.log("Persona saved to team and user successfully")
-                      res.json({ success: true, message: "Successfully created persona for team", persona: newPersona })
+                      console.log("Attempting to save persona to first channel in team")
+                      team.channels[0].members.push(newPersona)
+                      team.channels[0].save(function(err){
+                        if (err){
+                          next(err)
+                        } else {
+                          console.log("Persona saved to team and user successfully")
+                          res.json({ success: true, message: "Successfully created persona for team", persona: newPersona })
+                        }
+                      })
                     }
                   })
                 }

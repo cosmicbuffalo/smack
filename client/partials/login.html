@@ -64,7 +64,7 @@
           <form ng-submit="createPassword()" name="passwordForm" novalidate>
             <div class="form-group">
               <label>Username</label>
-              <input type="text" class="form-control" ng-model="password.username" placeholder="username" name="username" ng-pattern="/^(?=\w{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/"
+              <input type="text" class="form-control" ng-model="password.username" placeholder="username" name="username" ng-pattern="/^\w{4,20}$/"
                 required/>
               <div ng-messages="passwordForm.username.$error">
                 <div ng-message="pattern">Username can only contain letters, numbers or underscores and must be between 4 and 20 characters long</div>

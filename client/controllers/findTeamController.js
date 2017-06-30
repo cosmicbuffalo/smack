@@ -18,9 +18,11 @@ module.exports = function (app) {
       console.log(errors);
     }
     //if team exists in db, set redirect to team url
-    function setTeam(teamURL) {
+    function setTeam(teamURL, channelId) {
       console.log("teamURL: ", teamURL)
       if (teamURL) {
+        console.log("CHANNEL ID: ", channelId)
+        $cookies.put("currentChannelId", channelId)
         $cookies.put("currentTeamURL", teamURL)
         $location.path("/" + teamURL);
       } else {
@@ -32,11 +34,12 @@ module.exports = function (app) {
     var currentTeamURL = $cookies.get('currentTeamURL');    
     //check db if team exists
     $scope.findTeam = function () {
-      if (currentTeamURL && currentTeamURL ===  $scope.team.url) {
-        $location.path("/" + currentTeamURL);
-      } else {
-        teamFactory.findTeam($scope.team, setTeam, errorHandler)
-      }
+      teamFactory.findTeam($scope.team, setTeam, errorHandler)
+      // if (currentTeamURL && currentTeamURL ===  $scope.team.url) {
+      //   $location.path("/" + currentTeamURL);
+      // } else {
+        
+      // }
       
     }
   })

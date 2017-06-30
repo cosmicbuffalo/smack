@@ -236,7 +236,7 @@ p.compensate-prof-pic span i{
   width: calc(100% - 589px) !important;
 }
 #posts-container{
-  height: calc(100% - 50px);
+  height: calc(100% - 70px);
   overflow: scroll;
 }
 
