@@ -44,7 +44,7 @@
         <label class="side-nav-section-title" data-toggle="modal" data-target="#filterChannelModal">CHANNELS</label>
         <i class="fa fa-plus-circle add-channels" data-toggle="modal" data-target="#addChannelModal" aria-hidden="true"></i>
         <ul>
-          <li class="channel-link overflow_ellipsis" ng-repeat="channel in team.channels">
+          <li class="channel-link overflow_ellipsis" ng-repeat="channel in team.channels" ng-click="changeChannel(channel._id)">
             <i class="fa fa-hashtag" aria-hidden="true"></i> {{channel.name}}
           </li>
         </ul>
@@ -102,15 +102,23 @@
         </div>
         <div class="model-content create-channel-modal">
           <div class="create-channel-content">
-            <h1><b>Browse all Channels</b></h1>
+            <h1 id="browse-header" <b>Browse all Channels</b>
+            </h1>
+            <button ng-click="goToNewChannel()" class="btn btn-default btn-grn new-channel-button">New Channel</button>
             <input type="text" placeholder="Search channels" class="form-control" ng-model="browseChannels">
+
             <p>Channels you can join (though some are private!)</p>
-            <ul>
-              <li ng-repeat="channel in team.channels">
+            <div id="overfill-handler">
+              <table class="table table-striped browse-channels-table">
+                <tr ng-repeat="channel in team.channels | filter : browseChannels" class="browse-channels-table">
+                  <td class="overflow_ellipsis hide-table">
+                    <h3>{{channel.name}}</h3>
+                    <span>Createed on: {{channel.createdAt | date:"MMM d, y"}} </span><button class="btn btn-default btn-info channel-button" ng-click="changeChannel(channel._id, true)">Go to Channel</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
 
-              </li>
-
-            </ul>
           </div>
         </div>
       </div>
