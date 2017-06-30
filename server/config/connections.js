@@ -10,6 +10,17 @@ module.exports = function (io) {
       socket.broadcast.emit('added_new_post', post);
     })
 
+    //data should be like so: {channelId:channelId}
+    socket.on("invited_to_channel", function(data){
+      console.log("RECEIVED INVITED TO CHANNEL EVENT, DATA: ", data);
+      io.emit("invited_to_channel", data)
+    })
+
+    //data should be like so: {teamURL:teamURL}
+    socket.on('added_new_channel', function(data){
+      console.log("RECEIVED NEW CHANNEL EVENT, DATA: ", data);
+      socket.broadcast.emit('added_new_channel', data);
+    })
 
 
 

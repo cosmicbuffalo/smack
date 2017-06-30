@@ -7,7 +7,7 @@ class DateDivider {
 module.exports = function (app) {
 
 
-  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout, socket) {
+  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout, socket, $route) {
 
     $scope.loaded = false;
     $timeout(function () { $scope.loaded = true; }, 1000);
@@ -167,6 +167,25 @@ module.exports = function (app) {
       }, 500);
     }
 
+    socket.on('invited_to_channel', function (data) {
+      console.log("RECEIVED INVITED TO CHANNEL EVENT WITH DATA: ", data)
+      if ($scope.channel._id == data.channelId) {
+        $route.reload();
+      }
+
+    })
+
+    socket.on('added_new_channel', function (data) {
+      console.log("RECEIVED ADDED NEW CHANNEL EVENT WITH DATA: ", data);
+
+      if ($scope.team.url == data.teamURL) {
+        console.log("CALLING RELOAD TEAM TO REFRESH CHANNEL LIST")
+        reloadTeam();
+      }
+
+
+    })
+
 
 
 
@@ -194,15 +213,15 @@ module.exports = function (app) {
 
       console.log("PERSONAS FOUND ON CURRENT TEAM: ", $scope.team.personas)
 
-      for(var x = 0; x < $scope.team.personas.length; x++){
+      for (var x = 0; x < $scope.team.personas.length; x++) {
         // console.log("COMPARING: ", $scope.team.personas[x].username, $scope.invite.username)
-        if ($scope.team.personas[x].username == $scope.invite.username){
+        if ($scope.team.personas[x].username == $scope.invite.username) {
           $scope.invite._id = $scope.team.personas[x]._id
         }
       }
       console.log("INVITE OBJECT AFTER ID LOOKUP: ", $scope.invite)
 
-      if (!$scope.invite._id){
+      if (!$scope.invite._id) {
         console.log("FAILED TO LOOKUP PERSONA ID, USERNAME NOT FOUND IN TEAM MEMBERS")
         return
       }
