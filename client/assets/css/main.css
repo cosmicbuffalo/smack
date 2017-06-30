@@ -39,14 +39,16 @@ body, #view, #wrapper {
   color: white;
   font-weight: 600;
 }
+
 #team-name:hover {
   cursor: pointer;
 }
-div.dropdown{
+
+div.dropdown {
   padding: 0px !important;
   margin: 0px !important;
-
 }
+
 .overflow-text {
   overflow: hidden;
   white-space: nowrap;
@@ -85,21 +87,22 @@ div.dropdown{
 
 .timeline-divider {
   text-align: center;
-
 }
-.timeline-label{
+
+.timeline-label {
   border-radius: 27px;
   padding: 2px 11px;
   background-color: white;
   z-index: 1000;
 }
-.timeline-label-fixed{
+
+.timeline-label-fixed {
   position: fixed;
   top: 60px;
   transform: translateY(-50%) translateX(-50%);
 }
 
-.post{
+.post {
   /*border-top: 1px solid lightgray;*/
   padding: 4px 26px;
 }
@@ -117,56 +120,66 @@ div.dropdown{
   position: relative;
   left: -11px;
 }
-p.compensate-prof-pic span{
+
+p.compensate-prof-pic span {
   font-size: .8em;
   /*display: inline-block;
   position: absolute;*/
-  float:left;
+  float: left;
   left: 20px;
   padding-top: 3px;
   width: 43px;
   margin-right: 6px;
   visibility: hidden;
 }
-.post:hover p.compensate-prof-pic span{
+
+.post:hover p.compensate-prof-pic span {
   visibility: visible;
 }
-.post:hover i.info-line-star{
+
+.post:hover i.info-line-star {
   visibility: visible;
 }
-.post i:hover{
-  color:#ffcc00;
+
+.post i:hover {
+  color: #ffcc00;
   cursor: pointer;
 }
-#top-bar .fa-star-o:hover{
-  color:#ffcc00;
+
+#top-bar .fa-star-o:hover {
+  color: #ffcc00;
   cursor: pointer;
 }
-#top-bar i{
+
+#top-bar i {
   margin-top: 7px;
 }
-#top-bar .fa-user-o:hover, #top-bar .fa-thumb-tack:hover{
-  color:#1987bf;
+
+#top-bar .fa-user-o:hover, #top-bar .fa-thumb-tack:hover {
+  color: #1987bf;
   font-weight: bold;
   cursor: pointer;
 }
+
 #top-bar .fa-star-o:before {
   vertical-align: middle;
   font-size: 1.2em;
 }
+
 #top-bar .fa-user-o:before {
   vertical-align: middle;
   font-size: 1.1em;
 }
 
-.post i.info-line-star{
+.post i.info-line-star {
   font-weight: 600;
   font-size: 1.1em;
   margin-left: 8px;
   visibility: hidden;
 }
-p.compensate-prof-pic span i{
-  margin-top:2px;
+
+p.compensate-prof-pic span i {
+  margin-top: 2px;
   font-weight: 600;
   float: right;
   font-size: 1.15em;
@@ -253,15 +266,17 @@ p.compensate-prof-pic span i{
   left: 220px;
   height: calc(100% - 60px);
 }
+
 .compact {
   width: calc(100% - 589px) !important;
 }
-#posts-container{
+
+#posts-container {
   height: calc(100% - 50px);
   overflow: scroll;
 }
 
-#bottom-bar-container{
+#bottom-bar-container {
   width: 100%;
   position: absolute;
   bottom: 0px;
@@ -286,7 +301,8 @@ p.compensate-prof-pic span i{
   float: right;
   margin-right: 20px*/
 }
-.dropup a  {
+
+.dropup a {
   /*bottom: 30px !important;*/
   /*left: 1233px;*/
   /* background: gray; */
@@ -297,11 +313,12 @@ p.compensate-prof-pic span i{
   margin-right: -160px;
   /*margin-bottom: 5px;*/
   /*position: absolute !important;*/
-    right: 50;
-    top: 10;
-  color: rgba(0,0,0,.35);
+  right: 50;
+  top: 10;
+  color: rgba(0, 0, 0, .35);
 }
-#bottom-bar-container .dropdown-menu{
+
+#bottom-bar-container .dropdown-menu {
   padding: 20px;
   width: 200px !important;
   height: 200px !important
@@ -345,7 +362,7 @@ p.compensate-prof-pic span i{
 
 #search-box {}
 
-#search-box input[type='text']{
+#search-box input[type='text'] {
   width: 83%;
 }
 
@@ -576,7 +593,6 @@ label {
   width: 146px;
 }
 
-
 .bell-icon {
   padding-left: 10px;
   vertical-align: top;
@@ -628,10 +644,12 @@ label {
   color: #685666;
   font-size: 17px;
 }
-.add-channels{
+
+.add-channels {
   margin-left: 99px;
 }
-.add-Dm{
+
+.add-Dm {
   margin-left: 50px;
 }
 
@@ -643,20 +661,21 @@ label {
 .side-nav-section-title {
   padding-left: 14px;
 }
-.side-nav-section-title:hover{
+
+.side-nav-section-title:hover {
   color: #ffffe2;
   font-style: bold;
   cursor: pointer;
 }
 
-.sidebar-modal-styles .modal-content{
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translateY(-50%) translateX(-50%);
-    position: absolute;
-    border-radius: 0 !important
+.sidebar-modal-styles .modal-content {
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-50%) translateX(-50%);
+  position: absolute;
+  border-radius: 0 !important
 }
 
 #addChannelModal {
@@ -682,95 +701,123 @@ a, u {
   #channel-details {
     width: 315px;
   }
-  div.compact{
+  div.compact {
     width: calc(100% - 534px) !important;
-
   }
   #details-width-matcher .form-control {
-  width: 200px;;
-  display: inline-block;
-}
+    width: 200px;
+    ;
+    display: inline-block;
+  }
 }
 
-#modal-exit{
+#modal-exit {
   padding: 14px 16px 5px 16px;
   border-radius: 60px;
   display: inline-block;
   margin-top: 33px;
-  margin-right: 83px; 
+  margin-right: 83px;
   height: 76px;
   width: 79px;
   float: right;
 }
-.grey-escape{
-  color: #717274
 
+.grey-escape {
+  color: #717274
 }
-.fa-times{
+
+.fa-times {
   font-size: 30px;
 }
 
-#modal-exit:hover{
+#modal-exit:hover {
   background-color: #e8e8e8
 }
 
-.create-channel-modal{
-    padding-top: 96px;
-    color: black;
+.create-channel-modal {
+  padding-top: 96px;
+  color: black;
 }
-.create-channel-content{
+
+.create-channel-content {
   text-align: left;
   margin-left: 8%;
   display: inline-block;
 }
 
-.toggle{
+.toggle {
   width: 100px !important;
   border-radius: 30px;
   margin-bottom: 10px;
 }
+
 .toggle-handle {
   border-radius: 30px;
   padding: 0px 32px;
 }
-.toggle-on.btn{
-  padding-right:50px !important;
+
+.toggle-on.btn {
+  padding-right: 50px !important;
 }
 
-.fa-hashtag{
+.fa-hashtag {
   font-size: 12px;
   font-style: oblique;
 }
-.channel-link{
+
+.channel-link {
   list-style-type: none;
   padding-left: 14px;
   width: 90%;
-  
 }
 
-.channel-link:hover{
+.channel-link:hover {
   background-color: #3e313c;
   cursor: pointer;
 }
 
-#nav-column{
+#nav-column {
   height: 654px;
   overflow: hidden;
 }
 
-.username-channel-details{
+.username-channel-details {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   vertical-align: middle;
   margin-left: 7px;
 }
-.profile-pic-channel-details{
+
+.profile-pic-channel-details {
   width: 1.3em;
   vertical-align: middle;
 }
+
 .circle-channel-details {
   float: right;
   vertical-align: middle;
   font-size: 10px !important;
+}
+
+.smackLogo {
+  width: 78px;
+  border-radius: 17px;
+  margin-left: 20px;
+  margin-top: 8px;
+}
+.smackLogoText {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  font-weight: 700; 
+}
+.yourTeamHeader{
+  padding: 10px;
+  border: 2px solid #666f77;
+  border-radius: 10px;
+}
+#header a{
+  font-weight: 700;
+  color: #666f77;
 }
