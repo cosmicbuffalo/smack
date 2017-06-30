@@ -429,12 +429,11 @@
         </div>
         <div class="modal-body">
           <form ng-submit="inviteToChannelSubmit()">
-            <p>Enter invite <b>email address</b></p>
+            <p>Enter a <b>username</b> to invite</p>
             <div class="ui-widget">
-              <label for="tags">Tags: </label>
-              <input id="tags">
+              <input class="form-control taller" id="tags" ng-model="invite.username">
             </div>
-            <input class="form-control taller" type="hidden" name="email" placeholder="you@example.com" ng-model="channelInvite.email"><br>
+            <!--<input class="form-control taller" type="hidden" name="email" placeholder="you@example.com" ng-model="channelInvite.email"><br>-->
             <div class="errorMessage">
               {{validationErrors}}
             </div>

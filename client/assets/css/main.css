@@ -922,3 +922,7 @@ a, u {
 .channel-button{
   float: right;
 }
+
+.ui-widget{
+  z-index: 2000 !important;
+}

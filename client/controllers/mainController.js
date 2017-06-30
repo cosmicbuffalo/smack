@@ -43,11 +43,14 @@ module.exports = function (app) {
       mainFactory.findChannel($routeParams.channelId, function (data) {
         $scope.channel = mainFactory.channel
         console.log("SET CURRENT CHANNEL TO SCOPE: ", $scope.channel)
+        $cookies.put('currentChannelId', $scope.channel._id)
         if (!$scope.channel.posts) { console.log("NO POSTS FOUND ON CHANNEL") }
         $scope.posts = $scope.channel.posts
         //HERE IS WHERE DATE DIVIDERS WILL BE INSERTED -- NEED TO REFACTOR FOR MULTIPLE DATES
-        var firstDivider = new DateDivider($scope.posts[0].createdAt)
-        $scope.posts.splice(0, 0, firstDivider)
+        if ($scope.channel.posts[0]) {
+          var firstDivider = new DateDivider($scope.posts[0].createdAt)
+          $scope.posts.splice(0, 0, firstDivider)
+        }
         console.log("SET CURRENT POSTS TO SCOPE: ", $scope.posts, "********* 2! *********")
 
       })
@@ -70,6 +73,7 @@ module.exports = function (app) {
     $scope.changeChannel = function (channelId, boolean = null) {
       // Broke it up to make it more readable, example is  : /codingdojochicago/3fj31323dcdfF31
       var teamUrl = $cookies.get('currentTeamURL');
+
       $location.url('/' + teamUrl + '/' + channelId);
 
       if (boolean) {
@@ -147,10 +151,10 @@ module.exports = function (app) {
 
     socket.on('added_new_post', function (post) {
       console.log("RECEIVED NEW POST EVENT WITH DATA: ", post)
-      if (post._channel == $scope.channel._id){
+      if (post._channel == $scope.channel._id) {
         $scope.posts.push(post)
       }
-      
+
       // console.log($("#posts-container"))
       // console.log($("#posts-container")[0].scrollHeight)
       scrollSmoothToBottom('posts-container')
@@ -191,33 +195,7 @@ module.exports = function (app) {
 
     $(document).ready(function () {
       console.log("ready!");
-      var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
-      ];
-      $("#tags").autocomplete({
-        source: availableTags
-      });
+
     });
 
     function browseChannelClose() {
@@ -257,10 +235,30 @@ module.exports = function (app) {
     }
     //bootstrap toggle boolean return
     $(document).ready(function () {
+
+
       $("#channel-option").change(function () {
         checkboxListener($(this).prop('checked'))
 
       })
+
+      setTimeout(function () {
+        var availablePersonas = [];
+        for (var x = 0; x < $scope.team.personas.length; x++) {
+          availablePersonas.push($scope.team.personas[x].username)
+        }
+        console.log("List of usernames to choose from for add to channel:, ", availablePersonas)
+
+        $("#tags").autocomplete({
+          source: availablePersonas
+        });
+      }, 3000)
+
+
+
+
+
+
     })
 
 
