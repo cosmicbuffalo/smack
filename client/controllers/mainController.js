@@ -64,6 +64,32 @@ module.exports = function (app) {
 
 
 
+    // -----------------------------------------------------------------------------------------
+    // Changing channel in controller on click
+    // -----------------------------------------------------------------------------------------
+
+    $scope.changeChannel = function (channelId, boolean = null) {
+      // Broke it up to make it more readable, example is  : /codingdojochicago/3fj31323dcdfF31
+      var teamUrl = $cookies.get('currentTeamURL');
+      $location.url('/' + teamUrl + '/' + channelId);
+
+      if (boolean) {
+        // There are two different methods  this function
+        // gets called in one is a modal. The browse channel modal
+        // passes this boolean and the modal closes on click.
+        browseChannelClose();
+      }
+
+    }
+    //--------------------------------------------------------------------------------------
+    // Browse channelswitches over to create new channel!
+    //--------------------------------------------------------------------------------------
+    $scope.goToNewChannel = function(){
+      console.log('working!')
+      $('#filterChannelModal').modal('hide');
+      $('#addChannelModal').modal('show');
+
+    }
 
 
 
@@ -100,9 +126,6 @@ module.exports = function (app) {
       $scope.channelObj = {};
     }
 
-    var modalCloser = function () {
-      $('#addChannelModal').modal('hide');
-    }
 
 
 
@@ -168,6 +191,18 @@ module.exports = function (app) {
 
       $('#channelInviteModal').modal('hide');
     }
+    function browseChannelClose() {
+      $('filterChannelModal').modal('hide');
+      // these two were added because of the modals
+      // backdrop style not being removed on close..
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+    }
+
+    var modalCloser = function () {
+      $('#addChannelModal').modal('hide');
+    }
+
 
 
 

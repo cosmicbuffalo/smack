@@ -735,18 +735,22 @@ a, u {
 }
 
 #modal-exit:hover {
-  background-color: #e8e8e8
+  background-color: #e8e8e8;
+  cursor: pointer;
 }
 
 .create-channel-modal {
   padding-top: 96px;
   color: black;
+  height: 743px;
 }
 
 .create-channel-content {
   text-align: left;
   margin-left: 8%;
   display: inline-block;
+  width :655px;
+  height: 645px;
 }
 
 .toggle {
@@ -866,4 +870,37 @@ a, u {
   border-width: 4px;
   width: 100px;
   height:100px;
+}
+
+#browse-header{
+  display: inline-block;
+  margin-right: 220px;
+}
+.new-channel-button{
+
+  margin-bottom: 19px;
+}
+
+.browse-channels-table{
+  overflow-x: hidden;
+  overflow: auto;
+  
+}
+.hide-table{
+  width: 655px;
+}
+
+.hide-table:hover{
+  background-color: #edf7fd;
+  border : 1px solid #d3ecfa;
+}
+
+#overfill-handler{
+  overflow-y:auto;
+  width: 672px;
+  height: 553px;
+}
+
+.channel-button{
+  float: right;
 }
