@@ -841,6 +841,10 @@ a, u {
 }
 .spinnerContainer{
   text-align: center;
+  display: inline-block;
+  height: 100vh;
+  width: 100vw;
+  line-height: 500px;
 }
 .spinner {
   display:inline-block;
@@ -851,11 +855,11 @@ a, u {
   border-left-color: #df7950;
   border-right-color: #decb3f;
   /*text-align: center;*/
-  /*vertical-align: middle;*/
+  vertical-align: middle;
   /*position: relative;*/
   animation: rotate360 1s linear infinite;
   -webkit-animation: rotate360 1s linear infinite;
   border-width: 4px;
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height:100px;
 }
