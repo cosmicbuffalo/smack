@@ -274,6 +274,11 @@ p.compensate-prof-pic span i {
   height: calc(100% - 70px);
   overflow: scroll;
 }
+#posts-bottom-spacer{
+  display: inline-block;
+  width: 100%;
+  height:50px;
+}
 
 #bottom-bar-container {
   width: 100%;
@@ -776,7 +781,7 @@ a, u {
 }
 
 #nav-column {
-  height: 654px;
+  /*height: 654px;*/
   overflow: hidden;
 }
 

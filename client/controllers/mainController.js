@@ -124,11 +124,20 @@ module.exports = function (app) {
 
 
 
-    socket.on('added_new_post', function(post){
+    socket.on('added_new_post', function (post) {
       console.log("RECEIVED NEW POST EVENT WITH DATA: ", post)
       $scope.posts.push(post)
+      // console.log($("#posts-container"))
+      // console.log($("#posts-container")[0].scrollHeight)
+      scrollSmoothToBottom('posts-container')
     })
 
+    function scrollSmoothToBottom(id) {
+      var div = document.getElementById(id);
+      $('#' + id).animate({
+        scrollTop: div.scrollHeight - div.clientHeight
+      }, 500);
+    }
 
 
 
