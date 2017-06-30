@@ -45,7 +45,7 @@
         <i class="fa fa-plus-circle add-channels" data-toggle="modal" data-target="#addChannelModal" aria-hidden="true"></i>
         <ul>
           <li class="channel-link overflow_ellipsis" ng-repeat="channel in team.channels" ng-click="changeChannel(channel._id)">
-            <i class="fa fa-hashtag" aria-hidden="true"></i> {{channel.name}}
+            <i class="fa fa-hashtag" aria-hidden="true"></i> #{{channel.name}}
           </li>
         </ul>
       </div>
@@ -63,9 +63,9 @@
           </li>
         </ul>
       </div>
-      <div id="side-nav-search">
+      <!--<div id="side-nav-search">
         <img src="" class="icon" alt="Jump to Conversation">
-      </div>
+      </div>-->
     </div>
     <!--Add Channel Modal-->
     <div class="modal fade sidebar-modal-styles" id="addChannelModal" role="dialog">
