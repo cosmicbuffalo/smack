@@ -21,7 +21,7 @@ $(document).ready(function(){
       console.log("Cicked ENTER key")
       // $('#new-post-form').trigger('submit')
       $('#new-post-submit-button').click()
-      $('#new-post-form').trigger('reset')
+      $('.emoji-wysiwyg-editor').html('')
     }
   })
 
