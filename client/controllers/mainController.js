@@ -6,11 +6,11 @@ class DateDivider {
 
 module.exports = function (app) {
 
-  
-  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout) {
 
-    $scope.loaded = false;    
-    $timeout(function() { $scope.loaded = true; }, 3000);
+  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout, socket) {
+
+    $scope.loaded = false;
+    $timeout(function () { $scope.loaded = true; }, 3000);
     $scope.persona = {}
 
     $scope.team = {};
@@ -22,7 +22,7 @@ module.exports = function (app) {
 
     $scope.channels = null;
     $scope.channelInvite = null;
-    
+
 
 
     //------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ module.exports = function (app) {
 
     var refreshChannelAndPosts = function () {
       mainFactory.findChannel($routeParams.channelId, function (data) {
-        $scope.channel = data
+        $scope.channel = mainFactory.channel
         console.log("SET CURRENT CHANNEL TO SCOPE: ", $scope.channel)
         if (!$scope.channel.posts) { console.log("NO POSTS FOUND ON CHANNEL") }
         $scope.posts = $scope.channel.posts
@@ -62,7 +62,7 @@ module.exports = function (app) {
     console.log("FINDING CHANNEL ON PAGE LOAD WITH ID: ", $routeParams.channelId, "********* 2 *********")
     refreshChannelAndPosts()
 
-    
+
 
 
 
@@ -124,7 +124,10 @@ module.exports = function (app) {
 
 
 
-
+    socket.on('added_new_post', function(post){
+      console.log("RECEIVED NEW POST EVENT WITH DATA: ", post)
+      $scope.posts.push(post)
+    })
 
 
 
@@ -151,10 +154,10 @@ module.exports = function (app) {
       $('#channelInviteModal').modal('show');
     }
     $scope.inviteToChannelSubmit = function () {
-      
+
       $('#channelInviteModal').modal('hide');
     }
-    
+
 
 
 

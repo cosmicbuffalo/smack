@@ -8,10 +8,11 @@ class DateDivider {
 module.exports = function (app) {
 
 
-  app.factory('mainFactory', function ($http, $location, $cookies, userFactory) {
+  app.factory('mainFactory', function ($http, $location, $cookies, userFactory, socket) {
     var factory = {};
 
     factory.channel = null;
+    factory.posts = [];
 
     //hits api and returns a team url if exists else sends back error
     factory.findChannel = function (channelId, callback, errorHandler = null) {
@@ -63,26 +64,6 @@ module.exports = function (app) {
 
     }
 
-    // factory.setPosts = function (data, callback) {
-    //   console.log("Entered mainFactory SET POSTS function")
-    //   if (!data.posts) {
-    //     console.log("THERE ARE NO POSTS, CALLING CALLBACK WITH EMPTY ARRAY")
-    //     callback([]);
-    //   } else {
-    //     console.log("SETTING POSTS")
-    //     factory.posts = data.posts
-    //     //HERE IS WHERE DATE DIVIDERS WILL BE INSERTED
-    //     var firstDivider = new DateDivider(factory.posts[0].createdAt)
-    //     console.log("CREATED FIRST DATE DIVIDER")
-    //     factory.posts.splice(0, 0, firstDivider)
-    //     console.log("ADDED DATE DIVIDER TO POSTS")
-    //     console.log("EXECUTING CALLBACK WITH POSTS")
-    //     if (callback) {
-    //       callback(factory.channel, factory.posts)
-    //     }
-
-    //   }
-    // }
 
     factory.addPost = function (newPost, callback, errorHandler) {
       console.log("Entered mainFactory ADD POST method")
@@ -97,7 +78,8 @@ module.exports = function (app) {
 
         console.log("RESPONSE DATA FROM ADD POST: ", response.data);
         if (!response.data.errors) {
-          console.log("NO ERRORS, EXECUTING CALLBACK...")
+          console.log("NO ERRORS, EMITTING TO SERVER AND EXECUTING CALLBACK...")
+          socket.emit("added_new_post", response.data.post)
           callback();
 
         } else {
@@ -109,6 +91,7 @@ module.exports = function (app) {
       })
 
     }
+
 
 
 
