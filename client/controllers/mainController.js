@@ -189,7 +189,26 @@ module.exports = function (app) {
       $('#channelInviteModal').modal('show');
     }
     $scope.inviteToChannelSubmit = function () {
-      mainFactory.inviteToChannel($scope.channelInvite.email, inviteChannelModalCloser)
+      console.log("Entered invite to channel submit function")
+      console.log("INVITE OBJECT: ", $scope.invite)
+
+      console.log("PERSONAS FOUND ON CURRENT TEAM: ", $scope.team.personas)
+
+      for(var x = 0; x < $scope.team.personas.length; x++){
+        // console.log("COMPARING: ", $scope.team.personas[x].username, $scope.invite.username)
+        if ($scope.team.personas[x].username == $scope.invite.username){
+          $scope.invite._id = $scope.team.personas[x]._id
+        }
+      }
+      console.log("INVITE OBJECT AFTER ID LOOKUP: ", $scope.invite)
+
+      if (!$scope.invite._id){
+        console.log("FAILED TO LOOKUP PERSONA ID, USERNAME NOT FOUND IN TEAM MEMBERS")
+        return
+      }
+
+
+      mainFactory.inviteToChannel($scope.invite._id, inviteChannelModalCloser)
 
     }
 
@@ -252,7 +271,7 @@ module.exports = function (app) {
         $("#tags").autocomplete({
           source: availablePersonas
         });
-      }, 3000)
+      }, 2000)
 
 
 
