@@ -937,6 +937,7 @@ color: gray;
 }
 .emoji-wysiwyg-editor {
   border: none !important;
+  outline: none !important;
   position: absolute;
   bottom: 22px;
 }
