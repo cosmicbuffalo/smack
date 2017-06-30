@@ -141,9 +141,11 @@
 
 
 
+  <div class="spinnerContainer">
+    <div class="spinner" ng-hide="loaded"></div>
+  </div>
 
-
-  <div id="main-content">
+  <div id="main-content" ng-cloak="" ng-show="loaded">
     <div id="top-bar">
       <div id="header-left">
         <div id="channel-title-container">

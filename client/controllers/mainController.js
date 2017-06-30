@@ -1,7 +1,9 @@
 module.exports = function (app) {
 
-  app.controller('mainController', function($scope, $location, userFactory, teamFactory, channelFactory, postFactory, $cookies){
-
+  app.controller('mainController', function($scope, $location, userFactory, teamFactory, channelFactory, postFactory, $cookies, $timeout){
+    $scope.loaded = false;    
+    $timeout(function() { $scope.loaded = true; }, 5000);
+    
     $scope.persona = {}
 
     $scope.team = {}

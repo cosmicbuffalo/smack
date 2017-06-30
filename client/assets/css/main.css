@@ -821,3 +821,41 @@ a, u {
   font-weight: 700;
   color: #666f77;
 }
+
+
+
+
+/** for pages that don't load angular but have angular templates in them. **/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+@keyframes rotate360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes rotate360 {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+.spinnerContainer{
+  text-align: center;
+}
+.spinner {
+  display:inline-block;
+  border-radius: 50px;
+  border-style: solid;
+  border-bottom-color: #3b5641;
+  border-top-color: #67b3a9;
+  border-left-color: #df7950;
+  border-right-color: #decb3f;
+  /*text-align: center;*/
+  /*vertical-align: middle;*/
+  /*position: relative;*/
+  animation: rotate360 1s linear infinite;
+  -webkit-animation: rotate360 1s linear infinite;
+  border-width: 4px;
+  width: 50px;
+  height: 50px;
+}
