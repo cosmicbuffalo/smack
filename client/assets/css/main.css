@@ -844,7 +844,8 @@ a, u {
   display: inline-block;
   height: 100vh;
   width: 100vw;
-  line-height: 500px;
+  /*line-height: 500px;*/
+  padding: 100px;
 }
 .spinner {
   display:inline-block;
@@ -863,3 +864,20 @@ a, u {
   width: 100px;
   height:100px;
 }
+.spinnerText{
+  /*display:inline-block;*/
+  vertical-align: middle; 
+  font-weight: 700;
+  font-size: 2em;
+  /*height: 20px; */
+}
+.spinnerLogo{
+  display:inline-block;
+  vertical-align: middle; 
+  width: 300px; 
+  border-radius: 20px;
+  margin: 0px auto;
+  text-align: center ;
+  margin-top: -60px;
+  /*border: 2px solid black;*/
+}  
