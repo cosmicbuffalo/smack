@@ -123,10 +123,12 @@ module.exports = function (app) {
     }
 
 
-
     socket.on('added_new_post', function (post) {
       console.log("RECEIVED NEW POST EVENT WITH DATA: ", post)
-      $scope.posts.push(post)
+      if (post._channel == $scope.channel._id){
+        $scope.posts.push(post)
+      }
+      
       // console.log($("#posts-container"))
       // console.log($("#posts-container")[0].scrollHeight)
       scrollSmoothToBottom('posts-container')
