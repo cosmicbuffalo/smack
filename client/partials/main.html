@@ -262,12 +262,13 @@
         <div id="bottom-bar-container">
           <div id="new-post-bar">
             <!-- will be fixed at the bottom of the container-->
-            <form id="search-box" ng-submit="addPost()">
+            <form id="new-post-form" ng-submit="addPost()">
               <a id="add-link" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-               <input emoji-attachment-location="bottom right" emoji-menu-location="top left" data-emojiable="true"   type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}"></input>
+               <input id="new-post-input" emoji-attachment-location="bottom right" emoji-menu-location="top left" data-emojiable="true"   type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}"></input>
                
               <!--<a id="emojiselector" class="icon" href=""><i class="fa fa-smile-o" aria-hidden="true"></i></a>-->
-              <button type="submit" >SUBMIT</button>
+              <div class="hidden"><button id="new-post-submit-button" type="submit" >SUBMIT</button></div>
+              
             </form>
           </div>
           <div id="notification-bar">
