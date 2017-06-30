@@ -322,11 +322,11 @@ p.compensate-prof-pic span i {
   color: rgba(0, 0, 0, .35);
 }
 
-#bottom-bar-container .dropdown-menu {
-  padding: 20px;
+/*#bottom-bar-container .dropdown-menu {
+  padding: 17px;
   width: 200px !important;
   height: 200px !important
-}
+}*/
 
 #new-post-bar a, #new-post-bar div {
   display: inline-block;
@@ -921,4 +921,13 @@ a, u {
 
 .channel-button{
   float: right;
+}
+.emojiPicker{
+  top: 74px !important;
+}
+.emojiPickerIcon{
+  width: 50px !important;
+}
+#new-post-bar div{
+  bottom: 9px !important;
 }

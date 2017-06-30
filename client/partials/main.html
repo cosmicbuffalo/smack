@@ -264,54 +264,10 @@
             <!-- will be fixed at the bottom of the container-->
             <form id="search-box" ng-submit="addPost()">
               <a id="add-link" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-              <input type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}">              </input>
+               <input emoji-attachment-location="bottom right" emoji-menu-location="top left" data-emojiable="true"   type="text" name="new-post-content" ng-model="newPost.content" placeholder="Message {{team.name}}"></input>
+               
               <!--<a id="emojiselector" class="icon" href=""><i class="fa fa-smile-o" aria-hidden="true"></i></a>-->
-              <div class="dropup">
-                <a id="emojiselector" class="icon dropdown-toggle" data-toggle="dropdown" href=""><i class="fa fa-smile-o" aria-hidden="true"></i></a>
-                <ul class="dropdown-menu">
-                  <i class="em em-beer"></i>
-                  <i class="em em--1"></i>
-                  <i class="em em---1"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                  <i class="em em-smile"></i>
-                </ul>
-              </div>
+              <button type="submit" >SUBMIT</button>
             </form>
           </div>
           <div id="notification-bar">
@@ -430,11 +386,9 @@
         <div class="modal-body">
           <form ng-submit="inviteToChannelSubmit()">
             <p>Enter invite <b>email address</b></p>
-            <div class="ui-widget">
-              <label for="tags">Tags: </label>
-              <input id="tags">
-            </div>
-            <input class="form-control taller" type="hidden" name="email" placeholder="you@example.com" ng-model="channelInvite.email"><br>
+            <select name="repeatSelect" id="selectChannelInvite" ng-model="channelInvite.personaId">
+            <option ng-repeat="persona in team.personas" value="{{persona._id}}">{{persona._user.email}}</option>
+          </select>
             <div class="errorMessage">
               {{validationErrors}}
             </div>

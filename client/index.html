@@ -10,7 +10,7 @@
   <script src="angular-cookies/angular-cookies.js"></script>
   <script src="angular-messages/angular-messages.js"></script>
   <script src="jquery/dist/jquery.min.js"></script>
-  <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script src="bundle.js"></script>
   <script src="assets/js/main.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,14 +19,34 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="bootstrap-toggle/css/bootstrap-toggle.css">
   <script src="bootstrap-toggle/js/bootstrap-toggle.js"></script>
-  <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/css/emoji.css" rel="stylesheet">
 
 </head>
 
 <body>
 
   <div id="view" ng-view=""></div>
-
+  <!--//emojis-->
+  <!-- ** Don't forget to Add jQuery here ** -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/jquery.emojiarea.js"></script>
+  <script src="assets/js/emoji-picker.js"></script>
+  <script>
+      $(function() {
+        // Initializes and creates emoji set from sprite sheet
+        window.emojiPicker = new EmojiPicker({
+          emojiable_selector: '[data-emojiable=true]',
+          assetsPath: '../lib/img/',
+          popupButtonClasses: 'fa fa-smile-o'
+        });
+        // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+        // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+        // It can be called as many times as necessary; previously converted input fields will not be converted again
+        window.emojiPicker.discover();
+      });
+    </script>
 </body>
 
 </html>

@@ -18,13 +18,13 @@ module.exports = function (app) {
       console.log(errors);
     }
     //if team exists in db, set redirect to team url
-    function setTeam(teamURL, channelId) {
-      console.log("teamURL: ", teamURL)
-      if (teamURL) {
-        console.log("CHANNEL ID: ", channelId)
-        $cookies.put("currentChannelId", channelId)
-        $cookies.put("currentTeamURL", teamURL)
-        $location.path("/" + teamURL);
+    function setTeam(team) {
+      console.log("teamURL: ", team.url)
+      if (team.url) {
+        console.log("CHANNEL ID: ", team.channels[0]._id)
+        $cookies.put("currentChannelId", team.channels[0]._id)
+        $cookies.put("currentTeamURL", team.url)
+        $location.path("/" + team.url);
       } else {
         console.log("team not found");
       }
@@ -34,16 +34,15 @@ module.exports = function (app) {
     var currentTeamURL = $cookies.get('currentTeamURL');
     //check db if team exists
     $scope.findTeam = function () {
-      // if (!currentTeamURL) {
-      //   teamFactory.findTeam($scope.team, setTeam, errorHandler);
-      // } else {
-      //   if (currentTeamURL === $scope.team.url) {
-      //     $location.path("/" + currentTeamURL);
-      //   }
-      // }
-      teamFactory.findTeam($scope.team, setTeam, errorHandler)
-      
-      
+      if (!currentTeamURL) {
+        teamFactory.getTeam($scope.team, setTeam, errorHandler);
+      } else {
+        if (currentTeamURL === $scope.team.url) {
+          $location.path("/" + currentTeamURL);
+        }
+      }
+      teamFactory.getTeam($scope.team, setTeam, errorHandler)
+
     }
   })
 }

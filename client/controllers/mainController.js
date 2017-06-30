@@ -10,7 +10,7 @@ module.exports = function (app) {
   app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout, socket) {
 
     $scope.loaded = false;
-    $timeout(function () { $scope.loaded = true; }, 1000);
+    $timeout(function () { $scope.loaded = true; }, 3000);
     $scope.persona = {}
 
     $scope.team = {};
@@ -147,10 +147,10 @@ module.exports = function (app) {
 
     socket.on('added_new_post', function (post) {
       console.log("RECEIVED NEW POST EVENT WITH DATA: ", post)
-      if (post._channel == $scope.channel._id){
+      if (post._channel == $scope.channel._id) {
         $scope.posts.push(post)
       }
-      
+
       // console.log($("#posts-container"))
       // console.log($("#posts-container")[0].scrollHeight)
       scrollSmoothToBottom('posts-container')
@@ -189,36 +189,7 @@ module.exports = function (app) {
 
     }
 
-    $(document).ready(function () {
-      console.log("ready!");
-      var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
-      ];
-      $("#tags").autocomplete({
-        source: availableTags
-      });
-    });
+
 
     function browseChannelClose() {
       $('filterChannelModal').modal('hide');
@@ -259,11 +230,8 @@ module.exports = function (app) {
     $(document).ready(function () {
       $("#channel-option").change(function () {
         checkboxListener($(this).prop('checked'))
-
       })
     })
-
-
 
 
   })

@@ -14,6 +14,7 @@ module.exports = function (app) {
     $scope.validationErrors = null;
     $scope.successMessages = null;
 
+
     //url of the current team passed in from route params
     $scope.currentTeamURL = $routeParams.teamURL;
     console.log()
