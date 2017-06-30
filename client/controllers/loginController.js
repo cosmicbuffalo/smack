@@ -1,6 +1,6 @@
 module.exports = function (app) {
   app.controller('loginController', function ($scope, userFactory, teamFactory, $location, $cookies, $routeParams) {
-    console.log("reached controller");
+    console.log("reached login controller");
 
     // -----------ADD CHECK IF PERSONA LOGGED in, if true, redirect---------------
 
@@ -33,8 +33,14 @@ module.exports = function (app) {
     }
     // set persona id into scope.
     function setCurrentPersona(currentPersona) {
+      console.log("Entered set current persona in login controller")
+      console.log("RECEIVED PERSONA: ", currentPersona)
+      console.log("SETTING ID TO COOKIE currentPersonaId: ", currentPersona._id)
       $cookies.put('currentPersonaId', currentPersona._id);
-      $location.path("/" + $scope.currentTeamURL + "/messages");
+      $cookies.remove('personaIdLogin')
+      console.log("Removed personaIdLogin Cookie")
+      console.log("Redirecting...", "/" + $scope.currentTeamURL + "/" + $cookies.get('currentChannelId'))
+      $location.path("/" + $scope.currentTeamURL + "/" + $cookies.get('currentChannelId'));
     }
 
     //FIRST TO HAPPEN
@@ -65,22 +71,25 @@ module.exports = function (app) {
       // } else {
       //   console.log("didnt pass ng validations ")
       // }
-      $scope.persona.personaId = teamFactory.currentPersona._id
-      console.log($scope.persona);
+      $scope.persona.personaId = $cookies.get('personaIdLogin')
+      console.log("POST DATA FOR LOGIN: ", $scope.persona);
       userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
     }
 
     var modalCloser = function () {
       $('#myModal').modal('hide');
+      $scope.foundEmailBool = true;
     }
 
 
     //AFTER SUCCESSFUL EMAIL CHECK IF NO PASSWORD
     $scope.createPassword = function () {
+      console.log("Entered Create Password function")
       var postData = { password: $scope.password.password }
       if ($scope.password.username) {
         postData.username = $scope.password.username
       }
+      console.log("POST DATA TO SEND TO CREATE PASSWORD: ", postData)
       userFactory.createPassword(postData, modalCloser)
     }
     var inviteSuccess = function (result) {

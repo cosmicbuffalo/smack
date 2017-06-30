@@ -1,65 +1,112 @@
+class DateDivider {
+  constructor(date) {
+    this.date = date
+  }
+}
+
 module.exports = function (app) {
 
-  app.controller('mainController', function($scope, $location, userFactory, teamFactory, channelFactory, postFactory, $cookies, $timeout){
+  
+  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams) {
+
     $scope.loaded = false;    
     $timeout(function() { $scope.loaded = true; }, 3000);
     $scope.persona = {}
 
-    $scope.team = {}
-  
-
-    $scope.channel = {}
+    $scope.team = {};
+    // $scope.persona = null;
+    $scope.channel = null;
+    $scope.posts = [];
+    $scope.channelType = false;
+    $scope.publicOrPrivateDesription = "Anyone on your team can view and join this channel"
 
     $scope.channels = null;
     $scope.channelInvite = null;
     
 
-    $scope.posts = []
 
-
-    $scope.newPost = {}
-    //redirect if not logged in
-    var currentPersonaId = $cookies.get('currentPersonaId');
-    if (!currentPersonaId) {
+    //------------------------------------------------------------------------------------------
+    //get persona on page load
+    //------------------------------------------------------------------------------------------ 
+    if (!$cookies.get('currentPersonaId')) {
+      console.log("DIDN'T FIND PERSONA ID IN COOKIES... REDIRECTNG TO ROOT")
       $location.path("/");
-    } else {
-      
     }
-
-    var setPersona = function(){
-      console.log("Entered set persona in main controller")
-      $scope.persona = userFactory.currentPersona
-
-      $scope.newPost = {
-        _persona: $scope.persona._id
-      }
-    }
-    var setTeam = function(data){
-      console.log("Entered set team in main controller")
-      $scope.team = teamFactory.team
-      channelFactory.findChannel(teamFactory.currentChannel._id, setChannel)
-    }
-
-    var setChannel = function (data){
-      console.log("Entered set channel in main controller")
-      $scope.channel = channelFactory.channel
-      $scope.posts = $scope.channel.posts
-      console.log("Scope.posts: ", $scope.posts)
-
-    }
-
-    if ($cookies.get('currentTeamURL')){
-      console.log("Found team URL in cookies: ", $cookies.get('currentTeamURL'))
-      teamFactory.findTeam({url:$cookies.get('currentTeamURL')}, setTeam)
-    }
-
-
-
-    var addPostSuccess = function (data) {
-      console.log("Entered main controller add post success function")
+    console.log("GETTING CURRENT PERSONA BY ID IN COOKIES: ", $cookies.get('currentPersonaId'), "********* 1 *********")
+    userFactory.getPersona($cookies.get('currentPersonaId'), function (data) {
       console.log(data)
-      $scope.newPost = { _persona: $scope.persona._id }
+      $scope.persona = data
+      console.log("SET CURRENT PERSONA TO SCOPE: ", $scope.persona, "********* 1! *********")
+    })
+
+
+    var refreshChannelAndPosts = function () {
+      mainFactory.findChannel($routeParams.channelId, function (data) {
+        $scope.channel = data
+        console.log("SET CURRENT CHANNEL TO SCOPE: ", $scope.channel)
+        if (!$scope.channel.posts) { console.log("NO POSTS FOUND ON CHANNEL") }
+        $scope.posts = $scope.channel.posts
+        //HERE IS WHERE DATE DIVIDERS WILL BE INSERTED -- NEED TO REFACTOR FOR MULTIPLE DATES
+        var firstDivider = new DateDivider($scope.posts[0].createdAt)
+        $scope.posts.splice(0, 0, firstDivider)
+        console.log("SET CURRENT POSTS TO SCOPE: ", $scope.posts, "********* 2! *********")
+
+      })
+
     }
+
+
+    //------------------------------------------------------------------------------------------
+    //get channel on page load
+    //------------------------------------------------------------------------------------------
+    console.log("FINDING CHANNEL ON PAGE LOAD WITH ID: ", $routeParams.channelId, "********* 2 *********")
+    refreshChannelAndPosts()
+
+    
+
+
+
+
+
+
+    function setTeamInScope(data) {
+      console.log("Entered set team in scope")
+      $scope.team = data
+      console.log('SET TEAM TO SCOPE: ', data, "********* 3! *********")
+    }
+
+    //check to see if team url is in cookies
+    //get team and set team to scope
+    console.log("GETTING CURRENT TEAM BY URL: ", $cookies.get('currentTeamURL'), "********* 3 *********", "TEAM SHOULD BE UP TO DATE")
+    if ($cookies.get('currentTeamURL')) {
+      console.log("Found team URL in cookies: ", $cookies.get('currentTeamURL'))
+      reloadTeam()
+    }
+
+    function reloadTeam() {
+      console.log("Entered reload team, calling teamFactory GET TEAM with url from cookie")
+      teamFactory.getTeam({ url: $cookies.get('currentTeamURL') }, setTeamInScope)
+    }
+
+    //new channel form submit action
+    $scope.addChannel = function (channelObj) {
+      console.log("Triggered addChannel function!")
+      channelObj.private = $scope.channelType
+      channelObj.personaId = $cookies.get('currentPersonaId')
+      console.log("Will call mainFactory CREATE CHANNEL")
+      console.log("PASSING TEAM ID: ", teamFactory.team._id)
+      console.log("PASSING NEW CHANNEL OBJECT: ", channelObj)
+      mainFactory.createChannel(teamFactory.team._id, channelObj, reloadTeam, modalCloser)
+      $scope.channelObj = {};
+    }
+
+    var modalCloser = function () {
+      $('#addChannelModal').modal('hide');
+    }
+
+
+
+
 
     var errorHandler = function (errors) {
       console.log("Entered main controller error handler function")
@@ -67,12 +114,35 @@ module.exports = function (app) {
     }
 
     $scope.addPost = function () {
-
       console.log("Triggered add post function")
-      console.log("New Post object before adding persona and channel: ", $scope.newPost);
+      console.log("WILL CALL mainFactory ADD POST")
+      console.log("PASSING NEW POST OBJECT: ", $scope.newPost);
+      mainFactory.addPost($scope.newPost, refreshChannelAndPosts, errorHandler)
+      $scope.newPost = {};
 
-      postFactory.addPost($scope.newPost, addPostSuccess, errorHandler)
+    }
 
+
+
+
+
+
+
+
+
+
+    // log persona out and redirect to team login
+    $scope.logOut = function () {
+      $cookies.remove('currentTeamURL');
+      $cookies.remove('currentPersonaId');
+      $location.path("/");
+    }
+    
+    //logOut and switch teams
+    $scope.changeTeam = function () {
+      $cookies.remove('currentPersonaId');
+      $cookies.remove('currentTeamURL');
+      $location.path("/");
     }
 
     $scope.inviteToChannel = function () {
@@ -84,6 +154,57 @@ module.exports = function (app) {
       
       $('#channelInviteModal').modal('hide');
     }
+    
+
+
+
+
+
+
+
+
+
+
+
+    var checkboxListener = function (value) {
+      $scope.channelType = value
+      if ($scope.channelType) {
+        $scope.publicOrPrivate = ""
+        $scope.publicOrPrivateDesription = "Anyone on your team can view and join this channel"
+      } else {
+
+        $scope.publicOrPrivate = "private"
+        $scope.publicOrPrivateDesription = "This channel can only be joined or viewed by invite"
+      }
+      console.log($scope.publicOrPrivate)
+
+    }
+    //bootstrap toggle boolean return
+    $(document).ready(function () {
+      $("#channel-option").change(function () {
+        checkboxListener($(this).prop('checked'))
+
+      })
+    })
+
+
+
+
   })
+
+
+
+
+  //bootstrap toggle
+  $(function () {
+    $('#channel-option').bootstrapToggle({
+      on: 'Private',
+      off: 'Public'
+    });
+  })
+
+
+
+
 
 }

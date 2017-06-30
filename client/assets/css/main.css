@@ -270,9 +270,8 @@ p.compensate-prof-pic span i {
 .compact {
   width: calc(100% - 589px) !important;
 }
-
-#posts-container {
-  height: calc(100% - 50px);
+#posts-container{
+  height: calc(100% - 70px);
   overflow: scroll;
 }
 
