@@ -5,7 +5,8 @@ module.exports = function (app) {
     //gets set from findteam() if the team exists and gets sent to controller to confirm team existence
     factory.teamURL = null;
     factory.currentPersonaId = $cookies.get('currentPersonaId')
-    factory.personaIdLogin = $cookies.get('personaIdLogin')
+    console.log("FACTORY CURRENT PERSONA ID FROM COOKIES", factory.currentPersonaId)
+    // factory.personaIdLogin = $cookies.get('personaIdLogin')
     //holds currentPersona from getPersona()
     factory.currentPersona = {};
     //holds user object
@@ -49,6 +50,10 @@ module.exports = function (app) {
 
     //login persona and send persona back to contoller to set into cookies
     factory.login = function (user, currentTeamURL, callback, errorHandler) {
+      console.log("Entered User Factory Login method")
+      console.log("RECEIVED POSTDATA: ", user)
+      console.log("POSTING TO URL: ", "/api/teams/" + currentTeamURL + "/login")
+
       $http.post("/api/teams/" + currentTeamURL + "/login", user).then(function (response) {
         console.log(response);
         if (!response.data.errors) {
@@ -61,13 +66,16 @@ module.exports = function (app) {
     }
 
     factory.createPassword = function (postData, callback) {
-      console.log(factory.personaIdLogin)
+      console.log("Entered userFactory createPassword function")
+      console.log("FOUND personaIdLogin COOKIE: ", $cookies.get('personaIdLogin'))
+      console.log("RECEIVED POSTDATA: ", postData)
 
-      if (factory.personaIdLogin) {
-        $http.post('/api/personas/' + factory.personaIdLogin, postData).then(function(response){
+      if ($cookies.get('personaIdLogin')) {
+        console.log("POSTING TO URL: ", '/api/personas/' + $cookies.get('personaIdLogin'))
+        $http.post('/api/personas/' + $cookies.get('personaIdLogin'), postData).then(function(response){
           if (!response.data.errors){
-            console.log("Got repsponse: ", response.data)
-
+            console.log("Got response: ", response.data)
+            factory.currentPersona = response.data.persona
           } else {
             console.log(response.data)
           }

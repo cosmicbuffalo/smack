@@ -1,5 +1,5 @@
 module.exports = function (app) {
-  app.factory("teamFactory", function ($http, $location, $cookies, channelFactory) {
+  app.factory("teamFactory", function ($http, $location, $cookies) {
 
     var factory = {};
     //gets set from findteam() if the team exists and gets sent to controller to confirm team existence
@@ -11,9 +11,10 @@ module.exports = function (app) {
 
     //hits api and returns a team url if exists else sends back error
     factory.findTeam = function (team, callback = null, errorHandler = null, setTeamInScope = null) {
-      console.log(team);
+      console.log("Entered teamFactory.findTeam method!")
+      console.log("RECEIVED TEAM LOOKUP OBJECT: ", team);
       var url = team.url;
-      console.log(factory.team, "------------------------------------------------")
+      console.log("Current factory.team: ", factory.team)
       if (!factory.team) {
         $http.get('/api/teams/' + url).then(function (response) {
           console.log(response);
@@ -23,9 +24,8 @@ module.exports = function (app) {
             console.log("factory.teamURL: ", factory.teamURL);
             console.log("Team: ", factory.team)
             factory.currentChannel = factory.team.channels[0]
-            channelFactory.findChannel(factory.currentChannel._id)
             if (callback) {
-              callback(factory.teamURL);
+              callback(factory.teamURL, factory.currentChannel._id);
             }
             if (setTeamInScope) {
               console.log("CALLL BACK SOOOOOOOOOOOOOOOOOOON")
@@ -45,30 +45,29 @@ module.exports = function (app) {
       }
     }
 
-    factory.getTeam = function (team, callback = null, errorHandler = null, setTeamInScope = null) {
-      console.log(team);
+    factory.getTeam = function (team, setTeamInScope = null) {
+      console.log("Entered teamFactory GET TEAM method!")
+      console.log("RECEIVED TEAM LOOKUP OBJECT: ", team);
       var url = team.url;
-      console.log(factory.team, "------------------------------------------------")
+      // console.log("Current factory.team before http lookup:", factory.team)
+      console.log("EXECUTING GET TO URL: ", '/api/teams/' + url)
       $http.get('/api/teams/' + url).then(function (response) {
-        console.log(response);
+        // console.log(response);
         if (!response.data.errors) {
           factory.team = response.data.team
           factory.teamURL = response.data.team.url;
-          console.log("factory.teamURL: ", factory.teamURL);
-          console.log("Team: ", factory.team)
+          console.log("SET factory.teamURL: ", factory.teamURL);
+          console.log("SET factory.team: ", factory.team)
           factory.currentChannel = factory.team.channels[0]
-          channelFactory.findChannel(factory.currentChannel._id)
-          if (callback) {
-            callback(factory.teamURL);
-          }
+          console.log("SET factory.currentChannel: ", factory.currentChannel)
+          console.log("Checking for callback...")
           if (setTeamInScope) {
-            console.log("CALLL BACK SOOOOOOOOOOOOOOOOOOON")
+            console.log("EXECUTING SET TEAM IN SCOPE CALLBACK WITH TEAM: ", factory.team)
             setTeamInScope(factory.team)
           }
         } else {
-          if (errorHandler) {
-            errorHandler(response.data.errors);
-          }
+          console.log("RECEIVED ERRORS: ...")
+          console.log(response.data.errors)
         }
       });
     }
@@ -101,7 +100,9 @@ module.exports = function (app) {
             if (personas[x]._user.email == email) {
               console.log("Found email match")
               factory.currentPersona = personas[x];
+              console.log(factory.currentPersona, "Setting iD into cookie personaIdLogin.........", factory.currentPersona._id)
               $cookies.put('personaIdLogin', factory.currentPersona._id);
+              console.log("NEW PERSONA ID IN COOKIE: ", $cookies.get('personaIdLogin'))
               return true
             }
           }
@@ -111,6 +112,8 @@ module.exports = function (app) {
         return false
       }
     }
+
+
     factory.invite = function (email, url, callback, errorHandler) {
       $http.post('api/teams/' + url + '/invite', { email: email }).then(function (response) {
         if (!response.data.error) {

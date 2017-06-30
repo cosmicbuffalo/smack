@@ -14,4 +14,13 @@ $(document).ready(function(){
   })
 
 
+
+  // $("#posts-container").animate({scrollTop:$("#posts-container").scrollHeight‌​}, 1000);
+
+
+
+
+  
+
+
 })

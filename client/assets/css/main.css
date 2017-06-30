@@ -270,10 +270,14 @@ p.compensate-prof-pic span i {
 .compact {
   width: calc(100% - 589px) !important;
 }
-
-#posts-container {
-  height: calc(100% - 50px);
+#posts-container{
+  height: calc(100% - 70px);
   overflow: scroll;
+}
+#posts-bottom-spacer{
+  display: inline-block;
+  width: 100%;
+  height:50px;
 }
 
 #bottom-bar-container {
@@ -731,18 +735,22 @@ a, u {
 }
 
 #modal-exit:hover {
-  background-color: #e8e8e8
+  background-color: #e8e8e8;
+  cursor: pointer;
 }
 
 .create-channel-modal {
   padding-top: 96px;
   color: black;
+  height: 743px;
 }
 
 .create-channel-content {
   text-align: left;
   margin-left: 8%;
   display: inline-block;
+  width :655px;
+  height: 645px;
 }
 
 .toggle {
@@ -777,7 +785,7 @@ a, u {
 }
 
 #nav-column {
-  height: 654px;
+  /*height: 654px;*/
   overflow: hidden;
 }
 
@@ -801,8 +809,8 @@ a, u {
 }
 
 .smackLogo {
-  width: 78px;
-  border-radius: 17px;
+  width: 54px;
+  border-radius: 8px;
   margin-left: 20px;
   margin-top: 8px;
 }
@@ -881,3 +889,36 @@ a, u {
   margin-top: -60px;
   /*border: 2px solid black;*/
 }  
+
+#browse-header{
+  display: inline-block;
+  margin-right: 220px;
+}
+.new-channel-button{
+
+  margin-bottom: 19px;
+}
+
+.browse-channels-table{
+  overflow-x: hidden;
+  overflow: auto;
+  
+}
+.hide-table{
+  width: 655px;
+}
+
+.hide-table:hover{
+  background-color: #edf7fd;
+  border : 1px solid #d3ecfa;
+}
+
+#overfill-handler{
+  overflow-y:auto;
+  width: 672px;
+  height: 553px;
+}
+
+.channel-button{
+  float: right;
+}
