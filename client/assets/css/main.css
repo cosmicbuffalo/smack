@@ -922,12 +922,7 @@ a, u {
 .channel-button{
   float: right;
 }
-.emojiPicker{
-  top: 74px !important;
-}
-.emojiPickerIcon{
-  width: 50px !important;
-}
-#new-post-bar div{
-  bottom: 9px !important;
+
+.ui-widget{
+  z-index: 2000 !important;
 }

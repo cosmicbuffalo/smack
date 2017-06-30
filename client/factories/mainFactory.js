@@ -45,7 +45,8 @@ module.exports = function (app) {
       $http.post('/api/teams/' + teamId + '/channels', channelObj).then(function (res) {
 
         if (res.data.success) {
-          console.log("GOT SUCCESS RESPONSE IN CREATE CHANNEL, EXECUTING CALLBACK...")
+          console.log("GOT SUCCESS RESPONSE IN CREATE CHANNEL, EMITTING NEW CHANNEL EVENT TO SERVER AND EXECUTING CALLBACK...")
+          socket.emit('added_new_channel', {teamURL:$cookies.get('currentTeamURL')})
           callback()
 
         }
@@ -64,11 +65,12 @@ module.exports = function (app) {
 
     }
     factory.inviteToChannel = function (personaId, modalCloser = null) {
-      $http.post('/api/channels/' + factory.channel._id, { personaId: personaId }).then(function (res) {
+      $http.post('/api/channels/' + $cookies.get('currentChannelId') + '/invite', { personaId: personaId }).then(function (res) {
 
         if (res.data.success) {
           console.log("GOT SUCCESS RESPONSE IN invite to CHANNEL")
-          callback()
+          socket.emit("invited_to_channel", {channelId:$cookies.get('currentChannelId')})
+          modalCloser()
         }
         else {
           console.log("RECEIVED FAILURE RESPONSE IN invite to CHANNEL...")

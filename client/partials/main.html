@@ -385,10 +385,11 @@
         </div>
         <div class="modal-body">
           <form ng-submit="inviteToChannelSubmit()">
-            <p>Enter invite <b>email address</b></p>
-            <select name="repeatSelect" id="selectChannelInvite" ng-model="channelInvite.personaId">
-            <option ng-repeat="persona in team.personas" value="{{persona._id}}">{{persona._user.email}}</option>
-          </select>
+            <p>Enter a <b>username</b> to invite</p>
+            <div class="ui-widget">
+              <input class="form-control taller" id="tags" ng-model="invite.username">
+            </div>
+            <!--<input class="form-control taller" type="hidden" name="email" placeholder="you@example.com" ng-model="channelInvite.email"><br>-->
             <div class="errorMessage">
               {{validationErrors}}
             </div>

@@ -7,7 +7,7 @@ class DateDivider {
 module.exports = function (app) {
 
 
-  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout, socket) {
+  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout, socket, $route) {
 
     $scope.loaded = false;
     $timeout(function () { $scope.loaded = true; }, 3000);
@@ -43,11 +43,14 @@ module.exports = function (app) {
       mainFactory.findChannel($routeParams.channelId, function (data) {
         $scope.channel = mainFactory.channel
         console.log("SET CURRENT CHANNEL TO SCOPE: ", $scope.channel)
+        $cookies.put('currentChannelId', $scope.channel._id)
         if (!$scope.channel.posts) { console.log("NO POSTS FOUND ON CHANNEL") }
         $scope.posts = $scope.channel.posts
         //HERE IS WHERE DATE DIVIDERS WILL BE INSERTED -- NEED TO REFACTOR FOR MULTIPLE DATES
-        var firstDivider = new DateDivider($scope.posts[0].createdAt)
-        $scope.posts.splice(0, 0, firstDivider)
+        if ($scope.channel.posts[0]) {
+          var firstDivider = new DateDivider($scope.posts[0].createdAt)
+          $scope.posts.splice(0, 0, firstDivider)
+        }
         console.log("SET CURRENT POSTS TO SCOPE: ", $scope.posts, "********* 2! *********")
 
       })
@@ -70,6 +73,7 @@ module.exports = function (app) {
     $scope.changeChannel = function (channelId, boolean = null) {
       // Broke it up to make it more readable, example is  : /codingdojochicago/3fj31323dcdfF31
       var teamUrl = $cookies.get('currentTeamURL');
+
       $location.url('/' + teamUrl + '/' + channelId);
 
       if (boolean) {
@@ -163,6 +167,25 @@ module.exports = function (app) {
       }, 500);
     }
 
+    socket.on('invited_to_channel', function (data) {
+      console.log("RECEIVED INVITED TO CHANNEL EVENT WITH DATA: ", data)
+      if ($scope.channel._id == data.channelId) {
+        $route.reload();
+      }
+
+    })
+
+    socket.on('added_new_channel', function (data) {
+      console.log("RECEIVED ADDED NEW CHANNEL EVENT WITH DATA: ", data);
+
+      if ($scope.team.url == data.teamURL) {
+        console.log("CALLING RELOAD TEAM TO REFRESH CHANNEL LIST")
+        reloadTeam();
+      }
+
+
+    })
+
 
 
 
@@ -185,10 +208,28 @@ module.exports = function (app) {
       $('#channelInviteModal').modal('show');
     }
     $scope.inviteToChannelSubmit = function () {
-      mainFactory.inviteToChannel($scope.channelInvite.email, inviteChannelModalCloser)
+      console.log("Entered invite to channel submit function")
+      console.log("INVITE OBJECT: ", $scope.invite)
+
+      console.log("PERSONAS FOUND ON CURRENT TEAM: ", $scope.team.personas)
+
+      for (var x = 0; x < $scope.team.personas.length; x++) {
+        // console.log("COMPARING: ", $scope.team.personas[x].username, $scope.invite.username)
+        if ($scope.team.personas[x].username == $scope.invite.username) {
+          $scope.invite._id = $scope.team.personas[x]._id
+        }
+      }
+      console.log("INVITE OBJECT AFTER ID LOOKUP: ", $scope.invite)
+
+      if (!$scope.invite._id) {
+        console.log("FAILED TO LOOKUP PERSONA ID, USERNAME NOT FOUND IN TEAM MEMBERS")
+        return
+      }
+
+
+      mainFactory.inviteToChannel($scope.invite._id, inviteChannelModalCloser)
 
     }
-
 
 
     function browseChannelClose() {
@@ -228,9 +269,29 @@ module.exports = function (app) {
     }
     //bootstrap toggle boolean return
     $(document).ready(function () {
+
+
       $("#channel-option").change(function () {
         checkboxListener($(this).prop('checked'))
       })
+
+      setTimeout(function () {
+        var availablePersonas = [];
+        for (var x = 0; x < $scope.team.personas.length; x++) {
+          availablePersonas.push($scope.team.personas[x].username)
+        }
+        console.log("List of usernames to choose from for add to channel:, ", availablePersonas)
+
+        $("#tags").autocomplete({
+          source: availablePersonas
+        });
+      }, 2000)
+
+
+
+
+
+
     })
 
 
