@@ -926,3 +926,12 @@ a, u {
 .ui-widget{
   z-index: 2000 !important;
 }
+.emoji-menu{
+  bottom: 80px;
+}
+.emoji-picker-icon{
+  right: 40px !important;
+  top: 15px !important;
+font-size: 2em;
+color: gray;
+}
