@@ -391,14 +391,14 @@ p.compensate-prof-pic span i {
 
 div[ng-message], .errorMessage {
   color: lightcoral;
-  font-size: .9em;
+  font-size: 1.2em;
   margin-top: 4px;
   margin-bottom: 10px;
 }
 
 .successMessage {
   color: lightgreen;
-  font-size: .9em;
+  font-size: 1.2em;
   margin-top: 4px;
   margin-bottom: 10px;
 }

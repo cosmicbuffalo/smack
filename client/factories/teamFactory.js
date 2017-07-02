@@ -45,7 +45,7 @@ module.exports = function (app) {
       }
     }
 
-    factory.getTeam = function (team, setTeamInScope = null) {
+    factory.getTeam = function (team, setTeamInScope = null, errorHandler) {
       console.log("Entered teamFactory GET TEAM method!")
       console.log("RECEIVED TEAM LOOKUP OBJECT: ", team);
       var url = team.url;
@@ -53,7 +53,7 @@ module.exports = function (app) {
       console.log("EXECUTING GET TO URL: ", '/api/teams/' + url)
       $http.get('/api/teams/' + url).then(function (response) {
         // console.log(response);
-        if (!response.data.errors) {
+        if (!response.data.error) {
           factory.team = response.data.team
           factory.teamURL = response.data.team.url;
           console.log("SET factory.teamURL: ", factory.teamURL);
@@ -67,7 +67,8 @@ module.exports = function (app) {
           }
         } else {
           console.log("RECEIVED ERRORS: ...")
-          console.log(response.data.errors)
+          console.log(response.data.error)
+          errorHandler(response.data.error);
         }
       });
     }

@@ -10,7 +10,7 @@ module.exports = function (app) {
   app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout, socket, $route) {
 
     $scope.loaded = false;
-    $timeout(function () { $scope.loaded = true; }, 4000);
+    $timeout(function () { $scope.loaded = true; }, 3000);
     $scope.persona = {}
 
     $scope.team = {};
