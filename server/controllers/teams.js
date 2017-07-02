@@ -29,7 +29,9 @@ exports.create = function (req, res, next) {
   //save it
   newTeam.save(function (err) {
     if (err) {
-      next(err)
+      console.log(err);
+      res.json({ success: false, error: err })
+      // next(err)
     } else {
       console.log("Successfully created new team")
       res.json({ success: true, message: "Successfully created new team", team: newTeam })

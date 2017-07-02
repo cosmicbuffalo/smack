@@ -1,5 +1,5 @@
 module.exports = function (app) {
-  app.controller('loginController', function ($scope, userFactory, teamFactory, $location, $cookies, $routeParams) {
+  app.controller('loginController', function ($scope, userFactory, teamFactory, $location, $cookies, $routeParams, $route) {
     console.log("reached login controller");
 
     // -----------ADD CHECK IF PERSONA LOGGED in, if true, redirect---------------
@@ -20,11 +20,11 @@ module.exports = function (app) {
     console.log()
     //check if user is logged in and redirect if yes
     var currentPersonaId = $cookies.get('currentPersonaId');
-    if (currentPersonaId) {
+    if (currentPersonaId && !$location.path("/" + $scope.currentTeamURL + "/invite")) {
       $location.path("/" + $scope.currentTeamURL + "/messages");
 
     } else {
-
+      // $location.path("/" + $scope.currentTeamURL);
     }
 
     //sets errors into scope for display in view
@@ -47,7 +47,7 @@ module.exports = function (app) {
     //FIRST TO HAPPEN
     $scope.checkEmail = function () {
       if (!teamFactory.checkEmail($scope.persona.email)) {
-        $scope.validationErrors = "Email not found, please ask for an invite";
+        $scope.validationErrors = "Email not found, please ask for an invite (or invite yourelf by clicking on the link below)";
       } else {
         $scope.foundEmail = $scope.email;
         if (!teamFactory.currentPersona.password || !teamFactory.currentPersona.username) {
@@ -72,9 +72,14 @@ module.exports = function (app) {
       // } else {
       //   console.log("didnt pass ng validations ")
       // }
-      $scope.persona.personaId = $cookies.get('personaIdLogin')
-      console.log("POST DATA FOR LOGIN: ", $scope.persona);
-      userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
+      if ($scope.persona.password) {
+        $scope.persona.personaId = $cookies.get('personaIdLogin')
+        console.log("POST DATA FOR LOGIN: ", $scope.persona);
+        userFactory.login($scope.persona, $scope.currentTeamURL, setCurrentPersona, errorHandler);
+      } else {
+        $('#myModal').modal('show');
+      }
+
     }
 
     var modalCloser = function () {

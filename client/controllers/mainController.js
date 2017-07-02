@@ -10,7 +10,7 @@ module.exports = function (app) {
   app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout, socket, $route) {
 
     $scope.loaded = false;
-    $timeout(function () { $scope.loaded = true; }, 3000);
+    $timeout(function () { $scope.loaded = true; }, 2000);
     $scope.persona = {}
 
     $scope.team = {};
@@ -19,7 +19,7 @@ module.exports = function (app) {
     $scope.posts = [];
     $scope.channelType = false;
     $scope.publicOrPrivateDesription = "Anyone on your team can view and join this channel"
-
+    $scope.currentTeamURL = $cookies.get('currentTeamURL');
     $scope.channelInvite = null;
 
 
@@ -287,9 +287,39 @@ module.exports = function (app) {
         });
       }, 2000)
 
+      //--------------------------
+      //emoji 
+      //--------------------------
+      $(function () {
+        // Initializes and creates emoji set from sprite sheet
+        window.emojiPicker = new EmojiPicker({
+          emojiable_selector: '[data-emojiable=true]',
+          assetsPath: '../lib/img/',
+          popupButtonClasses: 'fa fa-smile-o'
+        });
+        // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+        // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+        // It can be called as many times as necessary; previously converted input fields will not be converted again
+        window.emojiPicker.discover();
+      });
 
+      $('#new-post-form').on('keypress', function (e) {
+        console.log("TRIGGERED KEYPRESS HANDLER ON FORM")
+        // $('.emoji-picker-icon').click()        
+        // console.log(e)
+        if (e.keyCode == 13) {
+          console.log("Cicked ENTER key")
+          // $('#new-post-form').trigger('submit')
+          $('#new-post-submit-button').click()
+          $('.emoji-wysiwyg-editor').empty()
+        }
+      })
+      $('#new-post-submit-button').on('click', function (e) {
+        console.log("TRIGGERED KEYPRESS HANDLER ON FORM")
 
+        $('.emoji-wysiwyg-editor').empty()
 
+      })
 
 
     })

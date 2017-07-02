@@ -270,14 +270,16 @@ p.compensate-prof-pic span i {
 .compact {
   width: calc(100% - 589px) !important;
 }
-#posts-container{
+
+#posts-container {
   height: calc(100% - 70px);
   overflow: scroll;
 }
-#posts-bottom-spacer{
+
+#posts-bottom-spacer {
   display: inline-block;
   width: 100%;
-  height:50px;
+  height: 50px;
 }
 
 #bottom-bar-container {
@@ -321,6 +323,7 @@ p.compensate-prof-pic span i {
   top: 10;
   color: rgba(0, 0, 0, .35);
 }
+
 
 /*#bottom-bar-container .dropdown-menu {
   padding: 17px;
@@ -749,7 +752,7 @@ a, u {
   text-align: left;
   margin-left: 8%;
   display: inline-block;
-  width :655px;
+  width: 655px;
   height: 645px;
 }
 
@@ -814,40 +817,51 @@ a, u {
   margin-left: 20px;
   margin-top: 8px;
 }
+
 .smackLogoText {
   display: inline-block;
   vertical-align: middle;
   margin-left: 10px;
-  font-weight: 700; 
+  font-weight: 700;
 }
-.yourTeamHeader{
+
+.yourTeamHeader {
   padding: 10px;
   border: 2px solid #666f77;
   border-radius: 10px;
 }
-#header a{
+
+#header a {
   font-weight: 700;
   color: #666f77;
 }
 
 
-
-
 /** for pages that don't load angular but have angular templates in them. **/
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
+  display: none !important;
 }
 
 @keyframes rotate360 {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @-webkit-keyframes rotate360 {
-  from { -webkit-transform: rotate(0deg); }
-  to { -webkit-transform: rotate(360deg); }
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
-.spinnerContainer{
+
+.spinnerContainer {
   text-align: center;
   display: inline-block;
   height: 100vh;
@@ -855,8 +869,9 @@ a, u {
   /*line-height: 500px;*/
   padding: 100px;
 }
+
 .spinner {
-  display:inline-block;
+  display: inline-block;
   border-radius: 50px;
   border-style: solid;
   border-bottom-color: #3b5641;
@@ -870,74 +885,92 @@ a, u {
   -webkit-animation: rotate360 1s linear infinite;
   border-width: 4px;
   width: 100px;
-  height:100px;
+  height: 100px;
 }
-.spinnerText{
+
+.spinnerText {
   /*display:inline-block;*/
-  vertical-align: middle; 
+  vertical-align: middle;
   font-weight: 700;
   font-size: 2em;
   /*height: 20px; */
 }
-.spinnerLogo{
-  display:inline-block;
-  vertical-align: middle; 
-  width: 300px; 
+
+.spinnerLogo {
+  display: inline-block;
+  vertical-align: middle;
+  width: 300px;
   border-radius: 20px;
   margin: 0px auto;
-  text-align: center ;
+  text-align: center;
   margin-top: -60px;
   /*border: 2px solid black;*/
-}  
+}
 
-#browse-header{
+#browse-header {
   display: inline-block;
   margin-right: 220px;
 }
-.new-channel-button{
 
+.new-channel-button {
   margin-bottom: 19px;
 }
 
-.browse-channels-table{
+.browse-channels-table {
   overflow-x: hidden;
   overflow: auto;
-  
 }
-.hide-table{
+
+.hide-table {
   width: 655px;
 }
 
-.hide-table:hover{
+.hide-table:hover {
   background-color: #edf7fd;
-  border : 1px solid #d3ecfa;
+  border: 1px solid #d3ecfa;
 }
 
-#overfill-handler{
-  overflow-y:auto;
+#overfill-handler {
+  overflow-y: auto;
   width: 672px;
   height: 553px;
 }
 
-.channel-button{
+.channel-button {
   float: right;
 }
 
-.ui-widget{
+.ui-widget {
   z-index: 2000 !important;
 }
-.emoji-menu{
+
+.emoji-menu {
   bottom: 80px;
 }
-.emoji-picker-icon{
+
+.emoji-picker-icon {
   right: 40px !important;
   top: 10px !important;
-font-size: 2em;
-color: gray;
+  font-size: 2em;
+  color: gray;
 }
+
 .emoji-wysiwyg-editor {
   border: none !important;
   outline: none !important;
   position: absolute;
   bottom: 22px;
+}
+
+.emojiSubmit button, .emojiSubmit button:active {
+  position: absolute;
+  font-size: 1.7em;
+  border: none !important;
+  font-weight: 300;
+  font-style: italic;
+  background-color: transparent !important;
+  left: 367px;
+  top: 7px;
+  color: rgba(211, 211, 211, .75);
+  outline: none;
 }
