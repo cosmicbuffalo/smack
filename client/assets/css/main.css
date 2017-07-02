@@ -685,8 +685,9 @@ label {
   border-radius: 0 !important
 }
 
-#addChannelModal {
-  height: 100%;
+#addChannelModal, #filterChannelModal {
+  height: 100vh;
+  overflow:hidden
 }
 
 .bell-icon {
@@ -745,7 +746,7 @@ a, u {
 .create-channel-modal {
   padding-top: 96px;
   color: black;
-  height: 743px;
+  height: 100vh;
 }
 
 .create-channel-content {
@@ -753,7 +754,7 @@ a, u {
   margin-left: 8%;
   display: inline-block;
   width: 655px;
-  height: 645px;
+  height: 100vh;
 }
 
 .toggle {
