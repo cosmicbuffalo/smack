@@ -14,4 +14,29 @@ $(document).ready(function(){
   })
 
 
+  // $('#new-post-form').on('keypress', function(e){
+  //   console.log("TRIGGERED KEYPRESS HANDLER ON FORM")
+  //   // console.log(e)
+  //   if (e.keyCode == 13){
+  //     console.log("Cicked ENTER key")
+  //     // $('#new-post-form').trigger('submit')
+  //     $('#new-post-submit-button').click()
+  //     // $('.emoji-wysiwyg-editor').empty()
+  //   }
+  // })
+
+  // $('.emoji-wysiwyg-editor').keypress(function(){
+  //   console.log("TRIGGERED KEYPRESS HANDLER")
+  // })
+
+
+
+  // $("#posts-container").animate({scrollTop:$("#posts-container").scrollHeight‌​}, 1000);
+
+
+
+
+  
+
+
 })

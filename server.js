@@ -32,6 +32,11 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen( port, function() {
-  console.log( `server running on port ${ port }` );
-});
+var server = app.listen(process.env.PORT || 7000);
+// var server = app.listen( port, function() {
+//   console.log( `server running on port ${ port }` );
+// });
+
+var io = require('socket.io').listen(server);
+var connections = require('./server/config/connections')
+connections(io)

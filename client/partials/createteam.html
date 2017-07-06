@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Sign into your team</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">
+      <img src="./assets/img/smackLogo.png" alt="smack logo" class="smackLogo"><h3 class="smackLogoText">Smack</h3>
+      <ul>
+        <li><a href="">Product</a></li>
+        <li><a href="">Pricing</a></li>
+        <li><a href="">Support</a></li>
+        <li ><a href="" class="yourTeamHeader"><i class="fa fa-th-large" aria-hidden="true"></i> Your Teams</a></li>
+      </ul>
+    </div>
+    <div id="content">
+      <div id="login-box" class="align-middle drop-shadow">
+        <form ng-submit="createTeam()">
+          <h2>Create new Team</h2>
+          <p>Enter <b>team name</b></p>
+          <div id="login-form">
+            <input class="form-control taller" type="text" name="teamName" placeholder="Team Name" ng-model="newTeam.name"><br>
+            <p>Enter <b>your email</b></p>
+            <input class="form-control taller" type="text" name="email" placeholder="you@example.com" ng-model="newTeam.email">
+            <div class="errorMessage">
+              {{validationErrors}}
+            </div>
+            <div ng-if="successMessages" class="successMessage">
+              {{successMessages.message }}
+            </div>
+            <button type="submit" class="btn btn-default btn-grn btn-lg btn-block taller">Create Team</button><br>
+          </div>
+          <!--{{currentTeamURL}}-->
+          <a href="#!/">Go Back</a>
+        </form>
+      </div>
+    </div>
+    <div id="footer"></div>
+  </div>
+
+
+
+</body>
+
+</html>

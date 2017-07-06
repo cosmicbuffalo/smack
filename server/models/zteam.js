@@ -7,6 +7,7 @@ teamSchema = new mongoose.Schema({
     name : {
         type : String,
         required : true,
+        unique: true,
         minlength : [5, "Teamname required to be atleast 5 characters long "]
     },
     //url will just be the same as the name but all lowercase with no spaces
