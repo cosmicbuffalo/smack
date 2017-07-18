@@ -687,7 +687,7 @@ label {
 
 #addChannelModal, #filterChannelModal {
   height: 100vh;
-  overflow:hidden
+  overflow: hidden
 }
 
 .bell-icon {
@@ -955,14 +955,21 @@ a, u {
   font-size: 2em;
   color: gray;
 }
+.test[placeholder]:empty:before {
+    content: attr(placeholder);
+    color: #555; 
+}
 
+.test[placeholder]:empty:focus:before {
+    content: "";
+}
 .emoji-wysiwyg-editor {
   border: none !important;
   outline: none !important;
   position: absolute;
-  bottom: 22px;
+  font-size: 1.5em;
+  bottom: 20px;
 }
-
 .emojiSubmit button, .emojiSubmit button:active {
   position: absolute;
   font-size: 1.7em;

@@ -1,1 +1,1 @@
-console.error("Error: Cannot find module 'C:\\Users\\Armando\\Desktop\\Smack\\main.js' from 'C:\\Users\\Armando\\Desktop\\Smack'");
+console.error("Error: Cannot find module '/Users/Leibel/Desktop/deployed_assignments/smack/main.js' from '/Users/Leibel/Desktop/deployed_assignments/smack'");

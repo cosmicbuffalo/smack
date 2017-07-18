@@ -205,6 +205,7 @@ module.exports = function (app) {
     $scope.publicOrPrivateDesription = "Anyone on your team can view and join this channel"
     $scope.currentTeamURL = $cookies.get('currentTeamURL');
     $scope.channelInvite = null;
+    $scope.newPost = {};
 
 
 
@@ -285,6 +286,8 @@ module.exports = function (app) {
     function setTeamInScope(data) {
       console.log("Entered set team in scope")
       $scope.team = data
+      //set team name onto input/emoji thing ....
+      $('#new-post-form div.emoji-wysiwyg-editor').attr('placeholder', 'message ' + $scope.team.name)
       console.log('SET TEAM TO SCOPE: ', data, "********* 3! *********")
     }
 
@@ -453,7 +456,7 @@ module.exports = function (app) {
     }
     //bootstrap toggle boolean return
     $(document).ready(function () {
-
+      
 
       $("#channel-option").change(function () {
         checkboxListener($(this).prop('checked'))
@@ -485,27 +488,30 @@ module.exports = function (app) {
         // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
         // It can be called as many times as necessary; previously converted input fields will not be converted again
         window.emojiPicker.discover();
+        
       });
 
+
       $('#new-post-form').on('keypress', function (e) {
+        $('#notofication-bar').text("Typing")
         console.log("TRIGGERED KEYPRESS HANDLER ON FORM")
-        // $('.emoji-picker-icon').click()        
-        // console.log(e)
-        if (e.keyCode == 13) {
+        if (e.which === 13 || e.keyCode === 13) {
           console.log("Cicked ENTER key")
-          // $('#new-post-form').trigger('submit')
-          $('#new-post-submit-button').click()
+          var message = $('#new-post-form div.emoji-wysiwyg-editor').text()
+          console.log(message)
+          $scope.newPost.content = message;
+          $scope.addPost();
           $('.emoji-wysiwyg-editor').empty()
+          $(document).trigger('click')
+          $('#new-post-form div.emoji-wysiwyg-editor').attr('placeholder', 'message ' + $scope.team.name)
+          $(".emoji-wysiwyg-editor").focusout(function () {
+            var element = $(this);
+            if (!element.text().replace(" ", "").length) {
+              element.empty();
+            }
+          });
         }
       })
-      $('#new-post-submit-button').on('click', function (e) {
-        console.log("TRIGGERED KEYPRESS HANDLER ON FORM")
-
-        $('.emoji-wysiwyg-editor').empty()
-
-      })
-
-
     })
 
 

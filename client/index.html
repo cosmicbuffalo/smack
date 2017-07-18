@@ -12,7 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-messages.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-  
+
   <!--<script src="angular-route/angular-route.js"></script>
   <script src="angular-cookies/angular-cookies.js"></script>
   <script src="angular-messages/angular-messages.js"></script>-->
@@ -45,6 +45,20 @@
   <script src="assets/js/util.js"></script>
   <script src="assets/js/jquery.emojiarea.js"></script>
   <script src="assets/js/emoji-picker.js"></script>
+  <script>
+     $(document).ready(function () {
+      // Form sending then printing message
+      function writing(event) {
+        // If key enter pressed
+        if (event.which === 13 || event.keyCode === 13) {
+          $scope.newPost.content = $('#new-post-form div.emoji-wysiwyg-editor').text()
+          console.log('message')
+          document.getElementsByClassName('emoji-wysiwyg-editor')['emojiMessage'].textContent = ''
+          return false
+        }
+      }
+    }); 
+  </script>
 </body>
 
 </html>
