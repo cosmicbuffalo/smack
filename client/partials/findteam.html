@@ -25,7 +25,7 @@
           <h2>Sign in to your team</h2>
           <p>Enter your team's <b>Smack URL.</b></p>
           <div id="login-form">
-            <input class="form-control taller" id="urlInput" type="text" name="slack-url" placeholder="your-team-url" ng-model="team.url">
+            <input class="form-control taller" id="urlInput" type="text" name="slack-url" placeholder="your-team-url" ng-model="team.url" value="{{newTeamPopulate}}">
             <h3 style="display: inline"><b>.smack.com</b></h3><br>
             <div class="errorMessage">
               {{validationErrors}}

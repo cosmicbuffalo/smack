@@ -1,4 +1,4 @@
-var app = angular.module('smack', ['ngRoute', 'ngCookies', 'ngMessages'])
+var app = angular.module('smack', ['ngRoute', 'ngCookies', 'ngMessages' ])
 
 app.config(function($routeProvider){
   $routeProvider
@@ -22,6 +22,10 @@ app.config(function($routeProvider){
     controller:'loginController'
   })
   //the APP
+  .when('/:teamURL/:channelId',{
+    templateUrl:'partials/main.html',
+    controller:'mainController'
+  })
   .when('/:teamURL/messages',{
     templateUrl:'partials/main.html',
     controller:'mainController'

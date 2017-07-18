@@ -25,7 +25,7 @@
           <h2>Sign in to {{currentTeamURL}}</h2>
           <p>Enter your email <b>email address</b> and <b>password</b></p>
           <div id="login-form">
-            <input class="form-control taller" type="text" name="email" placeholder="you@example.com" ng-model="persona.email" value="{{email}}"><br>
+            <input class="form-control taller" type="text" name="email" placeholder="you@example.com" ng-model="persona.email" value="{{email}}"><br ng-if="foundEmailBool">
             <input class="form-control taller" type="password" name="pw" placeholder="password" ng-model="persona.password" ng-if="foundEmailBool">
             <div class="errorMessage">
               {{validationErrors}}
@@ -36,8 +36,9 @@
             <button type="submit" class="btn btn-default btn-grn btn-lg btn-block taller">Sign in</button><br>
             <input type="checkbox" checked="checked">Keep Me Signed In
             <a href="">Forgot Password?</a><br>
-            <a href="">I forgot which email I used</a>
-            <p>Don't have a team yet? <a href="#!/createteam">Create a team</a></p>
+            <a href="">I forgot which email I used</a><br>
+            <b>Don't have a team yet? <a href="#!/createteam">Create a team</a></b><br>
+            <b><p>Need an Invite to {{currentTeamURL}}? <a href="#!/{{currentTeamURL}}/invite">Invite yourself to {{currentTeamURL}}</a></p></b>
           </div>
 
         </form>
@@ -64,7 +65,7 @@
           <form ng-submit="createPassword()" name="passwordForm" novalidate>
             <div class="form-group">
               <label>Username</label>
-              <input type="text" class="form-control" ng-model="password.username" placeholder="username" name="username" ng-pattern="/^(?=\w{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/"
+              <input type="text" class="form-control" ng-model="password.username" placeholder="username" name="username" ng-pattern="/^\w{4,20}$/"
                 required/>
               <div ng-messages="passwordForm.username.$error">
                 <div ng-message="pattern">Username can only contain letters, numbers or underscores and must be between 4 and 20 characters long</div>
