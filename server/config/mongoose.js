@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var path = require('path')
 
-mongoose.connect('mongodb://localhost/smack_db');
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 var fs = require('fs'),
