@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
     "start": "node server.js",
+    "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,9 +15,22 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "fs": "0.0.1-security",
     "mongodb": "^2.2.34",
     "mongoose": "^4.11.0",
     "multer": "^1.3.0",
-    "socket.io": "^2.0.3"
+    "net": "^1.0.2",
+    "socket.io": "^2.0.3",
+    "tls": "0.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "css-loader": "^0.28.8",
+    "file-loader": "^1.1.6",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0"
   }
 }
