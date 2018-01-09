@@ -35,23 +35,11 @@ app.use(function(err, req, res, next) {
   });
 });
 
-// app.listen( port, function() {
+var server = app.listen(process.env.PORT || 7000);
+// var server = app.listen( port, function() {
 //   console.log( `server running on port ${ port }` );
 // });
 
-
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
-
-  // Save database object from the callback for reuse.
-  db = database;
-  console.log("Database connection ready");
-
-  // Initialize the app.
-  var server = app.listen( port, function () {
-    console.log("App now running on port", port);
-  });
-});
+var io = require('socket.io').listen(server);
+var connections = require('./server/config/connections')
+connections(io)

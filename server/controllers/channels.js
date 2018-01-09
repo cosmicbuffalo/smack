@@ -107,35 +107,31 @@ exports.delete = function (req, res) { // true means it is removing just one
 }
 
 exports.invite = function (req, res) {
+  console.log("Entered channels.invite")
   var channelId = req.params.channelId,
     personaId = req.body.personaId
 
+  console.log("Finding channel with channel ID: ", channelId)
   Channel.findOne({ _id: channelId }, function (channelfindErr, channel) {
-
     if (channelfindErr) {
-
-      res.json({ success: false, message: "Could not find channel with Id: " + channelId, errors: "Could not add user to channel!" })
-
+      next(channelfindErr)
     } else {
 
+      console.log("Found channel, finding persona with ID: ", personaId)
       Persona.findOne({ _id: personaId }, function (findPersonaErr, persona) {
-
         if (findPersonaErr) {
-
-          res.json({ success: false, message: "Could not find persona with Id: " + personaId, errors: "Could not add user to channel!" })
-
+          next(findPersonaErr)
         } else {
 
+          console.log("Found persona, pushing persona into channel.members")
           channel.members.push(persona)
-
+          console.log("Saving channel")
           channel.save(function (channelSaveErr) {
-
             if (channelSaveErr) {
-
-              res.json({ success: false, message: "Could not save channel updates to members", errors: "Could not add user to channel!" })
-
+              next(channelSaveErr)
             } else {
 
+              console.log("Successfully invited persona to channel!")
               res.json({ success: true, message: "Channel successfully added persona with Id: " + persona._id })
             }
           })

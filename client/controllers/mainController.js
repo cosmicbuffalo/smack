@@ -1,65 +1,138 @@
+class DateDivider {
+  constructor(date) {
+    this.date = date
+  }
+}
+
 module.exports = function (app) {
 
-  app.controller('mainController', function($scope, $location, userFactory, teamFactory, channelFactory, postFactory, $cookies, $timeout){
-    $scope.loaded = false;    
-    $timeout(function() { $scope.loaded = true; }, 4000);
+
+  app.controller('mainController', function ($scope, teamFactory, userFactory, mainFactory, $cookies, $location, $routeParams, $timeout, socket, $route) {
+
+    $scope.loaded = false;
+    $timeout(function () { $scope.loaded = true; }, 2000);
     $scope.persona = {}
 
-    $scope.team = {}
-  
-
-    $scope.channel = {}
-
-    $scope.channels = null;
+    $scope.team = {};
+    // $scope.persona = null;
+    $scope.channel = null;
+    $scope.posts = [];
+    $scope.channelType = false;
+    $scope.publicOrPrivateDesription = "Anyone on your team can view and join this channel"
+    $scope.currentTeamURL = $cookies.get('currentTeamURL');
     $scope.channelInvite = null;
-    
-
-    $scope.posts = []
 
 
-    $scope.newPost = {}
-    //redirect if not logged in
-    var currentPersonaId = $cookies.get('currentPersonaId');
-    if (!currentPersonaId) {
+
+    //------------------------------------------------------------------------------------------
+    //get persona on page load
+    //------------------------------------------------------------------------------------------ 
+    if (!$cookies.get('currentPersonaId')) {
+      console.log("DIDN'T FIND PERSONA ID IN COOKIES... REDIRECTNG TO ROOT")
       $location.path("/");
-    } else {
-      
     }
-
-    var setPersona = function(){
-      console.log("Entered set persona in main controller")
-      $scope.persona = userFactory.currentPersona
-
-      $scope.newPost = {
-        _persona: $scope.persona._id
-      }
-    }
-    var setTeam = function(data){
-      console.log("Entered set team in main controller")
-      $scope.team = teamFactory.team
-      channelFactory.findChannel(teamFactory.currentChannel._id, setChannel)
-    }
-
-    var setChannel = function (data){
-      console.log("Entered set channel in main controller")
-      $scope.channel = channelFactory.channel
-      $scope.posts = $scope.channel.posts
-      console.log("Scope.posts: ", $scope.posts)
-
-    }
-
-    if ($cookies.get('currentTeamURL')){
-      console.log("Found team URL in cookies: ", $cookies.get('currentTeamURL'))
-      teamFactory.findTeam({url:$cookies.get('currentTeamURL')}, setTeam)
-    }
-
-
-
-    var addPostSuccess = function (data) {
-      console.log("Entered main controller add post success function")
+    console.log("GETTING CURRENT PERSONA BY ID IN COOKIES: ", $cookies.get('currentPersonaId'), "********* 1 *********")
+    userFactory.getPersona($cookies.get('currentPersonaId'), function (data) {
       console.log(data)
-      $scope.newPost = { _persona: $scope.persona._id }
+      $scope.persona = data
+      console.log("SET CURRENT PERSONA TO SCOPE: ", $scope.persona, "********* 1! *********")
+    })
+
+
+    var refreshChannelAndPosts = function () {
+      mainFactory.findChannel($routeParams.channelId, function (data) {
+        $scope.channel = mainFactory.channel
+        console.log("SET CURRENT CHANNEL TO SCOPE: ", $scope.channel)
+        $cookies.put('currentChannelId', $scope.channel._id)
+        if (!$scope.channel.posts) { console.log("NO POSTS FOUND ON CHANNEL") }
+        $scope.posts = $scope.channel.posts
+        //HERE IS WHERE DATE DIVIDERS WILL BE INSERTED -- NEED TO REFACTOR FOR MULTIPLE DATES
+        if ($scope.channel.posts[0]) {
+          var firstDivider = new DateDivider($scope.posts[0].createdAt)
+          $scope.posts.splice(0, 0, firstDivider)
+        }
+        console.log("SET CURRENT POSTS TO SCOPE: ", $scope.posts, "********* 2! *********")
+
+      })
+
     }
+
+
+    //------------------------------------------------------------------------------------------
+    //get channel on page load
+    //------------------------------------------------------------------------------------------
+    console.log("FINDING CHANNEL ON PAGE LOAD WITH ID: ", $routeParams.channelId, "********* 2 *********")
+    refreshChannelAndPosts()
+
+
+
+    // -----------------------------------------------------------------------------------------
+    // Changing channel in controller on click
+    // -----------------------------------------------------------------------------------------
+
+    $scope.changeChannel = function (channelId, boolean = null) {
+      // Broke it up to make it more readable, example is  : /codingdojochicago/3fj31323dcdfF31
+      var teamUrl = $cookies.get('currentTeamURL');
+
+      $location.url('/' + teamUrl + '/' + channelId);
+
+      if (boolean) {
+        // There are two different methods  this function
+        // gets called in one is a modal. The browse channel modal
+        // passes this boolean and the modal closes on click.
+        browseChannelClose();
+      }
+
+    }
+    //--------------------------------------------------------------------------------------
+    // Browse channelswitches over to create new channel!
+    //--------------------------------------------------------------------------------------
+    $scope.goToNewChannel = function () {
+      console.log('working!')
+      $('#filterChannelModal').modal('hide');
+      $('#addChannelModal').modal('show');
+
+    }
+
+
+
+
+
+    function setTeamInScope(data) {
+      console.log("Entered set team in scope")
+      $scope.team = data
+      console.log('SET TEAM TO SCOPE: ', data, "********* 3! *********")
+    }
+
+    //check to see if team url is in cookies
+    //get team and set team to scope
+    console.log("GETTING CURRENT TEAM BY URL: ", $cookies.get('currentTeamURL'), "********* 3 *********", "TEAM SHOULD BE UP TO DATE")
+    if ($cookies.get('currentTeamURL')) {
+      console.log("Found team URL in cookies: ", $cookies.get('currentTeamURL'))
+      reloadTeam()
+    }
+
+    function reloadTeam() {
+      console.log("Entered reload team, calling teamFactory GET TEAM with url from cookie")
+      teamFactory.getTeam({ url: $cookies.get('currentTeamURL') }, setTeamInScope)
+    }
+
+    //new channel form submit action
+    $scope.addChannel = function (channelObj) {
+      console.log("Triggered addChannel function!")
+      channelObj.private = $scope.channelType
+      channelObj.personaId = $cookies.get('currentPersonaId')
+      console.log("Will call mainFactory CREATE CHANNEL")
+      console.log("PASSING TEAM ID: ", teamFactory.team._id)
+      console.log("PASSING NEW CHANNEL OBJECT: ", channelObj)
+      mainFactory.createChannel(teamFactory.team._id, channelObj, reloadTeam, modalCloser)
+      $scope.channelObj = {};
+    }
+
+
+
+
+
 
     var errorHandler = function (errors) {
       console.log("Entered main controller error handler function")
@@ -67,23 +140,206 @@ module.exports = function (app) {
     }
 
     $scope.addPost = function () {
-
       console.log("Triggered add post function")
-      console.log("New Post object before adding persona and channel: ", $scope.newPost);
+      console.log("WILL CALL mainFactory ADD POST")
+      console.log("PASSING NEW POST OBJECT: ", $scope.newPost);
+      mainFactory.addPost($scope.newPost, refreshChannelAndPosts, errorHandler)
+      $scope.newPost = {};
 
-      postFactory.addPost($scope.newPost, addPostSuccess, errorHandler)
+    }
 
+
+    socket.on('added_new_post', function (post) {
+      console.log("RECEIVED NEW POST EVENT WITH DATA: ", post)
+      if (post._channel == $scope.channel._id) {
+        $scope.posts.push(post)
+      }
+
+      // console.log($("#posts-container"))
+      // console.log($("#posts-container")[0].scrollHeight)
+      scrollSmoothToBottom('posts-container')
+    })
+
+    function scrollSmoothToBottom(id) {
+      var div = document.getElementById(id);
+      $('#' + id).animate({
+        scrollTop: div.scrollHeight - div.clientHeight
+      }, 500);
+    }
+
+    socket.on('invited_to_channel', function (data) {
+      console.log("RECEIVED INVITED TO CHANNEL EVENT WITH DATA: ", data)
+      if ($scope.channel._id == data.channelId) {
+        $route.reload();
+      }
+
+    })
+
+    socket.on('added_new_channel', function (data) {
+      console.log("RECEIVED ADDED NEW CHANNEL EVENT WITH DATA: ", data);
+
+      if ($scope.team.url == data.teamURL) {
+        console.log("CALLING RELOAD TEAM TO REFRESH CHANNEL LIST")
+        reloadTeam();
+      }
+
+
+    })
+
+
+
+
+
+    // log persona out and redirect to team login
+    $scope.logOut = function () {
+      $cookies.remove('currentTeamURL');
+      $cookies.remove('currentPersonaId');
+      $location.path("/");
+    }
+
+    //logOut and switch teams
+    $scope.changeTeam = function () {
+      $cookies.remove('currentPersonaId');
+      $cookies.remove('currentTeamURL');
+      $location.path("/");
     }
 
     $scope.inviteToChannel = function () {
-      $scope.channels = teamFactory.team.channels;
-      console.log($scope.channels)
       $('#channelInviteModal').modal('show');
     }
     $scope.inviteToChannelSubmit = function () {
-      
+      console.log("Entered invite to channel submit function")
+      console.log("INVITE OBJECT: ", $scope.invite)
+
+      console.log("PERSONAS FOUND ON CURRENT TEAM: ", $scope.team.personas)
+
+      for (var x = 0; x < $scope.team.personas.length; x++) {
+        // console.log("COMPARING: ", $scope.team.personas[x].username, $scope.invite.username)
+        if ($scope.team.personas[x].username == $scope.invite.username) {
+          $scope.invite._id = $scope.team.personas[x]._id
+        }
+      }
+      console.log("INVITE OBJECT AFTER ID LOOKUP: ", $scope.invite)
+
+      if (!$scope.invite._id) {
+        console.log("FAILED TO LOOKUP PERSONA ID, USERNAME NOT FOUND IN TEAM MEMBERS")
+        return
+      }
+
+
+      mainFactory.inviteToChannel($scope.invite._id, inviteChannelModalCloser)
+
+    }
+
+
+    function browseChannelClose() {
+      $('filterChannelModal').modal('hide');
+      // these two were added because of the modals
+      // backdrop style not being removed on close..
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+    }
+
+    var modalCloser = function () {
+      $('#addChannelModal').modal('hide');
+    }
+    var inviteChannelModalCloser = function () {
       $('#channelInviteModal').modal('hide');
     }
+
+
+
+
+
+
+
+
+    var checkboxListener = function (value) {
+      $scope.channelType = value
+      if ($scope.channelType) {
+        $scope.publicOrPrivate = ""
+        $scope.publicOrPrivateDesription = "Anyone on your team can view and join this channel"
+      } else {
+
+        $scope.publicOrPrivate = "private"
+        $scope.publicOrPrivateDesription = "This channel can only be joined or viewed by invite"
+      }
+      console.log($scope.publicOrPrivate)
+
+    }
+    //bootstrap toggle boolean return
+    $(document).ready(function () {
+
+
+      $("#channel-option").change(function () {
+        checkboxListener($(this).prop('checked'))
+      })
+
+      setTimeout(function () {
+        var availablePersonas = [];
+        for (var x = 0; x < $scope.team.personas.length; x++) {
+          availablePersonas.push($scope.team.personas[x].username)
+        }
+        console.log("List of usernames to choose from for add to channel:, ", availablePersonas)
+
+        $("#tags").autocomplete({
+          source: availablePersonas
+        });
+      }, 2000)
+
+      //--------------------------
+      //emoji 
+      //--------------------------
+      $(function () {
+        // Initializes and creates emoji set from sprite sheet
+        window.emojiPicker = new EmojiPicker({
+          emojiable_selector: '[data-emojiable=true]',
+          assetsPath: '../lib/img/',
+          popupButtonClasses: 'fa fa-smile-o'
+        });
+        // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+        // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+        // It can be called as many times as necessary; previously converted input fields will not be converted again
+        window.emojiPicker.discover();
+      });
+
+      $('#new-post-form').on('keypress', function (e) {
+        console.log("TRIGGERED KEYPRESS HANDLER ON FORM")
+        // $('.emoji-picker-icon').click()        
+        // console.log(e)
+        if (e.keyCode == 13) {
+          console.log("Cicked ENTER key")
+          // $('#new-post-form').trigger('submit')
+          $('#new-post-submit-button').click()
+          $('.emoji-wysiwyg-editor').empty()
+        }
+      })
+      $('#new-post-submit-button').on('click', function (e) {
+        console.log("TRIGGERED KEYPRESS HANDLER ON FORM")
+
+        $('.emoji-wysiwyg-editor').empty()
+
+      })
+
+
+    })
+
+
   })
+
+
+
+
+  //bootstrap toggle
+  $(function () {
+    $('#channel-option').bootstrapToggle({
+      on: 'Private',
+      off: 'Public'
+    });
+  })
+
+
+
+
 
 }
