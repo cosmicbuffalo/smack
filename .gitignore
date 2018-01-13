@@ -2,3 +2,12 @@ bower_components/
 node_modules/
 uploads/
 client/bundle.js
+
+.DS_Store
+node_modules/
+npm-debug.log
+.idea/
+dump.rdb
+.vscode/
+coverage/
+.nyc_output/

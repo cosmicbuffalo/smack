@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-var path = require('path')
+import mongoose from 'mongoose';
+import path from 'path';
 
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
