@@ -1,2 +1,2 @@
 # smack
-A Slack clone built with the MEAN stack
+A Slack clone built with the MERN stack
